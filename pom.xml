@@ -10,7 +10,7 @@
     <developers>
 		<developer>
 			<name>Antonio Tarricone</name>
-			<email>antonio.tarricone@pagopa.it</email>
+			<email>Antonio Tarricone@pagopa.it</email>
 			<organization>PagoPA S.p.A.</organization>
 		</developer>
 	</developers>
@@ -83,6 +83,12 @@
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-junit5-mockito</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${assertj-core.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
