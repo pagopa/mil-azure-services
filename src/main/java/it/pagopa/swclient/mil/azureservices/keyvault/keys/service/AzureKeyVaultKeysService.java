@@ -23,6 +23,8 @@ import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeySignParameters
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyVerifyParameters;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyVerifyResult;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.client.AzureKeyVaultKeysClient;
+import it.pagopa.swclient.mil.azureservices.util.NoAround;
+import it.pagopa.swclient.mil.azureservices.util.WebAppExcUtils;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.InvocationContext;
@@ -91,24 +93,6 @@ public class AzureKeyVaultKeysService {
 
 	/**
 	 * 
-	 * @param webException
-	 * @return
-	 */
-	private boolean isUnauthorizedOrForbidden(WebApplicationException webException) {
-		Log.debug("Failure inspection");
-		int status = webException.getResponse().getStatus();
-		boolean check = status == 401 || status == 403;
-		if (check) {
-			Log.debug("Could it be that the access token is invalid?");
-			return true;
-		} else {
-			Log.debugf("HTTP status other than 401 or 403 received: %d", status);
-			return false;
-		}
-	}
-
-	/**
-	 * 
 	 * @param context
 	 * @return
 	 * @throws Exception
@@ -123,7 +107,7 @@ public class AzureKeyVaultKeysService {
 			try {
 				return context.proceed();
 			} catch (WebApplicationException e) {
-				if (isUnauthorizedOrForbidden(e)) { // On 401 or 403...
+				if (WebAppExcUtils.isUnauthorizedOrForbidden(e)) { // On 401 or 403...
 					Log.debug("Recovering");
 					getNewAccessTokenAndCacheIt(); // ...get a new access token...
 					return context.proceed(); // ...and retry!

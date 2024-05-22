@@ -24,10 +24,11 @@ import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeySignParameters
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyVerifyParameters;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyVerifyResult;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.client.AzureKeyVaultKeysReactiveClient;
+import it.pagopa.swclient.mil.azureservices.util.NoAround;
+import it.pagopa.swclient.mil.azureservices.util.WebAppExcUtils;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.InvocationContext;
-import jakarta.ws.rs.WebApplicationException;
 
 /**
  * 
@@ -100,29 +101,6 @@ public class AzureKeyVaultKeysReactiveService {
 
 	/**
 	 * 
-	 * @param failure
-	 * @return
-	 */
-	private boolean isUnauthorizedOrForbidden(Throwable failure) {
-		Log.debug("Failure inspection");
-		if (failure instanceof WebApplicationException webException) {
-			int status = webException.getResponse().getStatus();
-			boolean check = status == 401 || status == 403;
-			if (check) {
-				Log.debug("Could it be that the access token is invalid?");
-				return true;
-			} else {
-				Log.debugf("HTTP status other than 401 or 403 received: %d", status);
-				return false;
-			}
-		} else {
-			Log.debugf("Other failure received", failure);
-			return false;
-		}
-	}
-
-	/**
-	 * 
 	 * @param context
 	 * @return
 	 */
@@ -149,7 +127,7 @@ public class AzureKeyVaultKeysReactiveService {
 			Log.tracef("Around invoke: %s.%s", context.getTarget().getClass().getSimpleName(), method.getName());
 			return getAccessToken()
 				.chain(() -> proceed(context))
-				.onFailure(this::isUnauthorizedOrForbidden) // On 401 or 403...
+				.onFailure(WebAppExcUtils::isUnauthorizedOrForbidden) // On 401 or 403...
 				.recoverWithUni(f -> {
 					Log.debug("Recovering");
 					return getNewAccessTokenAndCacheIt() // ...get a new access token...
