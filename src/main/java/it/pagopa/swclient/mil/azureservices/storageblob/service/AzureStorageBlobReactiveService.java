@@ -6,87 +6,53 @@
 package it.pagopa.swclient.mil.azureservices.storageblob.service;
 
 import java.lang.reflect.Method;
-import java.time.Instant;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Uni;
-import it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken;
 import it.pagopa.swclient.mil.azureservices.identity.bean.Scope;
-import it.pagopa.swclient.mil.azureservices.identity.client.AzureIdentityReactiveClient;
+import it.pagopa.swclient.mil.azureservices.identity.service.AzureIdentityReactiveService;
 import it.pagopa.swclient.mil.azureservices.storageblob.client.AzureStorageBlobReactiveClient;
-import it.pagopa.swclient.mil.azureservices.util.NoAround;
 import it.pagopa.swclient.mil.azureservices.util.WebAppExcUtils;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.InvocationContext;
+import jakarta.ws.rs.core.Response;
 
 /**
  * 
  * @author Antonio Tarricone
  */
-public class AzureStorageBlobReactiveService<T> {
+@ApplicationScoped
+public class AzureStorageBlobReactiveService {
 	/*
 	 * 
 	 */
-	private AzureIdentityReactiveClient identityClient;
+	private AzureIdentityReactiveService identityService;
 
 	/*
 	 * 
 	 */
-	private AzureStorageBlobReactiveClient<T> blobClient;
+	private AzureStorageBlobReactiveClient blobClient;
 
 	/*
 	 * 
 	 */
-	private AccessToken accessToken;
+	private String accessTokenValue;
 
 	/**
 	 * 
 	 * @param identityClient
 	 * @param blobClient
 	 */
+	@Inject
 	AzureStorageBlobReactiveService(
-		@RestClient AzureIdentityReactiveClient identityClient,
-		@RestClient AzureStorageBlobReactiveClient<T> blobClient) {
-		this.identityClient = identityClient;
+		AzureIdentityReactiveService identityService,
+		@RestClient AzureStorageBlobReactiveClient blobClient) {
+		this.identityService = identityService;
 		this.blobClient = blobClient;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	private Uni<Void> getNewAccessTokenAndCacheIt() {
-		Log.debug("Get new access token");
-		return identityClient.getAccessToken(Scope.VAULT)
-			.invoke(newAccessToken -> {
-				Log.trace("Caching access token");
-				accessToken = newAccessToken;
-			})
-			.replaceWithVoid();
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	private Uni<Void> getAccessToken() {
-		if (accessToken != null && accessToken.getExpiresOn() > Instant.now().getEpochSecond()) {
-			Log.trace("Cached access token is going to be used");
-			return Uni.createFrom().voidItem();
-		} else {
-			Log.debug("There's no cached access token or it is expired");
-			return getNewAccessTokenAndCacheIt();
-		}
-	}
-
-	/**
-	 * 
-	 */
-	@NoAround
-	void resetCachedAccessToken() {
-		accessToken = null;
 	}
 
 	/**
@@ -112,21 +78,17 @@ public class AzureStorageBlobReactiveService<T> {
 	@AroundInvoke
 	Object authenticate(InvocationContext context) {
 		Method method = context.getMethod();
-		NoAround noAround = method.getAnnotation(NoAround.class);
-		if (noAround == null) {
-			Log.tracef("Around invoke: %s.%s", context.getTarget().getClass().getSimpleName(), method.getName());
-			return getAccessToken()
-				.chain(() -> proceed(context))
-				.onFailure(WebAppExcUtils::isUnauthorizedOrForbidden) // On 401 or 403...
-				.recoverWithUni(f -> {
-					Log.debug("Recovering");
-					return getNewAccessTokenAndCacheIt() // ...get a new access token...
-						.chain(() -> proceed(context));
-				}); // ...and retry!
-		} else {
-			Log.tracef("No around: %s.%s", context.getTarget().getClass().getSimpleName(), method.getName());
-			return proceed(context);
-		}
+		Log.tracef("Around invoke: %s.%s", context.getTarget().getClass().getSimpleName(), method.getName());
+		return identityService.getAccessToken(Scope.STORAGE)
+			.invoke(accessToken -> accessTokenValue = accessToken.getValue())
+			.chain(() -> proceed(context))
+			.onFailure(WebAppExcUtils::isUnauthorizedOrForbidden) // On 401 or 403...
+			.recoverWithUni(f -> {
+				Log.debug("Recovering");
+				return identityService.getNewAccessTokenAndCacheIt(Scope.STORAGE) // ...get a new access token...
+					.invoke(accessToken -> accessTokenValue = accessToken.getValue())
+					.chain(() -> proceed(context));
+			}); // ...and retry!
 	}
 
 	/**
@@ -134,8 +96,8 @@ public class AzureStorageBlobReactiveService<T> {
 	 * @param fileName
 	 * @return
 	 */
-	public Uni<T> getBlob(String fileName) {
-		return blobClient.getBlob(accessToken.getValue(), fileName);
+	public Uni<Response> getBlob(String fileName) {
+		return blobClient.getBlob(accessTokenValue, fileName);
 	}
 
 	/**
@@ -144,8 +106,8 @@ public class AzureStorageBlobReactiveService<T> {
 	 * @param fileName
 	 * @return
 	 */
-	public Uni<T> getBlob(String segment1, String fileName) {
-		return blobClient.getBlob(accessToken.getValue(), segment1, fileName);
+	public Uni<Response> getBlob(String segment1, String fileName) {
+		return blobClient.getBlob(accessTokenValue, segment1, fileName);
 	}
 
 	/**
@@ -155,8 +117,8 @@ public class AzureStorageBlobReactiveService<T> {
 	 * @param fileName
 	 * @return
 	 */
-	public Uni<T> getBlob(String segment1, String segment2, String fileName) {
-		return blobClient.getBlob(accessToken.getValue(), segment1, segment2, fileName);
+	public Uni<Response> getBlob(String segment1, String segment2, String fileName) {
+		return blobClient.getBlob(accessTokenValue, segment1, segment2, fileName);
 	}
 
 	/**
@@ -167,8 +129,8 @@ public class AzureStorageBlobReactiveService<T> {
 	 * @param fileName
 	 * @return
 	 */
-	public Uni<T> getBlob(String segment1, String segment2, String segment3, String fileName) {
-		return blobClient.getBlob(accessToken.getValue(), segment1, segment2, segment3, fileName);
+	public Uni<Response> getBlob(String segment1, String segment2, String segment3, String fileName) {
+		return blobClient.getBlob(accessTokenValue, segment1, segment2, segment3, fileName);
 	}
 
 	/**
@@ -180,8 +142,8 @@ public class AzureStorageBlobReactiveService<T> {
 	 * @param fileName
 	 * @return
 	 */
-	public Uni<T> getBlob(String segment1, String segment2, String segment3, String segment4, String fileName) {
-		return blobClient.getBlob(accessToken.getValue(), segment1, segment2, segment3, segment4, fileName);
+	public Uni<Response> getBlob(String segment1, String segment2, String segment3, String segment4, String fileName) {
+		return blobClient.getBlob(accessTokenValue, segment1, segment2, segment3, segment4, fileName);
 	}
 
 	/**
@@ -194,8 +156,8 @@ public class AzureStorageBlobReactiveService<T> {
 	 * @param fileName
 	 * @return
 	 */
-	public Uni<T> getBlob(String segment1, String segment2, String segment3, String segment4, String segment5, String fileName) {
-		return blobClient.getBlob(accessToken.getValue(), segment1, segment2, segment3, segment4, segment5, fileName);
+	public Uni<Response> getBlob(String segment1, String segment2, String segment3, String segment4, String segment5, String fileName) {
+		return blobClient.getBlob(accessTokenValue, segment1, segment2, segment3, segment4, segment5, fileName);
 	}
 
 	/**
@@ -209,7 +171,7 @@ public class AzureStorageBlobReactiveService<T> {
 	 * @param fileName
 	 * @return
 	 */
-	public Uni<T> getBlob(String segment1, String segment2, String segment3, String segment4, String segment5, String segment6, String fileName) {
-		return blobClient.getBlob(accessToken.getValue(), segment1, segment2, segment3, segment4, segment5, segment6, fileName);
+	public Uni<Response> getBlob(String segment1, String segment2, String segment3, String segment4, String segment5, String segment6, String fileName) {
+		return blobClient.getBlob(accessTokenValue, segment1, segment2, segment3, segment4, segment5, segment6, fileName);
 	}
 }

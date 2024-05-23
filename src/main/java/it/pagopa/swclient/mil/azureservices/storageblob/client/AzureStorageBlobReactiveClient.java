@@ -13,6 +13,7 @@ import io.smallrye.mutiny.Uni;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.core.Response;
 
 /**
  * 
@@ -21,7 +22,7 @@ import jakarta.ws.rs.PathParam;
 @RegisterRestClient(configKey = "azure-storage-blob")
 @ClientHeaderParam(name = "x-ms-version", value = "${azure-storage-blob.version}")
 @ClientHeaderParam(name = "Authorization", value = "Bearer {accessToken}")
-public interface AzureStorageBlobReactiveClient<T> {
+public interface AzureStorageBlobReactiveClient {
 	/**
 	 * 
 	 * @param accessToken
@@ -30,7 +31,7 @@ public interface AzureStorageBlobReactiveClient<T> {
 	 */
 	@Path("{filename}")
 	@GET
-	Uni<T> getBlob(
+	Uni<Response> getBlob(
 		@NotBody String accessToken,
 		@PathParam("filename") String filename);
 
@@ -43,7 +44,7 @@ public interface AzureStorageBlobReactiveClient<T> {
 	 */
 	@Path("{segment1}/{filename}")
 	@GET
-	Uni<T> getBlob(
+	Uni<Response> getBlob(
 		@NotBody String accessToken,
 		@PathParam("segment1") String segment1,
 		@PathParam("filename") String filename);
@@ -58,12 +59,12 @@ public interface AzureStorageBlobReactiveClient<T> {
 	 */
 	@Path("{segment1}/{segment2}/{filename}")
 	@GET
-	Uni<T> getBlob(
+	Uni<Response> getBlob(
 		@NotBody String accessToken,
 		@PathParam("segment1") String segment1,
 		@PathParam("segment2") String segment2,
 		@PathParam("filename") String filename);
-	
+
 	/**
 	 * 
 	 * @param accessToken
@@ -75,13 +76,13 @@ public interface AzureStorageBlobReactiveClient<T> {
 	 */
 	@Path("{segment1}/{segment2}/{segment3}/{filename}")
 	@GET
-	Uni<T> getBlob(
+	Uni<Response> getBlob(
 		@NotBody String accessToken,
 		@PathParam("segment1") String segment1,
 		@PathParam("segment2") String segment2,
 		@PathParam("segment3") String segment3,
 		@PathParam("filename") String filename);
-	
+
 	/**
 	 * 
 	 * @param accessToken
@@ -94,14 +95,14 @@ public interface AzureStorageBlobReactiveClient<T> {
 	 */
 	@Path("{segment1}/{segment2}/{segment3}/{segment4}/{filename}")
 	@GET
-	Uni<T> getBlob(
+	Uni<Response> getBlob(
 		@NotBody String accessToken,
 		@PathParam("segment1") String segment1,
 		@PathParam("segment2") String segment2,
 		@PathParam("segment3") String segment3,
 		@PathParam("segment4") String segment4,
 		@PathParam("filename") String filename);
-	
+
 	/**
 	 * 
 	 * @param accessToken
@@ -115,7 +116,7 @@ public interface AzureStorageBlobReactiveClient<T> {
 	 */
 	@Path("{segment1}/{segment2}/{segment3}/{segment4}/{segment5}/{filename}")
 	@GET
-	Uni<T> getBlob(
+	Uni<Response> getBlob(
 		@NotBody String accessToken,
 		@PathParam("segment1") String segment1,
 		@PathParam("segment2") String segment2,
@@ -123,7 +124,7 @@ public interface AzureStorageBlobReactiveClient<T> {
 		@PathParam("segment4") String segment4,
 		@PathParam("segment5") String segment5,
 		@PathParam("filename") String filename);
-	
+
 	/**
 	 * 
 	 * @param accessToken
@@ -138,7 +139,7 @@ public interface AzureStorageBlobReactiveClient<T> {
 	 */
 	@Path("{segment1}/{segment2}/{segment3}/{segment4}/{segment5}/{segment6}/{filename}")
 	@GET
-	Uni<T> getBlob(
+	Uni<Response> getBlob(
 		@NotBody String accessToken,
 		@PathParam("segment1") String segment1,
 		@PathParam("segment2") String segment2,
