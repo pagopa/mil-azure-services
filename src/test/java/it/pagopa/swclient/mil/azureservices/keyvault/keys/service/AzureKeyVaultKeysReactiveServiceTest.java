@@ -13,13 +13,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.Mockito;
 
 import io.quarkus.test.InjectMock;
@@ -28,7 +24,7 @@ import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken;
 import it.pagopa.swclient.mil.azureservices.identity.bean.Scope;
-import it.pagopa.swclient.mil.azureservices.identity.client.AzureIdentityReactiveClient;
+import it.pagopa.swclient.mil.azureservices.identity.service.AzureIdentityReactiveService;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.DeletionRecoveryLevel;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKey;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyCurveName;
@@ -53,17 +49,15 @@ import jakarta.ws.rs.WebApplicationException;
 
 /**
  * 
- * @author antonio.tarricone
+ * @author Antonio Tarricone
  */
 @QuarkusTest
-@TestMethodOrder(OrderAnnotation.class)
 class AzureKeyVaultKeysReactiveServiceTest {
 	/*
 	 * 
 	 */
 	@InjectMock
-	@RestClient
-	AzureIdentityReactiveClient identityClient;
+	AzureIdentityReactiveService identityService;
 
 	/*
 	 * 
@@ -94,37 +88,21 @@ class AzureKeyVaultKeysReactiveServiceTest {
 		System.out.printf("* %s: START *%n", testInfo.getDisplayName());
 		System.out.println(frame);
 		now = Instant.now();
-	}
-
-	/**
-	 * 
-	 * @param testInfo
-	 */
-	@AfterEach
-	void reset(TestInfo testInfo) {
-		String frame = "*".repeat(testInfo.getDisplayName().length() + 11);
-		System.out.println(frame);
-		System.out.printf("* %s: RESET *%n", testInfo.getDisplayName());
-		System.out.println(frame);
-		Mockito.reset(identityClient, keysClient);
-		keysService.resetCachedAccessToken();
+		Mockito.reset(keysClient);
+		AccessToken accessToken = new AccessToken()
+			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
+			.setValue("access_token_string");
+		when(identityService.getAccessToken(Scope.VAULT))
+			.thenReturn(Uni.createFrom().item(accessToken));
+		when(identityService.getNewAccessTokenAndCacheIt(Scope.VAULT))
+			.thenReturn(Uni.createFrom().item(accessToken));
 	}
 
 	/**
 	 * 
 	 */
 	@Test
-	@Order(1)
-	void given_createKeyRequest_when_accessTokenIsNull_then_getItAndReturnKeyBundle() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
+	void given_createKeyRequest_when_createKeyIsInvoked_then_getKeyBundle() {
 		/*
 		 * Setup.
 		 */
@@ -175,140 +153,7 @@ class AzureKeyVaultKeysReactiveServiceTest {
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
-	@Order(2)
-	void given_createKeyRequest_when_accessTokenIsExpired_then_getNewOneAndReturnKeyBundle() {
-		/*
-		 * Setup.
-		 */
-		AccessToken expiredToken = new AccessToken()
-			.setExpiresOn(now.minus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(
-				Uni.createFrom().item(expiredToken),
-				Uni.createFrom().item(accessToken));
-
-		/*
-		 * Setup.
-		 */
-		KeyAttributes keyAttributes = new KeyAttributes()
-			.setCreated(now.getEpochSecond())
-			.setEnabled(Boolean.TRUE)
-			.setExp(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setExportable(Boolean.FALSE)
-			.setNbf(now.getEpochSecond())
-			.setRecoverableDays(90)
-			.setRecoveryLevel(DeletionRecoveryLevel.RECOVERABLE_PURGEABLE)
-			.setUpdated(now.getEpochSecond());
-		KeyCreateParameters keyCreateParameters = new KeyCreateParameters()
-			.setAttributes(keyAttributes)
-			.setKeyOps(List.of(JsonWebKeyOperation.SIGN, JsonWebKeyOperation.VERIFY))
-			.setKeySize(4096)
-			.setKty(JsonWebKeyType.RSA)
-			.setPublicExponent(Integer.MAX_VALUE);
-		JsonWebKey jsonWebKey = new JsonWebKey()
-			.setE(BigInteger.ONE.toByteArray())
-			.setN(BigInteger.TEN.toByteArray())
-			.setKeyOps(List.of(JsonWebKeyOperation.SIGN, JsonWebKeyOperation.VERIFY))
-			.setKid("key_id")
-			.setKty(JsonWebKeyType.RSA);
-		KeyBundle keyBundle = new KeyBundle()
-			.setAttributes(keyAttributes)
-			.setKey(jsonWebKey)
-			.setManaged(Boolean.TRUE);
-		when(keysClient.createKey("access_token_string", "key_name", keyCreateParameters))
-			.thenReturn(Uni.createFrom().item(keyBundle));
-
-		/*
-		 * Test.
-		 */
-		keysService.createKey("key_name", keyCreateParameters)
-			.subscribe()
-			.withSubscriber(UniAssertSubscriber.create())
-			.awaitItem()
-			.assertItem(keyBundle);
-	}
-
-	/**
-	 * 
-	 */
-	@Test
-	@Order(3)
-	void given_createKeyRequest_when_accessTokenIsNotNull_then_useItAndReturnKeyBundle() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
-		/*
-		 * Setup.
-		 */
-		KeyAttributes keyAttributes = new KeyAttributes()
-			.setCreated(now.getEpochSecond())
-			.setEnabled(Boolean.TRUE)
-			.setExp(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setExportable(Boolean.FALSE)
-			.setNbf(now.getEpochSecond())
-			.setRecoverableDays(90)
-			.setRecoveryLevel(DeletionRecoveryLevel.RECOVERABLE_PURGEABLE)
-			.setUpdated(now.getEpochSecond());
-		KeyCreateParameters keyCreateParameters = new KeyCreateParameters()
-			.setAttributes(keyAttributes)
-			.setKeyOps(List.of(JsonWebKeyOperation.SIGN, JsonWebKeyOperation.VERIFY))
-			.setKeySize(4096)
-			.setKty(JsonWebKeyType.RSA)
-			.setPublicExponent(Integer.MAX_VALUE);
-		JsonWebKey jsonWebKey = new JsonWebKey()
-			.setE(BigInteger.ONE.toByteArray())
-			.setN(BigInteger.TEN.toByteArray())
-			.setKeyOps(List.of(JsonWebKeyOperation.SIGN, JsonWebKeyOperation.VERIFY))
-			.setKid("key_id")
-			.setKty(JsonWebKeyType.RSA);
-		KeyBundle keyBundle = new KeyBundle()
-			.setAttributes(keyAttributes)
-			.setKey(jsonWebKey)
-			.setManaged(Boolean.TRUE);
-		when(keysClient.createKey("access_token_string", "key_name", keyCreateParameters))
-			.thenReturn(Uni.createFrom().item(keyBundle));
-
-		/*
-		 * Test.
-		 */
-		keysService.createKey("key_name", keyCreateParameters)
-			.subscribe()
-			.withSubscriber(UniAssertSubscriber.create())
-			.awaitItem();
-
-		keysService.createKey("key_name", keyCreateParameters)
-			.subscribe()
-			.withSubscriber(UniAssertSubscriber.create())
-			.awaitItem()
-			.assertItem(keyBundle);
-	}
-
-	/**
-	 * 
-	 */
-	@SuppressWarnings("unchecked")
-	@Test
-	@Order(4)
 	void given_createKeyRequest_when_keysClientReturns401_then_getNewAccessTokenAndRetry() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
 		/*
 		 * Setup.
 		 */
@@ -351,23 +196,13 @@ class AzureKeyVaultKeysReactiveServiceTest {
 			.awaitItem()
 			.assertItem(keyBundle);
 	}
-	
+
 	/**
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
-	@Order(5)
 	void given_createKeyRequest_when_keysClientReturns403_then_getNewAccessTokenAndRetry() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
 		/*
 		 * Setup.
 		 */
@@ -415,17 +250,7 @@ class AzureKeyVaultKeysReactiveServiceTest {
 	 * 
 	 */
 	@Test
-	@Order(6)
 	void given_createKeyRequest_when_keysClientReturns404_then_getFailure() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
 		/*
 		 * Setup.
 		 */
@@ -461,17 +286,7 @@ class AzureKeyVaultKeysReactiveServiceTest {
 	 * 
 	 */
 	@Test
-	@Order(7)
 	void given_createKeyRequest_when_keysClientReturnsFailure_then_getFailure() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
 		/*
 		 * Setup.
 		 */
@@ -507,17 +322,7 @@ class AzureKeyVaultKeysReactiveServiceTest {
 	 * 
 	 */
 	@Test
-	@Order(8)
 	void given_createKeyRequest_when_keysClientThrowsException_then_getFailure() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
 		/*
 		 * Setup.
 		 */
@@ -553,17 +358,7 @@ class AzureKeyVaultKeysReactiveServiceTest {
 	 * 
 	 */
 	@Test
-	@Order(9)
 	void given_keyList_when_getKeysInvoked_then_getKeyList() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
 		/*
 		 * Setup.
 		 */
@@ -599,17 +394,7 @@ class AzureKeyVaultKeysReactiveServiceTest {
 	 * 
 	 */
 	@Test
-	@Order(10)
 	void given_keyBundle_when_getKeyInvoked_then_getKeyBundle() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
 		/*
 		 * Setup.
 		 */
@@ -649,17 +434,7 @@ class AzureKeyVaultKeysReactiveServiceTest {
 	 * 
 	 */
 	@Test
-	@Order(11)
 	void given_keyVersionList_when_getKeyVersionInvoked_then_getKeyVersionList() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
 		/*
 		 * Setup.
 		 */
@@ -695,17 +470,7 @@ class AzureKeyVaultKeysReactiveServiceTest {
 	 * 
 	 */
 	@Test
-	@Order(12)
 	void given_signRequest_when_signMethodInvoked_then_getSignature() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
 		/*
 		 * Setup.
 		 */
@@ -731,17 +496,7 @@ class AzureKeyVaultKeysReactiveServiceTest {
 	 * 
 	 */
 	@Test
-	@Order(13)
 	void given_verifyRequest_when_verifyMethodInvoked_then_getVerificationResult() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
 		/*
 		 * Setup.
 		 */
@@ -767,17 +522,7 @@ class AzureKeyVaultKeysReactiveServiceTest {
 	 * 
 	 */
 	@Test
-	@Order(14)
 	void given_encryptRequest_when_encryptMethodInvoked_then_getEncryptedData() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
 		/*
 		 * Setup.
 		 */
@@ -803,17 +548,7 @@ class AzureKeyVaultKeysReactiveServiceTest {
 	 * 
 	 */
 	@Test
-	@Order(15)
 	void given_decryptRequest_when_decryptMethodInvoked_then_getDecryptedData() {
-		/*
-		 * Setup.
-		 */
-		AccessToken accessToken = new AccessToken()
-			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
-			.setValue("access_token_string");
-		when(identityClient.getAccessToken(Scope.VAULT))
-			.thenReturn(Uni.createFrom().item(accessToken));
-
 		/*
 		 * Setup.
 		 */
