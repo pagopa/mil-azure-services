@@ -96,7 +96,7 @@ public class KeyUtils {
 		/*
 		 * 
 		 */
-		Long created=keyAttributes.getCreated();
+		Long created = keyAttributes.getCreated();
 		if (created != null && created > now) {
 			Log.warnf("Key has an inconsistent creation date: kid = %s, created = %d, now = %d", kid, created, now);
 			return false;
@@ -124,7 +124,7 @@ public class KeyUtils {
 	public static boolean isValid(KeyItem keyItem) {
 		return isValid(keyItem.getKid(), keyItem.getAttributes());
 	}
-	
+
 	/**
 	 * 
 	 * @param keyBundle

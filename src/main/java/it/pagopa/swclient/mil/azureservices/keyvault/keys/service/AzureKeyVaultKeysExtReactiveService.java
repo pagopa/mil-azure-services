@@ -21,7 +21,7 @@ import jakarta.inject.Inject;
 
 /**
  * 
- * @author antonio.tarricone
+ * @author Antonio Tarricone
  */
 @ApplicationScoped
 public class AzureKeyVaultKeysExtReactiveService {
@@ -96,7 +96,7 @@ public class AzureKeyVaultKeysExtReactiveService {
 
 			})
 			.reversed();
-		
+
 		return getKeys(prefix, expectedOps, expectedKtys)
 			.collect()
 			.asList()

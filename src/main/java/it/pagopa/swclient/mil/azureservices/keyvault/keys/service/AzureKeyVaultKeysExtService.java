@@ -11,7 +11,6 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-import io.quarkus.logging.Log;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyOperation;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle;
@@ -21,7 +20,7 @@ import jakarta.inject.Inject;
 
 /**
  * 
- * @author antonio.tarricone
+ * @author Antonio Tarricone
  */
 @ApplicationScoped
 public class AzureKeyVaultKeysExtService {
@@ -74,10 +73,7 @@ public class AzureKeyVaultKeysExtService {
 			.flatMap(this::getKeyVersions) // Stream<KeyItem>
 			.filter(KeyUtils::isValid)
 			.map(KeyUtils::getKeyNameVersion) // Stream<String[]>
-			.map(keyNameVersion -> {
-				Log.tracef("name = %s, version = %s", keyNameVersion[0], keyNameVersion[1]);
-				return keysService.getKey(keyNameVersion[0], keyNameVersion[1]);
-			}) // Stream<KeyBundle>
+			.map(keyNameVersion -> keysService.getKey(keyNameVersion[0], keyNameVersion[1])) // Stream<KeyBundle>
 			.filter(keyBundle -> KeyUtils.doOpsMatch(keyBundle, expectedOps))
 			.filter(keyBundle -> KeyUtils.doesTypeMatch(keyBundle, expectedKtys));
 	}

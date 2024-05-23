@@ -10,7 +10,7 @@ import jakarta.ws.rs.WebApplicationException;
 
 /**
  * 
- * @author antonio.tarricone
+ * @author Antonio Tarricone
  */
 public class WebAppExcUtils {
 	/**
@@ -18,7 +18,7 @@ public class WebAppExcUtils {
 	 */
 	private WebAppExcUtils() {
 	}
-	
+
 	/**
 	 * 
 	 * @param failure
@@ -33,14 +33,14 @@ public class WebAppExcUtils {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param webException
 	 * @return
 	 */
 	public static boolean isUnauthorizedOrForbidden(WebApplicationException webException) {
-		Log.debug("Failure inspection");
+		Log.debug("WebApplicationException inspection");
 		int status = webException.getResponse().getStatus();
 		boolean check = status == 401 || status == 403;
 		if (check) {

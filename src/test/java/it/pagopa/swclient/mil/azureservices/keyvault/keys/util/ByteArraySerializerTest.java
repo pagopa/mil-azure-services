@@ -18,7 +18,7 @@ import io.quarkus.test.junit.QuarkusTest;
 
 /**
  * 
- * @author antonio.tarricone
+ * @author Antonio Tarricone
  */
 @QuarkusTest
 class ByteArraySerializerTest {
@@ -35,33 +35,37 @@ class ByteArraySerializerTest {
 	}
 
 	/**
-	 * Test method for {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.util.ByteArraySerializer#serialize(byte[], com.fasterxml.jackson.core.JsonGenerator, com.fasterxml.jackson.databind.SerializerProvider)}.
-	 * @throws JsonProcessingException 
+	 * Test method for
+	 * {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.util.ByteArraySerializer#serialize(byte[], com.fasterxml.jackson.core.JsonGenerator, com.fasterxml.jackson.databind.SerializerProvider)}.
+	 * 
+	 * @throws JsonProcessingException
 	 */
 	@Test
 	void testSerializeByteArrayJsonGeneratorSerializerProvider() throws JsonProcessingException {
 		byte[] bytes = "Hi?".getBytes();
-		
+
 		Sample sample = new Sample()
 			.setBytes(bytes);
-		
+
 		String actual = new ObjectMapper().writeValueAsString(sample);
 		String expected = "{\"bytes\":\"SGk_\"}";
 
 		assertEquals(expected, actual);
 	}
-	
+
 	/**
-	 * Test method for {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.util.ByteArraySerializer#serialize(byte[], com.fasterxml.jackson.core.JsonGenerator, com.fasterxml.jackson.databind.SerializerProvider)}.
-	 * @throws JsonProcessingException 
+	 * Test method for
+	 * {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.util.ByteArraySerializer#serialize(byte[], com.fasterxml.jackson.core.JsonGenerator, com.fasterxml.jackson.databind.SerializerProvider)}.
+	 * 
+	 * @throws JsonProcessingException
 	 */
 	@Test
 	void testSerializeByteArrayJsonGeneratorSerializerProviderWithNull() throws JsonProcessingException {
 		byte[] bytes = null;
-		
+
 		Sample sample = new Sample()
 			.setBytes(bytes);
-		
+
 		String actual = new ObjectMapper().writeValueAsString(sample);
 		String expected = "{\"bytes\":null}";
 
