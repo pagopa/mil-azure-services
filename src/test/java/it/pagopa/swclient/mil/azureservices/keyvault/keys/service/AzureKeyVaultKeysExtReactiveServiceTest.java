@@ -14,10 +14,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.mockito.Mockito;
 
 import io.quarkus.test.InjectMock;
@@ -35,10 +33,9 @@ import jakarta.inject.Inject;
 
 /**
  * 
- * @author antonio.tarricone
+ * @author Antonio Tarricone
  */
 @QuarkusTest
-@TestMethodOrder(OrderAnnotation.class)
 class AzureKeyVaultKeysExtReactiveServiceTest {
 	/*
 	 * 
@@ -528,8 +525,7 @@ class AzureKeyVaultKeysExtReactiveServiceTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.service.AzureKeyVaultKeysExtReactiveService#getKeys(java.lang.String, java.util.List, it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType)}.
+	 * 
 	 */
 	@Test
 	void given_setOfKeys_when_getKeysInvoked_then_getRelevantKeys() {
@@ -557,8 +553,7 @@ class AzureKeyVaultKeysExtReactiveServiceTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.service.AzureKeyVaultKeysExtReactiveService#getKeyWithLongestExp(java.lang.String, java.util.List, it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType)}.
+	 * 
 	 */
 	@Test
 	void given_setOfKeys_when_getKeyWithLongestExpInvoked_then_getRelevantKey() {

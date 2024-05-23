@@ -12,20 +12,16 @@ import static org.mockito.Mockito.when;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.mockito.Mockito;
 
 import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
-import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKey;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyOperation;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType;
@@ -37,10 +33,9 @@ import jakarta.inject.Inject;
 
 /**
  * 
- * @author antonio.tarricone
+ * @author Antonio Tarricone
  */
 @QuarkusTest
-@TestMethodOrder(OrderAnnotation.class)
 class AzureKeyVaultKeysExtServiceTest {
 	/*
 	 * 
@@ -530,8 +525,7 @@ class AzureKeyVaultKeysExtServiceTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.service.AzureKeyVaultKeysExtService#getKeys(java.lang.String, java.util.List, it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType)}.
+	 * 
 	 */
 	@Test
 	void given_setOfKeys_when_getKeysInvoked_then_getRelevantKeys() {
@@ -557,8 +551,7 @@ class AzureKeyVaultKeysExtServiceTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.service.AzureKeyVaultKeysExtService#getKeyWithLongestExp(java.lang.String, java.util.List, it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType)}.
+	 * 
 	 */
 	@Test
 	void given_setOfKeys_when_getKeyWithLongestExpInvoked_then_getRelevantKey() {
