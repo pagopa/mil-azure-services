@@ -16,6 +16,7 @@ import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyItem;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyListResult;
+import it.pagopa.swclient.mil.azureservices.keyvault.keys.util.KeyUtils;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
