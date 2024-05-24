@@ -358,13 +358,6 @@
       "sha256": "Vb4TD2poA4CIomGFbE44POeZV6D8GinsshOp79bvQ4k="
     },
     {
-      "id": "net.bytebuddy:byte-buddy:jar:1.14.11",
-      "artifactId": "byte-buddy",
-      "groupId": "net.bytebuddy",
-      "version": "1.14.11",
-      "sha256": "Yq4oGH7SsGKBPaap1We_7nM8NBWCaZti3ZgCMHKaAxM="
-    },
-    {
       "id": "org.jboss.logging:commons-logging-jboss-logging:jar:1.0.0.Final",
       "artifactId": "commons-logging-jboss-logging",
       "groupId": "org.jboss.logging",
@@ -1434,6 +1427,20 @@
       "groupId": "io.smallrye.reactive",
       "version": "2.6.0",
       "sha256": "P3cpjBF_rZPwh-QLo30x0DlYfWRFrYUVXc8iZY2aYWM="
+    },
+    {
+      "id": "org.assertj:assertj-core:jar:3.25.3",
+      "artifactId": "assertj-core",
+      "groupId": "org.assertj",
+      "version": "3.25.3",
+      "sha256": "f73_oZltQ8wI4lduAQCLB-V7utK0dBqmw6tzzoUREw4="
+    },
+    {
+      "id": "net.bytebuddy:byte-buddy:jar:1.14.11",
+      "artifactId": "byte-buddy",
+      "groupId": "net.bytebuddy",
+      "version": "1.14.11",
+      "sha256": "Yq4oGH7SsGKBPaap1We_7nM8NBWCaZti3ZgCMHKaAxM="
     },
     {
       "id": "io.quarkus:quarkus-jacoco:jar:3.10.1",

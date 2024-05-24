@@ -6,15 +6,13 @@
 package it.pagopa.swclient.mil.azureservices.keyvault.keys.service;
 
 import java.lang.reflect.Method;
-import java.time.Instant;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Uni;
-import it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken;
 import it.pagopa.swclient.mil.azureservices.identity.bean.Scope;
-import it.pagopa.swclient.mil.azureservices.identity.client.AzureIdentityReactiveClient;
+import it.pagopa.swclient.mil.azureservices.identity.service.AzureIdentityReactiveService;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyCreateParameters;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyListResult;
@@ -24,10 +22,11 @@ import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeySignParameters
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyVerifyParameters;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyVerifyResult;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.client.AzureKeyVaultKeysReactiveClient;
+import it.pagopa.swclient.mil.azureservices.util.WebAppExcUtils;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.InvocationContext;
-import jakarta.ws.rs.WebApplicationException;
 
 /**
  * 
@@ -38,7 +37,7 @@ public class AzureKeyVaultKeysReactiveService {
 	/*
 	 * 
 	 */
-	private AzureIdentityReactiveClient identityClient;
+	private AzureIdentityReactiveService identityService;
 
 	/*
 	 * 
@@ -48,77 +47,19 @@ public class AzureKeyVaultKeysReactiveService {
 	/*
 	 * 
 	 */
-	private AccessToken accessToken;
+	private String accessTokenValue;
 
 	/**
 	 * 
-	 * @param identityClient
+	 * @param identityService
 	 * @param keysClient
 	 */
+	@Inject
 	AzureKeyVaultKeysReactiveService(
-		@RestClient AzureIdentityReactiveClient identityClient,
+		AzureIdentityReactiveService identityService,
 		@RestClient AzureKeyVaultKeysReactiveClient keysClient) {
-		this.identityClient = identityClient;
+		this.identityService = identityService;
 		this.keysClient = keysClient;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	private Uni<Void> getNewAccessTokenAndCacheIt() {
-		Log.debug("Get new access token");
-		return identityClient.getAccessToken(Scope.VAULT)
-			.invoke(newAccessToken -> {
-				Log.trace("Caching access token");
-				accessToken = newAccessToken;
-			})
-			.replaceWithVoid();
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	private Uni<Void> getAccessToken() {
-		if (accessToken != null && accessToken.getExpiresOn() > Instant.now().getEpochSecond()) {
-			Log.trace("Cached access token is going to be used");
-			return Uni.createFrom().voidItem();
-		} else {
-			Log.debug("There's no cached access token or it is expired");
-			return getNewAccessTokenAndCacheIt();
-		}
-	}
-
-	/**
-	 * 
-	 */
-	@NoAround
-	void resetCachedAccessToken() {
-		accessToken = null;
-	}
-
-	/**
-	 * 
-	 * @param failure
-	 * @return
-	 */
-	private boolean isUnauthorizedOrForbidden(Throwable failure) {
-		Log.debug("Failure inspection");
-		if (failure instanceof WebApplicationException webException) {
-			int status = webException.getResponse().getStatus();
-			boolean check = status == 401 || status == 403;
-			if (check) {
-				Log.debug("Could it be that the access token is invalid?");
-				return true;
-			} else {
-				Log.debugf("HTTP status other than 401 or 403 received: %d", status);
-				return false;
-			}
-		} else {
-			Log.debugf("Other failure received", failure);
-			return false;
-		}
 	}
 
 	/**
@@ -144,21 +85,17 @@ public class AzureKeyVaultKeysReactiveService {
 	@AroundInvoke
 	Object authenticate(InvocationContext context) {
 		Method method = context.getMethod();
-		NoAround noAround = method.getAnnotation(NoAround.class);
-		if (noAround == null) {
-			Log.tracef("Around invoke: %s.%s", context.getTarget().getClass().getSimpleName(), method.getName());
-			return getAccessToken()
-				.chain(() -> proceed(context))
-				.onFailure(this::isUnauthorizedOrForbidden) // On 401 or 403...
-				.recoverWithUni(f -> {
-					Log.debug("Recovering");
-					return getNewAccessTokenAndCacheIt() // ...get a new access token...
-						.chain(() -> proceed(context));
-				}); // ...and retry!
-		} else {
-			Log.tracef("No around: %s.%s", context.getTarget().getClass().getSimpleName(), method.getName());
-			return proceed(context);
-		}
+		Log.tracef("Around invoke: %s.%s", context.getTarget().getClass().getSimpleName(), method.getName());
+		return identityService.getAccessToken(Scope.VAULT)
+			.invoke(accessToken -> accessTokenValue = accessToken.getValue())
+			.chain(() -> proceed(context))
+			.onFailure(WebAppExcUtils::isUnauthorizedOrForbidden) // On 401 or 403...
+			.recoverWithUni(f -> {
+				Log.debug("Recovering");
+				return identityService.getNewAccessTokenAndCacheIt(Scope.VAULT) // ...get a new access token...
+					.invoke(accessToken -> accessTokenValue = accessToken.getValue())
+					.chain(() -> proceed(context));
+			}); // ...and retry!
 	}
 
 	/**
@@ -168,7 +105,7 @@ public class AzureKeyVaultKeysReactiveService {
 	 * @return
 	 */
 	public Uni<KeyBundle> createKey(String keyName, KeyCreateParameters keyCreateParameters) {
-		return keysClient.createKey(accessToken.getValue(), keyName, keyCreateParameters);
+		return keysClient.createKey(accessTokenValue, keyName, keyCreateParameters);
 	}
 
 	/**
@@ -176,7 +113,7 @@ public class AzureKeyVaultKeysReactiveService {
 	 * @return
 	 */
 	public Uni<KeyListResult> getKeys() {
-		return keysClient.getKeys(accessToken.getValue());
+		return keysClient.getKeys(accessTokenValue);
 	}
 
 	/**
@@ -186,7 +123,7 @@ public class AzureKeyVaultKeysReactiveService {
 	 * @return
 	 */
 	public Uni<KeyBundle> getKey(String keyName, String keyVersion) {
-		return keysClient.getKey(accessToken.getValue(), keyName, keyVersion);
+		return keysClient.getKey(accessTokenValue, keyName, keyVersion);
 	}
 
 	/**
@@ -195,7 +132,7 @@ public class AzureKeyVaultKeysReactiveService {
 	 * @return
 	 */
 	public Uni<KeyListResult> getKeyVersions(String keyName) {
-		return keysClient.getKeyVersions(accessToken.getValue(), keyName);
+		return keysClient.getKeyVersions(accessTokenValue, keyName);
 	}
 
 	/**
@@ -206,7 +143,7 @@ public class AzureKeyVaultKeysReactiveService {
 	 * @return
 	 */
 	public Uni<KeyOperationResult> sign(String keyName, String keyVersion, KeySignParameters keySignParameters) {
-		return keysClient.sign(accessToken.getValue(), keyName, keyVersion, keySignParameters);
+		return keysClient.sign(accessTokenValue, keyName, keyVersion, keySignParameters);
 	}
 
 	/**
@@ -217,7 +154,7 @@ public class AzureKeyVaultKeysReactiveService {
 	 * @return
 	 */
 	public Uni<KeyVerifyResult> verify(String keyName, String keyVersion, KeyVerifyParameters keyVerifyParameters) {
-		return keysClient.verify(accessToken.getValue(), keyName, keyVersion, keyVerifyParameters);
+		return keysClient.verify(accessTokenValue, keyName, keyVersion, keyVerifyParameters);
 	}
 
 	/**
@@ -228,7 +165,7 @@ public class AzureKeyVaultKeysReactiveService {
 	 * @return
 	 */
 	public Uni<KeyOperationResult> encrypt(String keyName, String keyVersion, KeyOperationParameters keyOperationParameters) {
-		return keysClient.encrypt(accessToken.getValue(), keyName, keyVersion, keyOperationParameters);
+		return keysClient.encrypt(accessTokenValue, keyName, keyVersion, keyOperationParameters);
 	}
 
 	/**
@@ -239,6 +176,6 @@ public class AzureKeyVaultKeysReactiveService {
 	 * @return
 	 */
 	public Uni<KeyOperationResult> decrypt(String keyName, String keyVersion, KeyOperationParameters keyOperationParameters) {
-		return keysClient.decrypt(accessToken.getValue(), keyName, keyVersion, keyOperationParameters);
+		return keysClient.decrypt(accessTokenValue, keyName, keyVersion, keyOperationParameters);
 	}
 }
