@@ -41,10 +41,9 @@ class ByteArrayDeserializerTest {
 	 * {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.util.ByteArrayDeserializer#deserialize(com.fasterxml.jackson.core.JsonParser, com.fasterxml.jackson.databind.DeserializationContext)}.
 	 * 
 	 * @throws IOException
-	 * @throws JsonParseException
 	 */
 	@Test
-	void testDeserializeJsonParserDeserializationContext() throws JsonParseException, IOException {
+	void testDeserializeJsonParserDeserializationContext() throws IOException {
 		byte[] expected = "Hi?".getBytes();
 
 		String json = "{\"bytes\":\"SGk_\"}";
@@ -64,7 +63,7 @@ class ByteArrayDeserializerTest {
 	 * @throws JsonParseException
 	 */
 	@Test
-	void testDeserializeJsonParserDeserializationContextWithNull() throws JsonParseException, IOException {
+	void testDeserializeJsonParserDeserializationContextWithNull() throws IOException {
 		byte[] expected = null;
 
 		String json = "{\"bytes\":null}";
