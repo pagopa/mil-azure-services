@@ -3,7 +3,7 @@
  *
  * 21 mag 2024
  */
-package it.pagopa.swclient.mil.azureservices.keyvault.keys.service;
+package it.pagopa.swclient.mil.azureservices.keyvault.keys.util;
 
 import java.net.URI;
 import java.time.Instant;
