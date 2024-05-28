@@ -46,11 +46,11 @@ public class KeySignParameters {
 	 * The signing/verification algorithm identifier.
 	 * </p>
 	 * <p>
-	 * For more information on possible algorithm types, see JsonWebKeySignatureAlgorithm.
+	 * See {@link JsonWebKeySignatureAlgorithm}.
 	 * </p>
 	 */
 	@JsonProperty(ALG_JK)
-	private JsonWebKeySignatureAlgorithm alg;
+	private String alg;
 
 	/**
 	 * Data to sign.

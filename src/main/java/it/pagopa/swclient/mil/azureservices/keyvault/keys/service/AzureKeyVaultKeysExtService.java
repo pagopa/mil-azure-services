@@ -63,11 +63,11 @@ public class AzureKeyVaultKeysExtService {
 	/**
 	 * 
 	 * @param prefix
-	 * @param expectedOps
-	 * @param expectedKtys
+	 * @param expectedOps  {@link JsonWebKeyOperation}
+	 * @param expectedKtys {@link JsonWebKeyType}
 	 * @return
 	 */
-	public Stream<KeyBundle> getKeys(String prefix, List<JsonWebKeyOperation> expectedOps, List<JsonWebKeyType> expectedKtys) {
+	public Stream<KeyBundle> getKeys(String prefix, List<String> expectedOps, List<String> expectedKtys) {
 		return getKeys() // Stream<KeyItem>
 			.map(KeyUtils::getKeyName) // Stream<String> keyName
 			.filter(keyName -> KeyUtils.doesPrefixMatch(keyName, prefix))
@@ -82,11 +82,11 @@ public class AzureKeyVaultKeysExtService {
 	/**
 	 * 
 	 * @param prefix
-	 * @param expectedOps
-	 * @param expectedKtys
+	 * @param expectedOps  {@link JsonWebKeyOperation}
+	 * @param expectedKtys {@link JsonWebKeyType}
 	 * @return
 	 */
-	public Optional<KeyBundle> getKeyWithLongestExp(String prefix, List<JsonWebKeyOperation> expectedOps, List<JsonWebKeyType> expectedKtys) {
+	public Optional<KeyBundle> getKeyWithLongestExp(String prefix, List<String> expectedOps, List<String> expectedKtys) {
 		Comparator<KeyBundle> comparator = Comparator.comparing(
 			new Function<KeyBundle, Long>() { // NOSONAR
 				@Override

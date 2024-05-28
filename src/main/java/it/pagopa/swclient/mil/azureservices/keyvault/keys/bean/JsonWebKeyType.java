@@ -5,11 +5,9 @@
  */
 package it.pagopa.swclient.mil.azureservices.keyvault.keys.bean;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
- * JsonWebKey Key Type (kty), as defined in
- * https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40.
+ * JsonWebKey Key Type (kty; as defined in <a href=
+ * "https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40">draft-ietf-jose-json-web-algorithms-40</a>.
  * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/create-key/create-key?view=rest-keyvault-keys-7.4&tabs=HTTP#jsonwebkeytype">Microsoft
@@ -17,62 +15,40 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  * @author Antonio Tarricone
  */
-public enum JsonWebKeyType {
+public class JsonWebKeyType {
 	/**
 	 * Elliptic Curve.
 	 */
-	@JsonProperty("EC")
-	EC("EC"),
+	public static final String EC = "EC";
 
 	/**
 	 * Elliptic Curve with a private key which is stored in the HSM.
 	 */
-	@JsonProperty("EC-HSM")
-	EC_HSM("EC-HSM"),
+	public static final String EC_HSM = "EC-HSM";
 
 	/**
-	 * RSA (https://tools.ietf.org/html/rfc3447).
+	 * RSA =https://tools.ietf.org/html/rfc3447).
 	 */
-	@JsonProperty("RSA")
-	RSA("RSA"),
+	public static final String RSA = "RSA";
 
 	/**
 	 * RSA with a private key which is stored in the HSM.
 	 */
-	@JsonProperty("RSA-HSM")
-	RSA_HSM("RSA-HSM"),
+	public static final String RSA_HSM = "RSA-HSM";
 
 	/**
-	 * Octet sequence (used to represent symmetric keys).
+	 * Octet sequence =used to represent symmetric keys).
 	 */
-	@JsonProperty("oct")
-	OCT("oct"),
+	public static final String OCT = "oct";
 
 	/**
-	 * Octet sequence (used to represent symmetric keys) which is stored the HSM.
+	 * Octet sequence =used to represent symmetric keys) which is stored the HSM.
 	 */
-	@JsonProperty("oct-HSM")
-	OCT_HSM("oct-HSM");
-
-	/*
-	 * 
-	 */
-	private final String value;
+	public static final String OCT_HSM = "oct-HSM";
 
 	/**
 	 * 
-	 * @param value
 	 */
-	private JsonWebKeyType(String value) {
-		this.value = value;
-	}
-
-	/**
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return value;
+	private JsonWebKeyType() {
 	}
 }

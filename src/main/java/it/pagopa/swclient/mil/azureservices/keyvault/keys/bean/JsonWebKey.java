@@ -58,10 +58,10 @@ public class JsonWebKey {
 	public static final String Y_JK = "y";
 
 	/**
-	 * Elliptic curve name. For valid values, see JsonWebKeyCurveName.
+	 * Elliptic curve name. For valid values, see {@link JsonWebKeyCurveName}
 	 */
 	@JsonProperty(CRV_JK)
-	private JsonWebKeyCurveName crv;
+	private String crv;
 
 	/**
 	 * RSA private exponent, or the D component of an EC private key.
@@ -117,9 +117,11 @@ public class JsonWebKey {
 
 	/**
 	 * Supported key operations.
+	 * 
+	 * @see JsonWebKeyOperation
 	 */
 	@JsonProperty(KEY_OPS_JK)
-	private List<JsonWebKeyOperation> keyOps;
+	private List<String> keyOps;
 
 	/**
 	 * Key identifier.
@@ -129,10 +131,12 @@ public class JsonWebKey {
 
 	/**
 	 * JsonWebKey Key Type (kty), as defined in
-	 * https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40.
+	 * {@link https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40}
+	 * 
+	 * @see JsonWebKeyType
 	 */
 	@JsonProperty(KTY_JK)
-	private JsonWebKeyType kty;
+	private String kty;
 
 	/**
 	 * RSA modulus.

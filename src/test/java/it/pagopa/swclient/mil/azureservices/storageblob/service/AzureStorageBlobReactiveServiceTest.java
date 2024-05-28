@@ -197,7 +197,7 @@ class AzureStorageBlobReactiveServiceTest {
 			.awaitFailure()
 			.assertFailed();
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -218,7 +218,7 @@ class AzureStorageBlobReactiveServiceTest {
 			.awaitItem()
 			.assertItem(response);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -239,7 +239,7 @@ class AzureStorageBlobReactiveServiceTest {
 			.awaitItem()
 			.assertItem(response);
 	}
-	
+
 	/**
 	 * 
 	 */

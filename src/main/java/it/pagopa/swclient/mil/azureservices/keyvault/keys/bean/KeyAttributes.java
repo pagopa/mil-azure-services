@@ -86,12 +86,11 @@ public class KeyAttributes {
 	 * Reflects the deletion recovery level currently in effect for keys in the current vault.
 	 * </p>
 	 * <p>
-	 * If it contains 'Purgeable' the key can be permanently deleted by a privileged user; otherwise,
-	 * only the system can purge the key, at the end of the retention interval.
+	 * See {@link DeletionRecoveryLevel}.
 	 * </p>
 	 */
 	@JsonProperty(RECOVERY_LEVEL_JK)
-	private DeletionRecoveryLevel recoveryLevel;
+	private String recoveryLevel;
 
 	/**
 	 * Last updated time in UTC (Unix epoch in seconds).

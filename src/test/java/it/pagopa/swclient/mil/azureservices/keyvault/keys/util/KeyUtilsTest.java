@@ -5,7 +5,7 @@
  */
 package it.pagopa.swclient.mil.azureservices.keyvault.keys.util;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
