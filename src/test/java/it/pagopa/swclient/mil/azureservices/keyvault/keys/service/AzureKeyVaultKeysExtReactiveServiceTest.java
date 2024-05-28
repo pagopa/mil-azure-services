@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -572,6 +573,31 @@ class AzureKeyVaultKeysExtReactiveServiceTest {
 			.subscribe()
 			.withSubscriber(UniAssertSubscriber.create())
 			.awaitItem()
-			.assertItem(bundle__attr_ok_longest_exp__key_rsa_sign_verify);
+			.assertItem(Optional.of(bundle__attr_ok_longest_exp__key_rsa_sign_verify));
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	void given_noKey_when_getKeyWithLongestExpInvoked_then_getEmpty() {
+		/*
+		 * Setup
+		 */
+		when(keysService.getKeys())
+			.thenReturn(Uni.createFrom().item(new KeyListResult()
+				.setValue(List.of())));
+
+		/*
+		 * Test
+		 */
+		extService.getKeyWithLongestExp(
+			"attr",
+			List.of(JsonWebKeyOperation.SIGN, JsonWebKeyOperation.VERIFY),
+			List.of(JsonWebKeyType.RSA))
+			.subscribe()
+			.withSubscriber(UniAssertSubscriber.create())
+			.awaitItem()
+			.assertItem(Optional.empty());
 	}
 }
