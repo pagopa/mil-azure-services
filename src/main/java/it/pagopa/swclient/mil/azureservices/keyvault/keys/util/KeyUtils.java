@@ -128,13 +128,13 @@ public class KeyUtils {
 	/**
 	 * 
 	 * @param keyBundle
-	 * @param expectedOps
+	 * @param expectedOps {@link JsonWebKeyOperation}
 	 * @return
 	 */
-	public static boolean doOpsMatch(KeyBundle keyBundle, List<JsonWebKeyOperation> expectedOps) {
+	public static boolean doOpsMatch(KeyBundle keyBundle, List<String> expectedOps) {
 		JsonWebKey key = keyBundle.getKey();
 		String kid = key.getKid();
-		List<JsonWebKeyOperation> actualOps = key.getKeyOps();
+		List<String> actualOps = key.getKeyOps();
 		if (expectedOps == null || actualOps.containsAll(expectedOps)) {
 			Log.tracef("Operations match or are null: kid = %s, actualOps = %s, expectedOps = %s", kid, actualOps, expectedOps);
 			return true;
@@ -147,13 +147,13 @@ public class KeyUtils {
 	/**
 	 * 
 	 * @param keyBundle
-	 * @param expectedKtys
+	 * @param expectedKtys {@link JsonWebKeyType}
 	 * @return
 	 */
-	public static boolean doesTypeMatch(KeyBundle keyBundle, List<JsonWebKeyType> expectedKtys) {
+	public static boolean doesTypeMatch(KeyBundle keyBundle, List<String> expectedKtys) {
 		JsonWebKey key = keyBundle.getKey();
 		String kid = key.getKid();
-		JsonWebKeyType actualKty = key.getKty();
+		String actualKty = key.getKty();
 		if (expectedKtys == null || expectedKtys.contains(actualKty)) {
 			Log.tracef("Key type matches: kid = %s, actualKty = %s, expectedKtys = %s", kid, actualKty, expectedKtys);
 			return true;

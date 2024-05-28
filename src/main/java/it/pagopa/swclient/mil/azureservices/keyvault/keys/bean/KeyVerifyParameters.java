@@ -47,11 +47,11 @@ public class KeyVerifyParameters {
 	 * The signing/verification algorithm.
 	 * </p>
 	 * <p>
-	 * For more information on possible algorithm types, see JsonWebKeySignatureAlgorithm.
+	 * See {@link JsonWebKeySignatureAlgorithm}.
 	 * </p>
 	 */
 	@JsonProperty(ALG_JK)
-	private JsonWebKeySignatureAlgorithm alg;
+	private String alg;
 
 	/**
 	 * The digest used for signing.

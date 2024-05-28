@@ -54,10 +54,10 @@ public class KeyOperationParameters {
 	private byte[] aad;
 
 	/**
-	 * Algorithm identifier.
+	 * Algorithm identifier. See {@link JsonWebKeyEncryptionAlgorithm}
 	 */
 	@JsonProperty(ALG_JK)
-	private JsonWebKeyEncryptionAlgorithm alg;
+	private String alg;
 
 	/**
 	 * Cryptographically random, non-repeating initialization vector for symmetric algorithms.

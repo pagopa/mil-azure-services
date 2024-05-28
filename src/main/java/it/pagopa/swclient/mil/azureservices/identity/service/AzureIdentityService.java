@@ -6,7 +6,8 @@
 package it.pagopa.swclient.mil.azureservices.identity.service;
 
 import java.time.Instant;
-import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -30,7 +31,7 @@ public class AzureIdentityService {
 	/*
 	 * 
 	 */
-	private EnumMap<Scope, AccessToken> cache;
+	private Map<String, AccessToken> cache;
 
 	/**
 	 * 
@@ -38,14 +39,15 @@ public class AzureIdentityService {
 	 */
 	AzureIdentityService(@RestClient AzureIdentityClient identityClient) {
 		this.identityClient = identityClient;
-		cache = new EnumMap<>(Scope.class);
+		cache = new HashMap<>();
 	}
 
 	/**
 	 * 
+	 * @param scope {@link Scope}
 	 * @return
 	 */
-	public AccessToken getNewAccessTokenAndCacheIt(Scope scope) {
+	public AccessToken getNewAccessTokenAndCacheIt(String scope) {
 		Log.debug("Get new access token");
 		AccessToken accessToken = identityClient.getAccessToken(scope);
 		Log.trace("Store access token");
@@ -55,9 +57,10 @@ public class AzureIdentityService {
 
 	/**
 	 * 
+	 * @param scope {@link Scope}
 	 * @return
 	 */
-	public AccessToken getAccessToken(Scope scope) {
+	public AccessToken getAccessToken(String scope) {
 		AccessToken accessToken = cache.get(scope);
 		if (accessToken != null && accessToken.getExpiresOn() > Instant.now().getEpochSecond()) {
 			Log.trace("Stored access token is going to be used");

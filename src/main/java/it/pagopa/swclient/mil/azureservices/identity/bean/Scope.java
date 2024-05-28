@@ -10,36 +10,20 @@ package it.pagopa.swclient.mil.azureservices.identity.bean;
  * 
  * @author Antonio Tarricone
  */
-public enum Scope {
+public class Scope {
 	/**
 	 * Scope to get an access token to access to Key Vault APIs.
 	 */
-	VAULT("https://vault.azure.net"),
+	public static final String VAULT = "https://vault.azure.net";
 
 	/**
 	 * Scope to get an access token to access to Storage Account APIs.
 	 */
-	STORAGE("https://storage.azure.com");
-
-	/*
-	 * 
-	 */
-	private final String value;
+	public static final String STORAGE = "https://storage.azure.com";
 
 	/**
 	 * 
-	 * @param value
 	 */
-	private Scope(String value) {
-		this.value = value;
-	}
-
-	/**
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return value;
+	private Scope() {
 	}
 }

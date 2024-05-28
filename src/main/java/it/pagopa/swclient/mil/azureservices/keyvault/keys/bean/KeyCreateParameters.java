@@ -47,10 +47,10 @@ public class KeyCreateParameters {
 	public static final String TAGS_JK = "tags";
 
 	/**
-	 * The type of key to create.
+	 * The type of key to create. See {@link JsonWebKeyType}
 	 */
 	@JsonProperty(KTY_JK)
-	private JsonWebKeyType kty;
+	private String kty;
 
 	/**
 	 * The attributes of a key managed by the key vault service.
@@ -59,16 +59,16 @@ public class KeyCreateParameters {
 	private KeyAttributes attributes;
 
 	/**
-	 * Elliptic curve name.
+	 * Elliptic curve name. See {@link JsonWebKeyCurveName}
 	 */
 	@JsonProperty(CRV_JK)
-	private JsonWebKeyCurveName crv;
+	private String crv;
 
 	/**
-	 * JSON web key operations.
+	 * JSON web key operations. See {@link JsonWebKeyOperation}
 	 */
 	@JsonProperty(KEY_OPS_JK)
-	private List<JsonWebKeyOperation> keyOps;
+	private List<String> keyOps;
 
 	/**
 	 * The key size in bits.

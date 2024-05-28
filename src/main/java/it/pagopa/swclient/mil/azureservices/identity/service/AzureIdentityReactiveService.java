@@ -6,7 +6,8 @@
 package it.pagopa.swclient.mil.azureservices.identity.service;
 
 import java.time.Instant;
-import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
@@ -31,7 +32,7 @@ public class AzureIdentityReactiveService {
 	/*
 	 * 
 	 */
-	private EnumMap<Scope, AccessToken> cache;
+	private Map<String, AccessToken> cache;
 
 	/**
 	 * 
@@ -39,14 +40,15 @@ public class AzureIdentityReactiveService {
 	 */
 	AzureIdentityReactiveService(@RestClient AzureIdentityReactiveClient identityClient) {
 		this.identityClient = identityClient;
-		cache = new EnumMap<>(Scope.class);
+		cache = new HashMap<>();
 	}
 
 	/**
 	 * 
+	 * @param scope {@link Scope}
 	 * @return
 	 */
-	public Uni<AccessToken> getNewAccessTokenAndCacheIt(Scope scope) {
+	public Uni<AccessToken> getNewAccessTokenAndCacheIt(String scope) {
 		Log.debug("Get new access token");
 		return identityClient.getAccessToken(scope)
 			.invoke(accessToken -> {
@@ -57,9 +59,10 @@ public class AzureIdentityReactiveService {
 
 	/**
 	 * 
+	 * @param scope {@link Scope}
 	 * @return
 	 */
-	public Uni<AccessToken> getAccessToken(Scope scope) {
+	public Uni<AccessToken> getAccessToken(String scope) {
 		AccessToken accessToken = cache.get(scope);
 		if (accessToken != null && accessToken.getExpiresOn() > Instant.now().getEpochSecond()) {
 			Log.trace("Stored access token is going to be used");
