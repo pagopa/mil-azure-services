@@ -86,4 +86,6 @@ jobs:
       # Build and deploy.
       #
       - name: Build and deploy
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ${{ runner.temp }}/maven/bin/mvn --batch-mode verify deploy -Pvalidate -s ${{ runner.temp }}/settings.xml --no-transfer-progress

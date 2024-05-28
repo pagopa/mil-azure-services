@@ -141,4 +141,6 @@ jobs:
       #
       - name: Build and deploy
         if: steps.semantic.outputs.new_release_published == 'true'
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ${{ runner.temp }}/maven/bin/mvn --batch-mode verify deploy -Pvalidate -s ${{ runner.temp }}/settings.xml --no-transfer-progress
