@@ -7,8 +7,10 @@ package it.pagopa.swclient.mil.azureservices.keyvault.keys.service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
+import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyOperation;
@@ -87,21 +89,30 @@ public class AzureKeyVaultKeysExtReactiveService {
 	 * @param expectedKtys {@link JsonWebKeyType}
 	 * @return
 	 */
-	public Uni<KeyBundle> getKeyWithLongestExp(String prefix, List<String> expectedOps, List<String> expectedKtys) {
-		Comparator<KeyBundle> comparator = Comparator.comparing(
-			new Function<KeyBundle, Long>() { // NOSONAR
-				@Override
-				public Long apply(KeyBundle t) {
-					return t.getAttributes().getExp();
-				}
-
-			})
-			.reversed();
-
+	public Uni<Optional<KeyBundle>> getKeyWithLongestExp(String prefix, List<String> expectedOps, List<String> expectedKtys) {
 		return getKeys(prefix, expectedOps, expectedKtys)
 			.collect()
 			.asList()
-			.invoke(keyList -> keyList.sort(comparator))
-			.map(List::getFirst);
+			.map(keyList -> {
+				if (keyList.isEmpty()) {
+					Log.debug("No key found");
+					return Optional.empty();
+				} else {
+					Log.trace("Keys found");
+					
+					Comparator<KeyBundle> comparator = Comparator.comparing(
+						new Function<KeyBundle, Long>() { // NOSONAR
+							@Override
+							public Long apply(KeyBundle t) {
+								return t.getAttributes().getExp();
+							}
+
+						})
+						.reversed();
+					
+					keyList.sort(comparator);
+					return Optional.of(keyList.getFirst());
+				}
+			});
 	}
 }
