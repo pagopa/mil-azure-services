@@ -65,8 +65,6 @@ public class KeyOperationResult {
 	 * Key identifier.
 	 */
 	@JsonProperty(KID_JK)
-	@JsonSerialize(using = ByteArraySerializer.class)
-	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	private String kid;
 
 	/**
