@@ -115,6 +115,15 @@ public class AzureKeyVaultKeysReactiveService {
 	public Uni<KeyListResult> getKeys() {
 		return keysClient.getKeys(accessTokenValue);
 	}
+	
+	/**
+	 * 
+	 * @param skiptoken
+	 * @return
+	 */
+	public Uni<KeyListResult> getKeys(String skiptoken) {
+		return keysClient.getKeys(accessTokenValue, skiptoken);
+	}
 
 	/**
 	 * 
@@ -133,6 +142,16 @@ public class AzureKeyVaultKeysReactiveService {
 	 */
 	public Uni<KeyListResult> getKeyVersions(String keyName) {
 		return keysClient.getKeyVersions(accessTokenValue, keyName);
+	}
+	
+	/**
+	 * 
+	 * @param keyName
+	 * @param skiptoken
+	 * @return
+	 */
+	public Uni<KeyListResult> getKeyVersions(String keyName, String skiptoken) {
+		return keysClient.getKeyVersions(accessTokenValue, keyName, skiptoken);
 	}
 
 	/**

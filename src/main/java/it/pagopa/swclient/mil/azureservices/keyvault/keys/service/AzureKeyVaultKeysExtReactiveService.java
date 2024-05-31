@@ -7,10 +7,12 @@ package it.pagopa.swclient.mil.azureservices.keyvault.keys.service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
 import io.quarkus.logging.Log;
+import io.smallrye.mutiny.Context;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyOperation;
@@ -32,6 +34,16 @@ public class AzureKeyVaultKeysExtReactiveService {
 	 * 
 	 */
 	private AzureKeyVaultKeysReactiveService keysService;
+	
+	/*
+	 * 
+	 */
+	private static final String SKIPTOKEN_KEYS_KEY = "skiptoken-keys";
+	
+	/*
+	 * 
+	 */
+	private static final String SKIPTOKEN_VERS_KEY = "skiptoken-vers";
 
 	/**
 	 * 
@@ -47,20 +59,81 @@ public class AzureKeyVaultKeysExtReactiveService {
 	 * @return
 	 */
 	private Multi<KeyItem> getKeys() {
-		return keysService.getKeys()
+		Context context = Context.empty();
+		return Multi.createBy().repeating()
+			.uni(
+				() -> context,
+				c -> {
+					if (c.contains(SKIPTOKEN_KEYS_KEY)) {
+						return keysService.getKeys(c.get(SKIPTOKEN_KEYS_KEY));
+					} else {
+						return keysService.getKeys();
+					}
+				})
+			.whilst(page -> {
+				String nextLink = page.getNextLink();
+				if (nextLink == null) {
+					Log.trace("There are no other key pages");
+					context.delete(SKIPTOKEN_KEYS_KEY);
+					return false;
+				} else {
+					Map<String, String> queryParameters = KeyUtils.getQueryParameters(nextLink);
+					String skiptoken = queryParameters.get("$skiptoken");
+					if (skiptoken == null) {
+						Log.warnf("nextLink present but doesn't have $skiptoken query param: %s", nextLink);
+						context.delete(SKIPTOKEN_KEYS_KEY);
+						return false;
+					} else {
+						Log.tracef("There are other key pages: %s", skiptoken);
+						context.put(SKIPTOKEN_KEYS_KEY, skiptoken);
+						return true;
+					}
+				}
+			})
 			.map(KeyListResult::getValue)
-			.onItem().transformToMulti(Multi.createFrom()::iterable);
+			.onItem()
+			.disjoint();
 	}
 
 	/**
 	 * 
-	 * @param keyName
 	 * @return
 	 */
 	private Multi<KeyItem> getKeyVersions(String keyName) {
-		return keysService.getKeyVersions(keyName)
+		Context context = Context.empty();
+		return Multi.createBy().repeating()
+			.uni(
+				() -> context,
+				c -> {
+					if (c.contains(SKIPTOKEN_VERS_KEY)) {
+						return keysService.getKeyVersions(keyName, c.get(SKIPTOKEN_VERS_KEY));
+					} else {
+						return keysService.getKeyVersions(keyName);
+					}
+				})
+			.whilst(page -> {
+				String nextLink = page.getNextLink();
+				if (nextLink == null) {
+					Log.trace("There are no other key version pages");
+					context.delete(SKIPTOKEN_VERS_KEY);
+					return false;
+				} else {
+					Map<String, String> queryParameters = KeyUtils.getQueryParameters(nextLink);
+					String skiptoken = queryParameters.get("$skiptoken");
+					if (skiptoken == null) {
+						Log.warnf("nextLink present but doesn't have $skiptoken query param: %s", nextLink);
+						context.delete(SKIPTOKEN_VERS_KEY);
+						return false;
+					} else {
+						Log.tracef("There are other key version pages: %s", skiptoken);
+						context.put(SKIPTOKEN_VERS_KEY, skiptoken);
+						return true;
+					}
+				}
+			})
 			.map(KeyListResult::getValue)
-			.onItem().transformToMulti(Multi.createFrom()::iterable);
+			.onItem()
+			.disjoint();
 	}
 
 	/**
@@ -99,7 +172,7 @@ public class AzureKeyVaultKeysExtReactiveService {
 					return Optional.empty();
 				} else {
 					Log.trace("Keys found");
-					
+
 					Comparator<KeyBundle> comparator = Comparator.comparing(
 						new Function<KeyBundle, Long>() { // NOSONAR
 							@Override
@@ -109,7 +182,7 @@ public class AzureKeyVaultKeysExtReactiveService {
 
 						})
 						.reversed();
-					
+
 					keyList.sort(comparator);
 					return Optional.of(keyList.getFirst());
 				}

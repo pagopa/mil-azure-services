@@ -6,8 +6,13 @@
 package it.pagopa.swclient.mil.azureservices.keyvault.keys.util;
 
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import io.quarkus.logging.Log;
@@ -161,5 +166,36 @@ public class KeyUtils {
 
 		Log.debugf("Key type doesn't match: kid = %s, actualKty = %s, expectedKtys = %s", kid, actualKty, expectedKtys);
 		return false;
+	}
+	
+	/**
+	 * 
+	 * @param url
+	 * @return
+	 */
+	public static Map<String, String> getQueryParameters(String url) {
+		Map<String, String> queryParameters = new HashMap<>();
+		try {
+			URI uri = new URI(url);
+			String query = uri.getQuery();
+			String[] tokens = query.split("&");
+			for (String token : tokens) {
+				int i = token.indexOf("=");
+				String key = null;
+				String value = null;
+				if (i >= 0) {
+					key = URLDecoder.decode(token.substring(0, i), StandardCharsets.UTF_8);
+					value = URLDecoder.decode(token.substring(i + 1), StandardCharsets.UTF_8);
+				} else {
+					key = URLDecoder.decode(token, StandardCharsets.UTF_8);
+					value = null;
+				}
+				queryParameters.put(key, value);
+			}
+		} catch (URISyntaxException e) {
+			Log.warnf(e, "Error parsing URL: %s", url);
+			throw new RuntimeException(e); //NOSONAR
+		}
+		return queryParameters;
 	}
 }
