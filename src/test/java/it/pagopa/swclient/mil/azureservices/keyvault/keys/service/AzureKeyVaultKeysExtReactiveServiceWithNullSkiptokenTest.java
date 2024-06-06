@@ -11,6 +11,7 @@ import static org.mockito.Mockito.when;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,6 +29,7 @@ import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyAttributes;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyItem;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyListResult;
+import it.pagopa.swclient.mil.azureservices.keyvault.keys.util.KeyUtils;
 import jakarta.inject.Inject;
 
 /**
@@ -156,51 +158,63 @@ class AzureKeyVaultKeysExtReactiveServiceWithNullSkiptokenTest {
 	
 		KeyItem item__attr_ok__key_no_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_ok)
-			.setKid("https://myvault.vault.azure.net/keys/attr_ok__key_no_rsa_sign_verify");
+			.setKid("https://myvault.vault.azure.net/keys/attr_ok__key_no_rsa_sign_verify")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem item__attr_ok__key_rsa_no_sign_verify = new KeyItem()
 			.setAttributes(attr_ok)
-			.setKid("https://myvault.vault.azure.net/keys/attr_ok__key_rsa_no_sign_verify");
+			.setKid("https://myvault.vault.azure.net/keys/attr_ok__key_rsa_no_sign_verify")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem item__attr_ok_longest_exp__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_ok_longest_exp)
-			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_rsa_sign_verify");
+			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_rsa_sign_verify")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem item__attr_ok_longest_exp__key_no_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_ok_longest_exp)
-			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_no_rsa_sign_verify");
+			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_no_rsa_sign_verify")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem item__attr_ok_longest_exp__key_rsa_no_sign_verify = new KeyItem()
 			.setAttributes(attr_ok_longest_exp)
-			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_rsa_no_sign_verify");
+			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_rsa_no_sign_verify")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem item__attr_wo_nbf__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_wo_nbf)
-			.setKid("https://myvault.vault.azure.net/keys/attr_wo_nbf__key_rsa_sign_verify");
+			.setKid("https://myvault.vault.azure.net/keys/attr_wo_nbf__key_rsa_sign_verify")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem item__attr_nbf_not_reached__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_nbf_not_reached)
-			.setKid("https://myvault.vault.azure.net/keys/attr_nbf_not_reached__key_rsa_sign_verify");
+			.setKid("https://myvault.vault.azure.net/keys/attr_nbf_not_reached__key_rsa_sign_verify")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem item__attr_expired__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_expired)
-			.setKid("https://myvault.vault.azure.net/keys/attr_expired__key_rsa_sign_verify");
+			.setKid("https://myvault.vault.azure.net/keys/attr_expired__key_rsa_sign_verify")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem item__attr_wo_exp__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_wo_exp)
-			.setKid("https://myvault.vault.azure.net/keys/attr_wo_exp__key_rsa_sign_verify");
+			.setKid("https://myvault.vault.azure.net/keys/attr_wo_exp__key_rsa_sign_verify")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem item__attr_not_enabled__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_not_enabled)
-			.setKid("https://myvault.vault.azure.net/keys/attr_not_enabled__key_rsa_sign_verify");
+			.setKid("https://myvault.vault.azure.net/keys/attr_not_enabled__key_rsa_sign_verify")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem item__attr_wo_created__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_wo_created)
-			.setKid("https://myvault.vault.azure.net/keys/attr_wo_created__key_rsa_sign_verify");
+			.setKid("https://myvault.vault.azure.net/keys/attr_wo_created__key_rsa_sign_verify")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem item__attr_inconsistent_created__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_inconsistent_created)
-			.setKid("https://myvault.vault.azure.net/keys/attr_inconsistent_created__key_rsa_sign_verify");
+			.setKid("https://myvault.vault.azure.net/keys/attr_inconsistent_created__key_rsa_sign_verify")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyListResult keyListPage1 = new KeyListResult()
 			.setValue(List.of(
@@ -247,55 +261,68 @@ class AzureKeyVaultKeysExtReactiveServiceWithNullSkiptokenTest {
 		 */
 		KeyItem version__attr_ok__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_ok)
-			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_rsa_sign_verify/shortest_exp");
+			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_rsa_sign_verify/shortest_exp")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem version__attr_ok__key_no_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_ok)
-			.setKid("https://myvault.vault.azure.net/keys/attr_ok__key_no_rsa_sign_verify/dont_care");
+			.setKid("https://myvault.vault.azure.net/keys/attr_ok__key_no_rsa_sign_verify/dont_care")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem version__attr_ok__key_rsa_no_sign_verify = new KeyItem()
 			.setAttributes(attr_ok)
-			.setKid("https://myvault.vault.azure.net/keys/attr_ok__key_rsa_no_sign_verify/dont_care");
+			.setKid("https://myvault.vault.azure.net/keys/attr_ok__key_rsa_no_sign_verify/dont_care")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem version__attr_ok_longest_exp__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_ok_longest_exp)
-			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_rsa_sign_verify/longest_exp");
+			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_rsa_sign_verify/longest_exp")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem version__attr_ok_longest_exp__key_no_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_ok_longest_exp)
-			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_no_rsa_sign_verify/dont_care");
+			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_no_rsa_sign_verify/dont_care")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem version__attr_ok_longest_exp__key_rsa_no_sign_verify = new KeyItem()
 			.setAttributes(attr_ok_longest_exp)
-			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_rsa_no_sign_verify/dont_care");
+			.setKid("https://myvault.vault.azure.net/keys/attr_ok_longest_exp__key_rsa_no_sign_verify/dont_care")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem version__attr_wo_nbf__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_wo_nbf)
-			.setKid("https://myvault.vault.azure.net/keys/attr_wo_nbf__key_rsa_sign_verify/dont_care");
+			.setKid("https://myvault.vault.azure.net/keys/attr_wo_nbf__key_rsa_sign_verify/dont_care")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem version__attr_nbf_not_reached__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_nbf_not_reached)
-			.setKid("https://myvault.vault.azure.net/keys/attr_nbf_not_reached__key_rsa_sign_verify/dont_care");
+			.setKid("https://myvault.vault.azure.net/keys/attr_nbf_not_reached__key_rsa_sign_verify/dont_care")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem version__attr_expired__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_expired)
-			.setKid("https://myvault.vault.azure.net/keys/attr_expired__key_rsa_sign_verify/dont_care");
+			.setKid("https://myvault.vault.azure.net/keys/attr_expired__key_rsa_sign_verify/dont_care")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem version__attr_wo_exp__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_wo_exp)
-			.setKid("https://myvault.vault.azure.net/keys/attr_wo_exp__key_rsa_sign_verify/dont_care");
+			.setKid("https://myvault.vault.azure.net/keys/attr_wo_exp__key_rsa_sign_verify/dont_care")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem version__attr_not_enabled__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_not_enabled)
-			.setKid("https://myvault.vault.azure.net/keys/attr_not_enabled__key_rsa_sign_verify/dont_care");
+			.setKid("https://myvault.vault.azure.net/keys/attr_not_enabled__key_rsa_sign_verify/dont_care")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem version__attr_wo_created__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_wo_created)
-			.setKid("https://myvault.vault.azure.net/keys/attr_wo_created__key_rsa_sign_verify/dont_care");
+			.setKid("https://myvault.vault.azure.net/keys/attr_wo_created__key_rsa_sign_verify/dont_care")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyItem version__attr_inconsistent_created__key_rsa_sign_verify = new KeyItem()
 			.setAttributes(attr_inconsistent_created)
-			.setKid("https://myvault.vault.azure.net/keys/attr_inconsistent_created__key_rsa_sign_verify/dont_care");
+			.setKid("https://myvault.vault.azure.net/keys/attr_inconsistent_created__key_rsa_sign_verify/dont_care")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
 	
 		KeyListResult versionList__attr_ok__key_no_rsa_sign_verify = new KeyListResult()
 			.setValue(List.of(version__attr_ok__key_no_rsa_sign_verify));
@@ -566,7 +593,7 @@ class AzureKeyVaultKeysExtReactiveServiceWithNullSkiptokenTest {
 		 * Test
 		 */
 		Iterable<KeyBundle> actualBundles = extService.getKeys(
-			"attr",
+			"my_domain",
 			List.of(JsonWebKeyOperation.SIGN, JsonWebKeyOperation.VERIFY),
 			List.of(JsonWebKeyType.RSA))
 			.subscribe()

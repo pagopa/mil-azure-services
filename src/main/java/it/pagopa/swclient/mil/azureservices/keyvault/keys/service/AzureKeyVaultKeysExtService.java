@@ -62,15 +62,15 @@ public class AzureKeyVaultKeysExtService {
 
 	/**
 	 * 
-	 * @param prefix
+	 * @param domain
 	 * @param expectedOps  {@link JsonWebKeyOperation}
 	 * @param expectedKtys {@link JsonWebKeyType}
 	 * @return
 	 */
-	public Stream<KeyBundle> getKeys(String prefix, List<String> expectedOps, List<String> expectedKtys) {
+	public Stream<KeyBundle> getKeys(String domain, List<String> expectedOps, List<String> expectedKtys) {
 		return getKeys() // Stream<KeyItem>
+			.filter(keyItem -> KeyUtils.doesDomainMatch(keyItem, domain))
 			.map(KeyUtils::getKeyName) // Stream<String> keyName
-			.filter(keyName -> KeyUtils.doesPrefixMatch(keyName, prefix))
 			.flatMap(this::getKeyVersions) // Stream<KeyItem>
 			.filter(KeyUtils::isValid)
 			.map(KeyUtils::getKeyNameVersion) // Stream<String[]>
