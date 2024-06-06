@@ -138,15 +138,15 @@ public class AzureKeyVaultKeysExtReactiveService {
 
 	/**
 	 * 
-	 * @param prefix
+	 * @param domain
 	 * @param expectedOps  {@link JsonWebKeyOperation}
 	 * @param expectedKtys {@link JsonWebKeyType}
 	 * @return
 	 */
-	public Multi<KeyBundle> getKeys(String prefix, List<String> expectedOps, List<String> expectedKtys) {
+	public Multi<KeyBundle> getKeys(String domain, List<String> expectedOps, List<String> expectedKtys) {
 		return getKeys() // Multi<KeyItem>
+			.filter(keyItem -> KeyUtils.doesDomainMatch(keyItem, domain))
 			.map(KeyUtils::getKeyName) // Multi<String> keyName
-			.filter(keyName -> KeyUtils.doesPrefixMatch(keyName, prefix))
 			.onItem().transformToMultiAndConcatenate(this::getKeyVersions) // Multi<KeyItem>
 			.filter(KeyUtils::isValid)
 			.map(KeyUtils::getKeyNameVersion) // Multi<String[]>

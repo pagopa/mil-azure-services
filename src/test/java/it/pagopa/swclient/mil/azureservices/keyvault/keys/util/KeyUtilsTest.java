@@ -5,9 +5,11 @@
  */
 package it.pagopa.swclient.mil.azureservices.keyvault.keys.util;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,6 +18,7 @@ import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKey;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyAttributes;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle;
+import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyItem;
 
 /**
  * These added tests are needed to reach expected coverage!
@@ -25,12 +28,35 @@ import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle;
 @QuarkusTest
 class KeyUtilsTest {
 	/**
-	 * Test method for
-	 * {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.util.KeyUtils#doesPrefixMatch(java.lang.String, java.lang.String)}.
+	 * 
 	 */
 	@Test
-	void testDoesPrefixMatch() {
-		assertTrue(KeyUtils.doesPrefixMatch("key_name", null));
+	void testDoesDomainMatch_ok() {
+		assertTrue(KeyUtils.doesDomainMatch(new KeyItem().setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain")), "my_domain"));
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	void testDoesDomainMatch_wo_tags() {
+		assertFalse(KeyUtils.doesDomainMatch(new KeyItem(), "my_domain"));
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	void testDoesDomainMatch_ko() {
+		assertFalse(KeyUtils.doesDomainMatch(new KeyItem().setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain")), "different_domain"));
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	void testDoesDomainMatch_wo_tag() {
+		assertFalse(KeyUtils.doesDomainMatch(new KeyItem().setTags(Map.of()), "my_domain"));
 	}
 
 	/**

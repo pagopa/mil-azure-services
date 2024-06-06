@@ -28,6 +28,11 @@ import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyItem;
  * @author Antonio Tarricone
  */
 public class KeyUtils {
+	/*
+	 * 
+	 */
+	public static final String DOMAIN_KEY = "domain";
+	
 	/**
 	 * 
 	 */
@@ -57,18 +62,14 @@ public class KeyUtils {
 
 	/**
 	 * 
-	 * @param keyName
-	 * @param prefix
+	 * @param keyItem
+	 * @param domain
 	 * @return
 	 */
-	public static boolean doesPrefixMatch(String keyName, String prefix) {
-		if (prefix == null || keyName.startsWith(prefix)) {
-			Log.tracef("Prefix matches or is null: keyName = %s, prefix = %s", keyName, prefix);
-			return true;
-		}
-
-		Log.debugf("Prefix doesn't match: keyName = %s, prefix = %s", keyName, prefix);
-		return false;
+	public static boolean doesDomainMatch(KeyItem keyItem, String domain) {
+		Map<String, String> tags = keyItem.getTags();
+		return (tags != null && Objects.equals(domain, tags.get(DOMAIN_KEY))) ||
+			(tags == null && domain == null);
 	}
 
 	/**
