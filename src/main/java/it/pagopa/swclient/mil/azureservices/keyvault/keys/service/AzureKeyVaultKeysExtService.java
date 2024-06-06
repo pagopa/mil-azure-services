@@ -62,15 +62,15 @@ public class AzureKeyVaultKeysExtService {
 
 	/**
 	 * 
-	 * @param prefix
+	 * @param domain
 	 * @param expectedOps  {@link JsonWebKeyOperation}
 	 * @param expectedKtys {@link JsonWebKeyType}
 	 * @return
 	 */
-	public Stream<KeyBundle> getKeys(String prefix, List<String> expectedOps, List<String> expectedKtys) {
+	public Stream<KeyBundle> getKeys(String domain, List<String> expectedOps, List<String> expectedKtys) {
 		return getKeys() // Stream<KeyItem>
+			.filter(keyItem -> KeyUtils.doesDomainMatch(keyItem, domain))
 			.map(KeyUtils::getKeyName) // Stream<String> keyName
-			.filter(keyName -> KeyUtils.doesPrefixMatch(keyName, prefix))
 			.flatMap(this::getKeyVersions) // Stream<KeyItem>
 			.filter(KeyUtils::isValid)
 			.map(KeyUtils::getKeyNameVersion) // Stream<String[]>
@@ -81,12 +81,12 @@ public class AzureKeyVaultKeysExtService {
 
 	/**
 	 * 
-	 * @param prefix
+	 * @param domain
 	 * @param expectedOps  {@link JsonWebKeyOperation}
 	 * @param expectedKtys {@link JsonWebKeyType}
 	 * @return
 	 */
-	public Optional<KeyBundle> getKeyWithLongestExp(String prefix, List<String> expectedOps, List<String> expectedKtys) {
+	public Optional<KeyBundle> getKeyWithLongestExp(String domain, List<String> expectedOps, List<String> expectedKtys) {
 		Comparator<KeyBundle> comparator = Comparator.comparing(
 			new Function<KeyBundle, Long>() { // NOSONAR
 				@Override
@@ -97,7 +97,7 @@ public class AzureKeyVaultKeysExtService {
 			})
 			.reversed();
 
-		return getKeys(prefix, expectedOps, expectedKtys)
+		return getKeys(domain, expectedOps, expectedKtys)
 			.sorted(comparator)
 			.findFirst();
 	}
