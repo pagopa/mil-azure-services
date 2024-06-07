@@ -394,6 +394,27 @@ class AzureKeyVaultKeysReactiveServiceTest {
 	 * 
 	 */
 	@Test
+	void given_exceptionFromKv_when_getKeysInvoked_then_getFailure() {
+		/*
+		 * Setup.
+		 */
+		when(keysClient.getKeys("access_token_string"))
+			.thenThrow(WebApplicationException.class);
+
+		/*
+		 * Test.
+		 */
+		keysService.getKeys()
+			.log(">>>")
+			.subscribe()
+			.withSubscriber(UniAssertSubscriber.create())
+			.assertFailed();
+	}
+
+	/**
+	 * 
+	 */
+	@Test
 	void given_keyBundle_when_getKeyInvoked_then_getKeyBundle() {
 		/*
 		 * Setup.
