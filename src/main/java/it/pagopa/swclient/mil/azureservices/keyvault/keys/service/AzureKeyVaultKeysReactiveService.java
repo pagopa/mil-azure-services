@@ -42,7 +42,8 @@ public class AzureKeyVaultKeysReactiveService {
 	/*
 	 * 
 	 */
-	private AzureKeyVaultKeysReactiveClient keysClient;
+	@RestClient 
+	AzureKeyVaultKeysReactiveClient keysClient;
 
 	/*
 	 * 
@@ -52,14 +53,11 @@ public class AzureKeyVaultKeysReactiveService {
 	/**
 	 * 
 	 * @param identityService
-	 * @param keysClient
 	 */
 	@Inject
 	AzureKeyVaultKeysReactiveService(
-		AzureIdentityReactiveService identityService,
-		@RestClient AzureKeyVaultKeysReactiveClient keysClient) {
+		AzureIdentityReactiveService identityService) {
 		this.identityService = identityService;
-		this.keysClient = keysClient;
 	}
 
 	/**
@@ -113,6 +111,7 @@ public class AzureKeyVaultKeysReactiveService {
 	 * @return
 	 */
 	public Uni<KeyListResult> getKeys() {
+		Log.trace("Get keys");
 		return keysClient.getKeys(accessTokenValue);
 	}
 	

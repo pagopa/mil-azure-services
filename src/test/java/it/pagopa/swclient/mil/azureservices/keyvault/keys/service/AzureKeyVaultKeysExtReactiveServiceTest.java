@@ -6,6 +6,7 @@
 package it.pagopa.swclient.mil.azureservices.keyvault.keys.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import java.time.Instant;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -31,8 +33,10 @@ import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyAttributes;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyItem;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyListResult;
+import it.pagopa.swclient.mil.azureservices.keyvault.keys.client.AzureKeyVaultKeysReactiveClient;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.util.KeyUtils;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.WebApplicationException;
 
 /**
  * 
@@ -40,6 +44,13 @@ import jakarta.inject.Inject;
  */
 @QuarkusTest
 class AzureKeyVaultKeysExtReactiveServiceTest {
+	/*
+	 * 
+	 */
+	@InjectMock
+	@RestClient
+	AzureKeyVaultKeysReactiveClient keysClient;
+
 	/*
 	 * 
 	 */
@@ -82,7 +93,7 @@ class AzureKeyVaultKeysExtReactiveServiceTest {
 		System.out.println(frame);
 		System.out.printf("* %s: RESET *%n", testInfo.getDisplayName());
 		System.out.println(frame);
-		Mockito.reset(keysService);
+		Mockito.reset(keysClient, keysService);
 	}
 
 	/**
@@ -626,5 +637,31 @@ class AzureKeyVaultKeysExtReactiveServiceTest {
 			.withSubscriber(UniAssertSubscriber.create())
 			.awaitItem()
 			.assertItem(Optional.empty());
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	void given_exceptionFromKv_when_getKeyWithLongestExpInvoked_then_getFailure() {
+		/*
+		 * Setup
+		 */
+		when(keysClient.getKeys(anyString()))
+			.thenThrow(WebApplicationException.class);
+
+		when(keysService.getKeys())
+			.thenCallRealMethod();
+
+		/*
+		 * Test
+		 */
+		extService.getKeyWithLongestExp(
+			"my_domain",
+			List.of(JsonWebKeyOperation.SIGN, JsonWebKeyOperation.VERIFY),
+			List.of(JsonWebKeyType.RSA))
+			.subscribe()
+			.withSubscriber(UniAssertSubscriber.create())
+			.assertFailed();
 	}
 }

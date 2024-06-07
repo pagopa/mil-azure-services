@@ -34,12 +34,12 @@ public class AzureKeyVaultKeysExtReactiveService {
 	 * 
 	 */
 	private AzureKeyVaultKeysReactiveService keysService;
-	
+
 	/*
 	 * 
 	 */
 	private static final String SKIPTOKEN_KEYS_KEY = "skiptoken-keys";
-	
+
 	/*
 	 * 
 	 */
@@ -59,18 +59,22 @@ public class AzureKeyVaultKeysExtReactiveService {
 	 * @return
 	 */
 	private Multi<KeyItem> getKeys() {
+		Log.trace("Get keys");
 		Context context = Context.empty();
 		return Multi.createBy().repeating()
 			.uni(
 				() -> context,
 				c -> {
 					if (c.contains(SKIPTOKEN_KEYS_KEY)) {
+						Log.trace("$skiptoken present");
 						return keysService.getKeys(c.get(SKIPTOKEN_KEYS_KEY));
 					} else {
+						Log.trace("$skiptoken not present");
 						return keysService.getKeys();
 					}
 				})
 			.whilst(page -> {
+				Log.trace("Verify stop/continue");
 				String nextLink = page.getNextLink();
 				if (nextLink == null) {
 					Log.trace("There are no other key pages");
