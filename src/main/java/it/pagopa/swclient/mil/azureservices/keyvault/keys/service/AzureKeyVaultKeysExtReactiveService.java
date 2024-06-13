@@ -110,12 +110,15 @@ public class AzureKeyVaultKeysExtReactiveService {
 				() -> context,
 				c -> {
 					if (c.contains(SKIPTOKEN_VERS_KEY)) {
+						Log.trace("$skiptoken present");
 						return keysService.getKeyVersions(keyName, c.get(SKIPTOKEN_VERS_KEY));
 					} else {
+						Log.trace("$skiptoken not present");
 						return keysService.getKeyVersions(keyName);
 					}
 				})
 			.whilst(page -> {
+				Log.trace("Verify stop/continue");
 				String nextLink = page.getNextLink();
 				if (nextLink == null) {
 					Log.trace("There are no other key version pages");
