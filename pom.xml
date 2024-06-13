@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>it.pagopa.swclient.mil</groupId>
     <artifactId>azure-services</artifactId>
-    <version>4.0.1</version>
+    <version>4.0.2</version>
     
     <description>Library which provides a set of clients and utilities based on Azure REST API of some services used by other microservices which make up the Multi-channel Integration Layer.</description>
     
