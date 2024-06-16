@@ -30,10 +30,11 @@ import jakarta.ws.rs.WebApplicationException;
 
 /**
  * 
+ * @deprecated The non-reactive version doen't yet have all features of reactive one.
  * @author Antonio Tarricone
  */
 @ApplicationScoped
-@Deprecated(forRemoval = false) // The non-reactive version doen't yet have all features of reactive one.
+@Deprecated(forRemoval = false)
 public class AzureKeyVaultKeysService {
 	/*
 	 * 
