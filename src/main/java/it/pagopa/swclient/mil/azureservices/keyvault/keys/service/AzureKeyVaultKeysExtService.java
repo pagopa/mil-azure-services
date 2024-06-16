@@ -21,9 +21,11 @@ import jakarta.inject.Inject;
 
 /**
  * 
+ * @deprecated The non-reactive version doen't yet have all features of reactive one.
  * @author Antonio Tarricone
  */
 @ApplicationScoped
+@Deprecated(forRemoval = false)
 public class AzureKeyVaultKeysExtService {
 	/*
 	 * 
