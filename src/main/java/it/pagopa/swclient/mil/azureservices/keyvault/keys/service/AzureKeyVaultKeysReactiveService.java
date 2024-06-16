@@ -6,7 +6,9 @@
 package it.pagopa.swclient.mil.azureservices.keyvault.keys.service;
 
 import java.lang.reflect.Method;
+import java.time.Duration;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import io.quarkus.logging.Log;
@@ -37,12 +39,30 @@ public class AzureKeyVaultKeysReactiveService {
 	/*
 	 * 
 	 */
+	@ConfigProperty(name = "azure-key-vault-keys.backoff.initial-duration", defaultValue = "1")
+	int initialBackoff;
+
+	/*
+	 * 
+	 */
+	@ConfigProperty(name = "azure-key-vault-keys.backoff.jitter", defaultValue = "0.2")
+	double jitter;
+
+	/*
+	 * 
+	 */
+	@ConfigProperty(name = "azure-key-vault-keys.backoff.number-of-attempts", defaultValue = "3")
+	int numberOfAttempts;
+
+	/*
+	 * 
+	 */
 	private AzureIdentityReactiveService identityService;
 
 	/*
 	 * 
 	 */
-	@RestClient 
+	@RestClient
 	AzureKeyVaultKeysReactiveClient keysClient;
 
 	/*
@@ -93,7 +113,12 @@ public class AzureKeyVaultKeysReactiveService {
 				return identityService.getNewAccessTokenAndCacheIt(Scope.VAULT) // ...get a new access token...
 					.invoke(accessToken -> accessTokenValue = accessToken.getValue())
 					.chain(() -> proceed(context));
-			}); // ...and retry!
+			}) // ...and retry!
+			.onFailure(WebAppExcUtils::isTooManyRequests) // On 429...
+			.retry() // ...retry...
+			.withBackOff(Duration.ofSeconds(initialBackoff)) // ...with backoff...
+			.withJitter(jitter)
+			.atMost(numberOfAttempts);
 	}
 
 	/**
@@ -114,7 +139,7 @@ public class AzureKeyVaultKeysReactiveService {
 		Log.trace("Get keys");
 		return keysClient.getKeys(accessTokenValue);
 	}
-	
+
 	/**
 	 * 
 	 * @param skiptoken
@@ -142,7 +167,7 @@ public class AzureKeyVaultKeysReactiveService {
 	public Uni<KeyListResult> getKeyVersions(String keyName) {
 		return keysClient.getKeyVersions(accessTokenValue, keyName);
 	}
-	
+
 	/**
 	 * 
 	 * @param keyName
