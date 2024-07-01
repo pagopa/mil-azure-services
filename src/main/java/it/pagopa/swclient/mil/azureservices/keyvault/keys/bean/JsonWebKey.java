@@ -22,7 +22,9 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * As of http://tools.ietf.org/html/draft-ietf-jose-json-web-key-18
+ * </p>
  * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/create-key/create-key?view=rest-keyvault-keys-7.4&tabs=HTTP#jsonwebkey">Microsoft
@@ -38,154 +40,179 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = Include.NON_NULL)
 public class JsonWebKey {
 	/**
-	 * JSON keys.
+	 * <p>
+	 * Elliptic curve name.
+	 * </p>
+	 * 
+	 * @see it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyCurveName
+	 *      JsonWebKeyCurveName
 	 */
-	public static final String CRV_JK = "crv";
-	public static final String D_JK = "d";
-	public static final String DP_JK = "dp";
-	public static final String DQ_JK = "dq";
-	public static final String E_JK = "e";
-	public static final String K_JK = "k";
-	public static final String KEY_HSM_JK = "key_hsm";
-	public static final String KEY_OPS_JK = "key_ops";
-	public static final String KID_JK = "kid";
-	public static final String KTY_JK = "kty";
-	public static final String N_JK = "n";
-	public static final String P_JK = "p";
-	public static final String Q_JK = "q";
-	public static final String QI_JK = "qi";
-	public static final String X_JK = "x";
-	public static final String Y_JK = "y";
-
-	/**
-	 * Elliptic curve name. For valid values, see {@link JsonWebKeyCurveName}
-	 */
-	@JsonProperty(CRV_JK)
+	@JsonProperty("crv")
 	private String crv;
 
 	/**
+	 * <p>
 	 * RSA private exponent, or the D component of an EC private key.
+	 * </p>
 	 */
-	@JsonProperty(D_JK)
+	@JsonProperty("d")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	@ToString.Exclude
 	private byte[] d;
 
 	/**
+	 * <p>
 	 * RSA private key parameter.
+	 * </p>
 	 */
-	@JsonProperty(DP_JK)
+	@JsonProperty("dp")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	@ToString.Exclude
 	private byte[] dp;
 
 	/**
+	 * <p>
 	 * RSA private key parameter.
+	 * </p>
 	 */
-	@JsonProperty(DQ_JK)
+	@JsonProperty("dq")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	@ToString.Exclude
 	private byte[] dq;
 
 	/**
+	 * <p>
 	 * RSA public exponent.
+	 * </p>
 	 */
-	@JsonProperty(E_JK)
+	@JsonProperty("e")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	private byte[] e;
 
 	/**
+	 * <p>
 	 * Symmetric key.
+	 * </p>
 	 */
-	@JsonProperty(K_JK)
+	@JsonProperty("k")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	@ToString.Exclude
 	private byte[] k;
 
 	/**
+	 * <p>
 	 * Protected Key, used with 'Bring Your Own Key'.
+	 * </p>
 	 */
-	@JsonProperty(KEY_HSM_JK)
+	@JsonProperty("key_hsm")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	private byte[] keyHsm;
 
 	/**
+	 * <p>
 	 * Supported key operations.
+	 * </p>
 	 * 
-	 * @see JsonWebKeyOperation
+	 * @see it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyOperation
+	 *      JsonWebKeyOperation
 	 */
-	@JsonProperty(KEY_OPS_JK)
+	@JsonProperty("key_ops")
 	private List<String> keyOps;
 
 	/**
+	 * <p>
 	 * Key identifier.
+	 * </p>
 	 */
-	@JsonProperty(KID_JK)
+	@JsonProperty("kid")
 	private String kid;
 
 	/**
-	 * JsonWebKey Key Type (kty), as defined in
-	 * {@link https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40}
+	 * <p>
+	 * JsonWebKey Key Type (kty), as defined in <a href=
+	 * "https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40">https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40</a>
+	 * </p>
 	 * 
-	 * @see JsonWebKeyType
+	 * @see it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType JsonWebKeyType
 	 */
-	@JsonProperty(KTY_JK)
+	@JsonProperty("kty")
 	private String kty;
 
 	/**
+	 * <p>
 	 * RSA modulus.
+	 * </p>
 	 */
-	@JsonProperty(N_JK)
+	@JsonProperty("n")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	private byte[] n;
 
 	/**
+	 * <p>
 	 * RSA secret prime.
+	 * </p>
 	 */
-	@JsonProperty(P_JK)
+	@JsonProperty("p")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	@ToString.Exclude
 	private byte[] p;
 
 	/**
-	 * RSA secret prime, with p < q.
+	 * <p>
+	 * RSA secret prime, with p &lt; q.
+	 * </p>
 	 */
-	@JsonProperty(Q_JK)
+	@JsonProperty("q")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	@ToString.Exclude
 	private byte[] q;
 
 	/**
+	 * <p>
 	 * RSA private key parameter.
+	 * </p>
 	 */
-	@JsonProperty(QI_JK)
+	@JsonProperty("qi")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	@ToString.Exclude
 	private byte[] qi;
 
 	/**
+	 * <p>
 	 * X component of an EC public key.
+	 * </p>
 	 */
-	@JsonProperty(X_JK)
+	@JsonProperty("x")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	private byte[] x;
 
 	/**
+	 * <p>
 	 * Y component of an EC public key.
+	 * </p>
 	 */
-	@JsonProperty(Y_JK)
+	@JsonProperty("y")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	private byte[] y;
+
+	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public JsonWebKey() {
+		// Default constructor.
+	}
 }

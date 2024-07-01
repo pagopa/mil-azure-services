@@ -11,41 +11,55 @@ import java.util.Map;
 
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
+import io.quarkus.arc.Unremovable;
 import io.quarkus.logging.Log;
 import it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken;
-import it.pagopa.swclient.mil.azureservices.identity.bean.Scope;
 import it.pagopa.swclient.mil.azureservices.identity.client.AzureIdentityClient;
 import jakarta.enterprise.context.ApplicationScoped;
 
 /**
+ * <p>
+ * Service to get an access token for an Azure resource using a cache to reduce the invocations of
+ * Microsoft Entra ID.
+ * </p>
  * 
  * @author Antonio Tarricone
  */
 @ApplicationScoped
+@Unremovable // There isn't any other service that uses this, so the compiler tries to remove this!
 public class AzureIdentityService {
-	/*
-	 * 
+	/**
+	 * <p>
+	 * Rest client to retrieve an access token from Microsoft Entra ID.
+	 * </p>
 	 */
-	private AzureIdentityClient identityClient;
+	@RestClient
+	AzureIdentityClient identityClient;
 
-	/*
-	 * 
+	/**
+	 * <p>
+	 * Cache of access tokens. The key is the
+	 * {@link it.pagopa.swclient.mil.azureservices.identity.bean.Scope Scope}.
+	 * </p>
 	 */
 	private Map<String, AccessToken> cache;
 
 	/**
-	 * 
-	 * @param identityClient
+	 * <p>
+	 * Default constructor.
+	 * </p>
 	 */
-	AzureIdentityService(@RestClient AzureIdentityClient identityClient) {
-		this.identityClient = identityClient;
+	AzureIdentityService() {
 		cache = new HashMap<>();
 	}
 
 	/**
+	 * <p>
+	 * Retrieves an access token from Microsoft Entra ID and stores it in the cache.
+	 * </p>
 	 * 
-	 * @param scope {@link Scope}
-	 * @return
+	 * @param scope {@link it.pagopa.swclient.mil.azureservices.identity.bean.Scope Scope}
+	 * @return {@link it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken AccessToken}
 	 */
 	public AccessToken getNewAccessTokenAndCacheIt(String scope) {
 		Log.debug("Get new access token");
@@ -56,9 +70,13 @@ public class AzureIdentityService {
 	}
 
 	/**
+	 * <p>
+	 * Retrieves an access token for an Azure resource looking in the cache for a valid one and, in case
+	 * of cache-miss, invokes Microsoft Entra ID.
+	 * </p>
 	 * 
-	 * @param scope {@link Scope}
-	 * @return
+	 * @param scope {@link it.pagopa.swclient.mil.azureservices.identity.bean.Scope Scope}
+	 * @return {@link it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken AccessToken}
 	 */
 	public AccessToken getAccessToken(String scope) {
 		AccessToken accessToken = cache.get(scope);
@@ -71,7 +89,9 @@ public class AzureIdentityService {
 	}
 
 	/**
-	 * 
+	 * <p>
+	 * Clears the access tokens cache.
+	 * </p>
 	 */
 	public void clearAccessTokenCache() {
 		cache.clear();

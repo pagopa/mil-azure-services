@@ -15,13 +15,26 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import io.quarkus.logging.Log;
 
 /**
+ * <p>
+ * Deserializes Base64 URL-safe strings in array of bytes.
+ * </p>
  * 
  * @author Antonio Tarricone
  */
 public class ByteArrayDeserializer extends JsonDeserializer<byte[]> {
 	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public ByteArrayDeserializer() {
+		super();
+	}
+
+	/**
+	 * 
 	 * @see com.fasterxml.jackson.databind.JsonDeserializer#deserialize(JsonParser,
-	 *      DeserializationContext)
+	 *      DeserializationContext) JsonDeserializer#deserialize(JsonParser, DeserializationContext)
 	 */
 	@Override
 	public byte[] deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {

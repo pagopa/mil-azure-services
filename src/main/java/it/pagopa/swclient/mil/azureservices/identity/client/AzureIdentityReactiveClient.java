@@ -17,15 +17,33 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 
 /**
+ * <p>
+ * Reactive REST client to get access token from Microsoft Entra ID.
+ * </p>
+ * 
+ * <p>
+ * To use this client, the {@code application.properties} must have the definition of the following
+ * properties:
+ * </p>
+ * <ul>
+ * <li>{@code quarkus.rest-client.azure-identity.url} must be <code>${IDENTITY_ENDPOINT}</code>, if
+ * Azure Container Apps is used;</li>
+ * <li>{@code azure-identity.api-version} must be {@code 2019-08-01};</li>
+ * <li>{@code azure-identity.x-identity-header} must be <code>${IDENTITY_HEADER}</code>, if Azure
+ * Container Apps is used.</li>
+ * </ul>
  * 
  * @author Antonio Tarricone
  */
 @RegisterRestClient(configKey = "azure-identity")
 public interface AzureIdentityReactiveClient {
 	/**
+	 * <p>
+	 * Retrieves an access token for an Azure resource.
+	 * </p>
 	 * 
-	 * @param scope
-	 * @return
+	 * @param scope {@link it.pagopa.swclient.mil.azureservices.identity.bean.Scope Scope}
+	 * @return {@link it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken AccessToken}
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

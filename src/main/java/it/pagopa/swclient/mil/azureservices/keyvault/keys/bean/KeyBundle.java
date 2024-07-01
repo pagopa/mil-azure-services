@@ -18,7 +18,9 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * A KeyBundle consisting of a WebKey plus its attributes.
+ * </p>
  * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/create-key/create-key?view=rest-keyvault-keys-7.4&tabs=HTTP#keybundle">Microsoft
@@ -34,42 +36,52 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = Include.NON_NULL)
 public class KeyBundle {
 	/**
-	 * JSON keys.
-	 */
-	public static final String ATTRIBUTES_JK = "attributes";
-	public static final String KEY_JK = "key";
-	public static final String MANAGED_JK = "managed";
-	public static final String RELEASE_POLICY_JK = "release_policy";
-	public static final String TAGS_JK = "tags";
-
-	/**
+	 * <p>
 	 * The key management attributes.
+	 * </p>
 	 */
-	@JsonProperty(ATTRIBUTES_JK)
+	@JsonProperty("attributes")
 	private KeyAttributes attributes;
 
 	/**
+	 * <p>
 	 * The Json web key.
+	 * </p>
 	 */
-	@JsonProperty(KEY_JK)
+	@JsonProperty("key")
 	private JsonWebKey key;
 
 	/**
+	 * <p>
 	 * True if the key's lifetime is managed by key vault. If this is a key backing a certificate, then
 	 * managed will be true.
+	 * </p>
 	 */
-	@JsonProperty(MANAGED_JK)
+	@JsonProperty("managed")
 	private Boolean managed;
 
 	/**
+	 * <p>
 	 * The policy rules under which the key can be exported.
+	 * </p>
 	 */
-	@JsonProperty(RELEASE_POLICY_JK)
+	@JsonProperty("release_policy")
 	private KeyReleasePolicy releasePolicy;
 
 	/**
+	 * <p>
 	 * Application specific metadata in the form of key-value pairs.
+	 * </p>
 	 */
-	@JsonProperty(TAGS_JK)
+	@JsonProperty("tags")
 	private Map<String, String> tags;
+
+	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public KeyBundle() {
+		// Default constructor.
+	}
 }

@@ -6,6 +6,10 @@
 package it.pagopa.swclient.mil.azureservices.keyvault.keys.bean;
 
 /**
+ * <p>
+ * Deletion recovery levels.
+ * </p>
+ * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/create-key/create-key?view=rest-keyvault-keys-7.4&tabs=HTTP#deletionrecoverylevel">Microsoft
  *      Azure Documentation</a>
@@ -25,7 +29,7 @@ public class DeletionRecoveryLevel {
 	 * <p>
 	 * Denotes a vault and subscription state in which deletion is recoverable, immediate and permanent
 	 * deletion (i.e. purge) is not permitted, and in which the subscription itself cannot be
-	 * permanently canceled when 7 <= SoftDeleteRetentionInDays < 90.
+	 * permanently canceled when 7 &le; SoftDeleteRetentionInDays &lt; 90.
 	 * </p>
 	 */
 	public static final String CUSTOMIZED_RECOVERABLE_PROTECTED_SUBSCRIPTION = "CustomizedRecoverable+ProtectedSubscription";
@@ -72,8 +76,11 @@ public class DeletionRecoveryLevel {
 	public static final String RECOVERABLE_PURGEABLE = "Recoverable+Purgeable";
 
 	/**
-	 * 
+	 * <p>
+	 * This class contains constants only.
+	 * </p>
 	 */
 	private DeletionRecoveryLevel() {
+		// This class contains constants only.
 	}
 }

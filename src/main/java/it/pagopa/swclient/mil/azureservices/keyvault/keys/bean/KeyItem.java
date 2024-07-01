@@ -18,7 +18,9 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * The key item containing key metadata.
+ * </p>
  * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/get-keys/get-keys?view=rest-keyvault-keys-7.4&tabs=HTTP#keyitem">Microsoft
@@ -34,35 +36,44 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = Include.NON_NULL)
 public class KeyItem {
 	/**
-	 * JSON keys.
-	 */
-	private static final String ATTRIBUTES_JK = "attributes";
-	private static final String KID_JK = "kid";
-	private static final String MANAGED_JK = "managed";
-	private static final String TAGS_JK = "tags";
-
-	/**
+	 * <p>
 	 * The key management attributes.
+	 * </p>
 	 */
-	@JsonProperty(ATTRIBUTES_JK)
+	@JsonProperty("attributes")
 	private KeyAttributes attributes;
 
 	/**
+	 * <p>
 	 * Key identifier.
+	 * </p>
 	 */
-	@JsonProperty(KID_JK)
+	@JsonProperty("kid")
 	private String kid;
 
 	/**
+	 * <p>
 	 * True if the key's lifetime is managed by key vault. If this is a key backing a certificate, then
 	 * managed will be true.
+	 * </p>
 	 */
-	@JsonProperty(MANAGED_JK)
+	@JsonProperty("managed")
 	private Boolean managed;
 
 	/**
+	 * <p>
 	 * Application specific metadata in the form of key-value pairs.
+	 * </p>
 	 */
-	@JsonProperty(TAGS_JK)
+	@JsonProperty("tags")
 	private Map<String, String> tags;
+
+	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public KeyItem() {
+		// Default constructor.
+	}
 }

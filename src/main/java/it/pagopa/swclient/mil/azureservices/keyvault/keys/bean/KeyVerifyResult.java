@@ -16,7 +16,9 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * The key verify result.
+ * </p>
  * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/verify/verify?view=rest-keyvault-keys-7.4&tabs=HTTP#keyverifyresult">Microsoft
@@ -32,13 +34,19 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = Include.NON_NULL)
 public class KeyVerifyResult {
 	/**
-	 * JSON key.
+	 * <p>
+	 * True if the signature is verified, otherwise false.
+	 * </p>
 	 */
-	public static final String VALUE_JK = "value";
+	@JsonProperty("value")
+	private Boolean value;
 
 	/**
-	 * True if the signature is verified, otherwise false.
+	 * <p>
+	 * Default constructor.
+	 * </p>
 	 */
-	@JsonProperty(VALUE_JK)
-	private Boolean value;
+	public KeyVerifyResult() {
+		// Default constructor.
+	}
 }

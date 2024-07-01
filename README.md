@@ -1,5 +1,5 @@
 # Multi-channel Integration Layer Azure Services
-Library which provides a set of clients and utilities based on Azure REST API of some services used by other microservices which make up the Multi-channel Integration Layer.
+Library which provides a set of clients and utilities based on Azure REST APIs of some services used by other microservices which make up the Multi-channel Integration Layer.
 
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=pagopa_mil-azure-services&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=pagopa_mil-azure-services)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=pagopa_mil-azure-services&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=pagopa_mil-azure-services)

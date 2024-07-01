@@ -20,7 +20,9 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * The key operations parameters.
+ * </p>
  * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/sign/sign?view=rest-keyvault-keys-7.4&tabs=HTTP#keysignparameters">Microsoft
@@ -36,28 +38,33 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = Include.NON_NULL)
 public class KeySignParameters {
 	/**
-	 * JSON keys.
-	 */
-	public static final String ALG_JK = "alg";
-	public static final String VALUE_JK = "value";
-
-	/**
 	 * <p>
 	 * The signing/verification algorithm identifier.
 	 * </p>
-	 * <p>
-	 * See {@link JsonWebKeySignatureAlgorithm}.
-	 * </p>
+	 * 
+	 * @see it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeySignatureAlgorithm
+	 *      JsonWebKeySignatureAlgorithm
 	 */
-	@JsonProperty(ALG_JK)
+	@JsonProperty("alg")
 	private String alg;
 
 	/**
+	 * <p>
 	 * Data to sign.
+	 * </p>
 	 */
-	@JsonProperty(VALUE_JK)
+	@JsonProperty("value")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	@ToString.Exclude
 	private byte[] value;
+
+	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public KeySignParameters() {
+		// Default constructor.
+	}
 }

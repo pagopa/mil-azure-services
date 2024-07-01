@@ -20,7 +20,9 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * The key operation result.
+ * </p>
  * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/sign/sign?view=rest-keyvault-keys-7.4&tabs=HTTP#keyoperationresult">Microsoft
@@ -36,51 +38,61 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = Include.NON_NULL)
 public class KeyOperationResult {
 	/**
-	 * JSON keys.
-	 */
-	public static final String AAD_JK = "aad";
-	public static final String IV_JK = "iv";
-	public static final String KID_JK = "kid";
-	public static final String TAG_JK = "tag";
-	public static final String VALUE_JK = "value";
-
-	/**
+	 * <p>
 	 * Additional authenticated data.
+	 * </p>
 	 */
-	@JsonProperty(AAD_JK)
+	@JsonProperty("aad")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	private byte[] aad;
 
 	/**
+	 * <p>
 	 * Initialization vector.
+	 * </p>
 	 */
-	@JsonProperty(IV_JK)
+	@JsonProperty("iv")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	@ToString.Exclude
 	private byte[] iv;
 
 	/**
+	 * <p>
 	 * Key identifier.
+	 * </p>
 	 */
-	@JsonProperty(KID_JK)
+	@JsonProperty("kid")
 	private String kid;
 
 	/**
+	 * <p>
 	 * Authentication tag.
+	 * </p>
 	 */
-	@JsonProperty(TAG_JK)
+	@JsonProperty("tag")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	private byte[] tag;
 
 	/**
+	 * <p>
 	 * Result.
+	 * </p>
 	 */
-	@JsonProperty(VALUE_JK)
+	@JsonProperty("value")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	@ToString.Exclude
 	private byte[] value;
+
+	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public KeyOperationResult() {
+		// Default constructor.
+	}
 }

@@ -18,7 +18,9 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * The key list result.
+ * </p>
  * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/get-keys/get-keys?view=rest-keyvault-keys-7.4&tabs=HTTP#keylistresult">Microsoft
@@ -34,21 +36,28 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = Include.NON_NULL)
 public class KeyListResult {
 	/**
-	 * JSON keys.
-	 */
-	public static final String NEXT_LINK_JK = "nextLink";
-	public static final String VALUE_JK = "value";
-
-	/**
+	 * <p>
 	 * The URL to get the next set of keys.
+	 * </p>
 	 */
-	@JsonProperty(NEXT_LINK_JK)
+	@JsonProperty("nextLink")
 	private String nextLink;
 
 	/**
+	 * <p>
 	 * A response message containing a list of keys in the key vault along with a link to the next page
 	 * of keys.
+	 * </p>
 	 */
-	@JsonProperty(VALUE_JK)
+	@JsonProperty("value")
 	private List<KeyItem> value;
+
+	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public KeyListResult() {
+		// Default constructor.
+	}
 }

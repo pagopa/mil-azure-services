@@ -20,7 +20,9 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * The key verify parameters.
+ * </p>
  * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/verify/verify?view=rest-keyvault-keys-7.4&tabs=HTTP#keyverifyparameters">Microsoft
@@ -36,37 +38,43 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = Include.NON_NULL)
 public class KeyVerifyParameters {
 	/**
-	 * JSON keys.
-	 */
-	public static final String ALG_JK = "alg";
-	public static final String DIGEST_JK = "digest";
-	public static final String VALUE_JK = "value";
-
-	/**
 	 * <p>
 	 * The signing/verification algorithm.
 	 * </p>
-	 * <p>
-	 * See {@link JsonWebKeySignatureAlgorithm}.
-	 * </p>
+	 * 
+	 * @see it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeySignatureAlgorithm
+	 *      JsonWebKeySignatureAlgorithm
 	 */
-	@JsonProperty(ALG_JK)
+	@JsonProperty("alg")
 	private String alg;
 
 	/**
+	 * <p>
 	 * The digest used for signing.
+	 * </p>
 	 */
-	@JsonProperty(DIGEST_JK)
+	@JsonProperty("digest")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	@ToString.Exclude
 	private byte[] digest;
 
 	/**
+	 * <p>
 	 * The signature to be verified.
+	 * </p>
 	 */
-	@JsonProperty(VALUE_JK)
+	@JsonProperty("value")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	private byte[] value;
+
+	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public KeyVerifyParameters() {
+		// Default constructor.
+	}
 }
