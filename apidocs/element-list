@@ -1,0 +1,10 @@
+it.pagopa.swclient.mil.azureservices.identity.bean
+it.pagopa.swclient.mil.azureservices.identity.client
+it.pagopa.swclient.mil.azureservices.identity.service
+it.pagopa.swclient.mil.azureservices.keyvault.keys.bean
+it.pagopa.swclient.mil.azureservices.keyvault.keys.client
+it.pagopa.swclient.mil.azureservices.keyvault.keys.service
+it.pagopa.swclient.mil.azureservices.keyvault.keys.util
+it.pagopa.swclient.mil.azureservices.storageblob.client
+it.pagopa.swclient.mil.azureservices.storageblob.service
+it.pagopa.swclient.mil.azureservices.util
