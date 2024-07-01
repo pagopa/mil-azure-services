@@ -150,4 +150,3 @@ jobs:
       #
       - name: Build and deploy site
         run: ${{ runner.temp }}/maven/bin/mvn --batch-mode site -s ${{ runner.temp }}/settings.xml --no-transfer-progress
-
