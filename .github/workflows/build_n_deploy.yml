@@ -88,11 +88,11 @@ jobs:
       - name: Build and deploy
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ${{ runner.temp }}/maven/bin/mvn --batch-mode verify deploy -Pvalidate -s ${{ runner.temp }}/settings.xml --no-transfer-progress
+        run: ${{ runner.temp }}/maven/bin/mvn --batch-mode deploy -Pvalidate -s ${{ runner.temp }}/settings.xml --no-transfer-progress
 
       #
       # Build and deploy site.
       #
       - name: Build and deploy site
-        run: ${{ runner.temp }}/maven/bin/mvn --batch-mode site -Pvalidate -s ${{ runner.temp }}/settings.xml --no-transfer-progress
+        run: ${{ runner.temp }}/maven/bin/mvn --batch-mode site -s ${{ runner.temp }}/settings.xml --no-transfer-progress
 
