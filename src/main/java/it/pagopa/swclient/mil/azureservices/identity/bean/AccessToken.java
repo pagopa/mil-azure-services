@@ -15,6 +15,9 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
+ * DTO of the response from Microsoft Entra ID to the request for an access token.
+ * </p>
  * 
  * @author Antonio Tarricone
  */
@@ -25,41 +28,51 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = Include.NON_NULL)
 public class AccessToken {
 	/**
-	 * JSON keys.
+	 * <p>
+	 * Type of the returned access token. It should be always {@code Bearer}.
+	 * </p>
 	 */
-	public static final String TYPE_JK = "token_type";
-	public static final String EXPIRES_ON_JK = "expires_on";
-	public static final String CLIENT_ID_JK = "client_id";
-	public static final String RESOURCE_JK = "resource";
-	public static final String ACCESS_TOKEN_JK = "access_token";
-
-	/*
-	 *
-	 */
-	@JsonProperty(TYPE_JK)
+	@JsonProperty("token_type")
 	private String type;
 
-	/*
-	 *
+	/**
+	 * <p>
+	 * Unix epoch in seconds of expiration of the returned access token.
+	 * </p>
 	 */
-	@JsonProperty(value = EXPIRES_ON_JK, required = true)
+	@JsonProperty(value = "expires_on", required = true)
 	private long expiresOn;
 
-	/*
-	 *
+	/**
+	 * <p>
+	 * Client ID of the applicant.
+	 * </p>
 	 */
-	@JsonProperty(CLIENT_ID_JK)
+	@JsonProperty("client_id")
 	private String clientId;
 
-	/*
-	 *
+	/**
+	 * <p>
+	 * Resource which can be accessed using the returned access token.
+	 * </p>
 	 */
-	@JsonProperty(RESOURCE_JK)
+	@JsonProperty("resource")
 	private String resource;
 
-	/*
-	 *
+	/**
+	 * <p>
+	 * Value of the returned access token.
+	 * </p>
 	 */
-	@JsonProperty(value = ACCESS_TOKEN_JK, required = true)
+	@JsonProperty(value = "access_token", required = true)
 	private String value;
+
+	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public AccessToken() {
+		// Default constructor.
+	}
 }

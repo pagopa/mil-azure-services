@@ -9,20 +9,29 @@ import io.quarkus.logging.Log;
 import jakarta.ws.rs.WebApplicationException;
 
 /**
+ * <p>
+ * Verifies is a failure is due to specific HTTP status code returned by the invoked service.
+ * </p>
  * 
  * @author Antonio Tarricone
  */
 public class WebAppExcUtils {
 	/**
-	 * 
+	 * <p>
+	 * This class has static methods only.
+	 * </p>
 	 */
 	private WebAppExcUtils() {
 	}
 
 	/**
+	 * <p>
+	 * Verifies if a failure is due to 401 or 403 returned from invoked resource.
+	 * </p>
 	 * 
-	 * @param failure
-	 * @return
+	 * @param failure Failure to verify.
+	 * @return {@code true} is the failure is due to 401 or 403 returned from invoked resource,
+	 *         {@code false} otherwise.
 	 */
 	public static boolean isUnauthorizedOrForbidden(Throwable failure) {
 		Log.debug("Failure inspection");
@@ -33,11 +42,15 @@ public class WebAppExcUtils {
 			return false;
 		}
 	}
-	
+
 	/**
+	 * <p>
+	 * Verifies if a failure is due to 429 returned from invoked resource.
+	 * </p>
 	 * 
-	 * @param failure
-	 * @return
+	 * @param failure Failure to verify.
+	 * @return {@code true} is the failure is due to 429 returned from invoked resource, {@code false}
+	 *         otherwise.
 	 */
 	public static boolean isTooManyRequests(Throwable failure) {
 		Log.debug("Failure inspection");
@@ -50,9 +63,14 @@ public class WebAppExcUtils {
 	}
 
 	/**
+	 * <p>
+	 * Verifies if a {@link jakarta.ws.rs.WebApplicationException WebApplicationException} is due to 401
+	 * or 403 returned from invoked resource.
+	 * </p>
 	 * 
-	 * @param webException
-	 * @return
+	 * @param webException Exception to verify.
+	 * @return {@code true} is the exception is due to 401 or 403 returned from invoked resource,
+	 *         {@code false} otherwise.
 	 */
 	public static boolean isUnauthorizedOrForbidden(WebApplicationException webException) {
 		Log.debug("WebApplicationException inspection");
@@ -66,11 +84,16 @@ public class WebAppExcUtils {
 			return false;
 		}
 	}
-	
+
 	/**
+	 * <p>
+	 * Verifies if a {@link jakarta.ws.rs.WebApplicationException WebApplicationException} is due to 429
+	 * returned from invoked resource.
+	 * </p>
 	 * 
-	 * @param webException
-	 * @return
+	 * @param webException Exeption to verify.
+	 * @return {@code true} is the exception is due to 429 returned from invoked resource, {@code false}
+	 *         otherwise.
 	 */
 	public static boolean isTooManyRequests(WebApplicationException webException) {
 		Log.debug("WebApplicationException inspection");

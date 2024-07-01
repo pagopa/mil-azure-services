@@ -34,7 +34,7 @@ class KeyUtilsTest {
 	void testDoesDomainMatch_ok() {
 		assertTrue(KeyUtils.doesDomainMatch(new KeyItem().setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain")), "my_domain"));
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -42,7 +42,7 @@ class KeyUtilsTest {
 	void testDoesDomainMatch_wo_tags() {
 		assertFalse(KeyUtils.doesDomainMatch(new KeyItem(), "my_domain"));
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -50,7 +50,7 @@ class KeyUtilsTest {
 	void testDoesDomainMatch_ko() {
 		assertFalse(KeyUtils.doesDomainMatch(new KeyItem().setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain")), "different_domain"));
 	}
-	
+
 	/**
 	 * 
 	 */

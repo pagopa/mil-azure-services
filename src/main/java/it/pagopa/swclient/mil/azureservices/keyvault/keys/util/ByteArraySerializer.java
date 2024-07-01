@@ -15,13 +15,25 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import io.quarkus.logging.Log;
 
 /**
+ * <p>
+ * Serialize array of bytes in Base64 URL-safe string.
+ * </p>
  * 
  * @author Antonio Tarricone
  */
 public class ByteArraySerializer extends JsonSerializer<byte[]> {
 	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public ByteArraySerializer() {
+		super();
+	}
+
+	/**
 	 * @see com.fasterxml.jackson.databind.JsonSerializer#serialize(Object, JsonGenerator,
-	 *      SerializerProvider)
+	 *      SerializerProvider) JsonSerializer#serialize(Object, JsonGenerator, SerializerProvider)
 	 */
 	@Override
 	public void serialize(byte[] value, JsonGenerator gen, SerializerProvider serializers) throws IOException {

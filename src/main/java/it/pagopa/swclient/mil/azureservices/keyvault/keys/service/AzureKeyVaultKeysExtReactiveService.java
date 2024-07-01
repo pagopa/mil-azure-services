@@ -15,8 +15,6 @@ import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Context;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
-import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyOperation;
-import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyItem;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyListResult;
@@ -25,29 +23,45 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 /**
+ * <p>
+ * Provides value added services around Azure Key Vault.
+ * </p>
  * 
  * @author Antonio Tarricone
  */
 @ApplicationScoped
 public class AzureKeyVaultKeysExtReactiveService {
-	/*
+	/**
+	 * <p>
+	 * Service to access to Azure Key Vault.
+	 * </p>
 	 * 
+	 * @see it.pagopa.swclient.mil.azureservices.keyvault.keys.service.AzureKeyVaultKeysReactiveService
+	 *      AzureKeyVaultKeysReactiveService
 	 */
 	private AzureKeyVaultKeysReactiveService keysService;
 
-	/*
-	 * 
+	/**
+	 * <p>
+	 * Context key to handle paging.
+	 * </p>
 	 */
 	private static final String SKIPTOKEN_KEYS_KEY = "skiptoken-keys";
 
-	/*
-	 * 
+	/**
+	 * <p>
+	 * Context key to handle paging.
+	 * </p>
 	 */
 	private static final String SKIPTOKEN_VERS_KEY = "skiptoken-vers";
 
 	/**
+	 * <p>
+	 * Constructor.
+	 * </p>
 	 * 
-	 * @param keysService
+	 * @param keysService {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.service.AzureKeyVaultKeysReactiveService
+	 *                    AzureKeyVaultKeysReactiveService}
 	 */
 	@Inject
 	AzureKeyVaultKeysExtReactiveService(AzureKeyVaultKeysReactiveService keysService) {
@@ -55,8 +69,13 @@ public class AzureKeyVaultKeysExtReactiveService {
 	}
 
 	/**
+	 * <p>
+	 * Returns all keys from Azure Key Vault by means of
+	 * {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.service.AzureKeyVaultKeysReactiveService
+	 * AzureKeyVaultKeysReactiveService} handling the paging.
+	 * </p>
 	 * 
-	 * @return
+	 * @return {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyItem KeyItem}
 	 */
 	private Multi<KeyItem> getKeys() {
 		Log.trace("Get keys");
@@ -100,8 +119,14 @@ public class AzureKeyVaultKeysExtReactiveService {
 	}
 
 	/**
+	 * <p>
+	 * Returns all versions of a key from Azure Key Vault by means of
+	 * {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.service.AzureKeyVaultKeysReactiveService
+	 * AzureKeyVaultKeysReactiveService} handling the paging.
+	 * </p>
 	 * 
-	 * @return
+	 * @param keyName The name of the key.
+	 * @return {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyItem KeyItem}
 	 */
 	private Multi<KeyItem> getKeyVersions(String keyName) {
 		Context context = Context.empty();
@@ -144,11 +169,16 @@ public class AzureKeyVaultKeysExtReactiveService {
 	}
 
 	/**
+	 * <p>
+	 * Returns all valid keys which match searching criteria.
+	 * </p>
 	 * 
-	 * @param domain
-	 * @param expectedOps  {@link JsonWebKeyOperation}
-	 * @param expectedKtys {@link JsonWebKeyType}
-	 * @return
+	 * @param domain       Represents who uses the key.
+	 * @param expectedOps  {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyOperation
+	 *                     JsonWebKeyOperation}
+	 * @param expectedKtys {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType
+	 *                     JsonWebKeyType}
+	 * @return {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle KeyBundle}
 	 */
 	public Multi<KeyBundle> getKeys(String domain, List<String> expectedOps, List<String> expectedKtys) {
 		return getKeys() // Multi<KeyItem>
@@ -163,14 +193,19 @@ public class AzureKeyVaultKeysExtReactiveService {
 	}
 
 	/**
+	 * <p>
+	 * Return the valid key with longest expiration which matches searching criteria.
+	 * </p>
 	 * 
-	 * @param prefix
-	 * @param expectedOps  {@link JsonWebKeyOperation}
-	 * @param expectedKtys {@link JsonWebKeyType}
-	 * @return
+	 * @param domain       Represents who uses the key.
+	 * @param expectedOps  {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyOperation
+	 *                     JsonWebKeyOperation}
+	 * @param expectedKtys {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType
+	 *                     JsonWebKeyType}
+	 * @return {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle KeyBundle}
 	 */
-	public Uni<Optional<KeyBundle>> getKeyWithLongestExp(String prefix, List<String> expectedOps, List<String> expectedKtys) {
-		return getKeys(prefix, expectedOps, expectedKtys)
+	public Uni<Optional<KeyBundle>> getKeyWithLongestExp(String domain, List<String> expectedOps, List<String> expectedKtys) {
+		return getKeys(domain, expectedOps, expectedKtys)
 			.collect()
 			.asList()
 			.map(keyList -> {

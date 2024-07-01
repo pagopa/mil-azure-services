@@ -19,7 +19,9 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * The key create parameters.
+ * </p>
  * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/create-key/create-key?view=rest-keyvault-keys-7.4&tabs=HTTP#keycreateparameters">Microsoft
@@ -35,62 +37,83 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = Include.NON_NULL)
 public class KeyCreateParameters {
 	/**
-	 * JSON keys.
+	 * <p>
+	 * The type of key to create.
+	 * </p>
+	 * 
+	 * @see it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType JsonWebKeyType
 	 */
-	public static final String KTY_JK = "kty";
-	public static final String ATTRIBUTES_JK = "attributes";
-	public static final String CRV_JK = "crv";
-	public static final String KEY_OPS_JK = "key_ops";
-	public static final String KEY_SIZE_JK = "key_size";
-	public static final String PUBLIC_EXPONENT_JK = "public_exponent";
-	public static final String RELEASE_POLICY_JK = "release_policy";
-	public static final String TAGS_JK = "tags";
-
-	/**
-	 * The type of key to create. See {@link JsonWebKeyType}
-	 */
-	@JsonProperty(KTY_JK)
+	@JsonProperty("kty")
 	private String kty;
 
 	/**
+	 * <p>
 	 * The attributes of a key managed by the key vault service.
+	 * </p>
 	 */
-	@JsonProperty(ATTRIBUTES_JK)
+	@JsonProperty("attributes")
 	private KeyAttributes attributes;
 
 	/**
-	 * Elliptic curve name. See {@link JsonWebKeyCurveName}
+	 * <p>
+	 * Elliptic curve name.
+	 * </p>
+	 * 
+	 * @see it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyCurveName
+	 *      JsonWebKeyCurveName
 	 */
-	@JsonProperty(CRV_JK)
+	@JsonProperty("crv")
 	private String crv;
 
 	/**
-	 * JSON web key operations. See {@link JsonWebKeyOperation}
+	 * <p>
+	 * JSON web key operations.
+	 * </p>
+	 * 
+	 * @see it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyOperation
+	 *      JsonWebKeyOperation
 	 */
-	@JsonProperty(KEY_OPS_JK)
+	@JsonProperty("key_ops")
 	private List<String> keyOps;
 
 	/**
+	 * <p>
 	 * The key size in bits.
+	 * </p>
 	 */
-	@JsonProperty(KEY_SIZE_JK)
+	@JsonProperty("key_size")
 	private Integer keySize;
 
 	/**
+	 * <p>
 	 * The public exponent for a RSA key.
+	 * </p>
 	 */
-	@JsonProperty(PUBLIC_EXPONENT_JK)
+	@JsonProperty("public_exponent")
 	private Integer publicExponent;
 
 	/**
+	 * <p>
 	 * The policy rules under which the key can be exported.
+	 * </p>
 	 */
-	@JsonProperty(RELEASE_POLICY_JK)
+	@JsonProperty("release_policy")
 	private KeyReleasePolicy releasePolicy;
 
 	/**
+	 * <p>
 	 * Application specific metadata in the form of key-value pairs.
+	 * </p>
 	 */
-	@JsonProperty(TAGS_JK)
+	@JsonProperty("tags")
 	private Map<String, String> tags;
+
+	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public KeyCreateParameters() {
+		// Default constructor.
+	}
 }

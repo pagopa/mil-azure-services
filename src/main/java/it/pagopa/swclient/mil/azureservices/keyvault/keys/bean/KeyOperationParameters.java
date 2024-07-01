@@ -20,7 +20,9 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * The key operations parameters.
+ * </p>
  * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/encrypt/encrypt?view=rest-keyvault-keys-7.4&tabs=HTTP#keyoperationsparameters">Microsoft
@@ -36,52 +38,65 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = Include.NON_NULL)
 public class KeyOperationParameters {
 	/**
-	 * JSON keys.
-	 */
-	public static final String AAD_JK = "aad";
-	public static final String ALG_JK = "alg";
-	public static final String IV_JK = "iv";
-	public static final String TAG_JK = "tag";
-	public static final String VALUE_JK = "value";
-
-	/**
+	 * <p>
 	 * Additional data to authenticate but not encrypt/decrypt when using authenticated crypto
 	 * algorithms.
+	 * </p>
 	 */
-	@JsonProperty(AAD_JK)
+	@JsonProperty("aad")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	private byte[] aad;
 
 	/**
-	 * Algorithm identifier. See {@link JsonWebKeyEncryptionAlgorithm}
+	 * <p>
+	 * Algorithm identifier.
+	 * </p>
+	 * 
+	 * @see it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyEncryptionAlgorithm
+	 *      JsonWebKeyEncryptionAlgorithm
 	 */
-	@JsonProperty(ALG_JK)
+	@JsonProperty("alg")
 	private String alg;
 
 	/**
+	 * <p>
 	 * Cryptographically random, non-repeating initialization vector for symmetric algorithms.
+	 * </p>
 	 */
-	@JsonProperty(IV_JK)
+	@JsonProperty("iv")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	@ToString.Exclude
 	private byte[] iv;
 
 	/**
+	 * <p>
 	 * The tag to authenticate when performing decryption with an authenticated algorithm.
+	 * </p>
 	 */
-	@JsonProperty(TAG_JK)
+	@JsonProperty("tag")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	private byte[] tag;
 
 	/**
+	 * <p>
 	 * Result.
+	 * </p>
 	 */
-	@JsonProperty(VALUE_JK)
+	@JsonProperty("value")
 	@JsonSerialize(using = ByteArraySerializer.class)
 	@JsonDeserialize(using = ByteArrayDeserializer.class)
 	@ToString.Exclude
 	private byte[] value;
+
+	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public KeyOperationParameters() {
+		// Default constructor.
+	}
 }

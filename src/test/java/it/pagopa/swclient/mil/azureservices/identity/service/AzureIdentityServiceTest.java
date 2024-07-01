@@ -68,7 +68,6 @@ class AzureIdentityServiceTest {
 		/*
 		 * Setup
 		 */
-		identityService.clearAccessTokenCache();
 		Instant now = Instant.now();
 		AccessToken accessToken = new AccessToken()
 			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
@@ -92,7 +91,6 @@ class AzureIdentityServiceTest {
 		/*
 		 * Setup
 		 */
-		identityService.clearAccessTokenCache();
 		Instant now = Instant.now();
 		AccessToken accessToken = new AccessToken()
 			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
@@ -118,7 +116,6 @@ class AzureIdentityServiceTest {
 		/*
 		 * Setup
 		 */
-		identityService.clearAccessTokenCache();
 		Instant now = Instant.now();
 		AccessToken expAccessToken = new AccessToken()
 			.setExpiresOn(now.minus(5, ChronoUnit.MINUTES).getEpochSecond())

@@ -16,7 +16,9 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * The attributes of a key managed by the key vault service.
+ * </p>
  * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/create-key/create-key?view=rest-keyvault-keys-7.4&tabs=HTTP#keyattributes">Microsoft
@@ -32,69 +34,80 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = Include.NON_NULL)
 public class KeyAttributes {
 	/**
-	 * JSON keys.
-	 */
-	public static final String CREATED_JK = "created";
-	public static final String ENABLED_JK = "enabled";
-	public static final String EXP_JK = "exp";
-	public static final String EXPORTABLE_JK = "exportable";
-	public static final String NBF_JK = "nbf";
-	public static final String RECOVERABLE_DAYS_JK = "recoverableDays";
-	public static final String RECOVERY_LEVEL_JK = "recoveryLevel";
-	public static final String UPDATED_JK = "updated";
-
-	/**
+	 * <p>
 	 * Creation time in UTC (Unix epoch in seconds).
+	 * </p>
 	 */
-	@JsonProperty(CREATED_JK)
+	@JsonProperty("created")
 	private Long created;
 
 	/**
+	 * <p>
 	 * Determines whether the object is enabled.
+	 * </p>
 	 */
-	@JsonProperty(ENABLED_JK)
+	@JsonProperty("enabled")
 	private Boolean enabled;
 
 	/**
+	 * <p>
 	 * Expiry date in UTC (Unix epoch in seconds).
+	 * </p>
 	 */
-	@JsonProperty(EXP_JK)
+	@JsonProperty("exp")
 	private Long exp;
 
 	/**
+	 * <p>
 	 * Indicates if the private key can be exported. Release policy must be provided when creating the
 	 * first version of an exportable key.
+	 * </p>
 	 */
-	@JsonProperty(EXPORTABLE_JK)
+	@JsonProperty("exportable")
 	private Boolean exportable;
 
 	/**
+	 * <p>
 	 * Not before date in UTC (Unix epoch in seconds).
+	 * </p>
 	 */
-	@JsonProperty(NBF_JK)
+	@JsonProperty("nbf")
 	private Long nbf;
 
 	/**
-	 * softDelete data retention days. Value should be >=7 and <=90 when softDelete enabled, otherwise
-	 * 0.
+	 * <p>
+	 * softDelete data retention days. Value should be &ge;7 and &le; 90 when softDelete enabled,
+	 * otherwise 0.
+	 * </p>
 	 */
-	@JsonProperty(RECOVERABLE_DAYS_JK)
+	@JsonProperty("recoverableDays")
 	private Integer recoverableDays;
 
 	/**
 	 * <p>
 	 * Reflects the deletion recovery level currently in effect for keys in the current vault.
 	 * </p>
-	 * <p>
-	 * See {@link DeletionRecoveryLevel}.
-	 * </p>
+	 * 
+	 * @see it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.DeletionRecoveryLevel
+	 *      DeletionRecoveryLevel
 	 */
-	@JsonProperty(RECOVERY_LEVEL_JK)
+	@JsonProperty("recoveryLevel")
 	private String recoveryLevel;
 
 	/**
+	 * <p>
 	 * Last updated time in UTC (Unix epoch in seconds).
+	 * </p>
 	 */
-	@JsonProperty(UPDATED_JK)
+	@JsonProperty("updated")
 	private Long updated;
+
+	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public KeyAttributes() {
+		// Default constructor.
+	}
 }

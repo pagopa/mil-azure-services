@@ -16,7 +16,9 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
+ * <p>
  * The policy rules under which the key can be exported.
+ * </p>
  * 
  * @see <a href=
  *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/create-key/create-key?view=rest-keyvault-keys-7.4&tabs=HTTP#keyreleasepolicy">Microsoft
@@ -32,29 +34,37 @@ import lombok.experimental.Accessors;
 @JsonInclude(value = Include.NON_NULL)
 public class KeyReleasePolicy {
 	/**
-	 * JSON keys.
-	 */
-	public static final String CONTENT_TYPE_JK = "contentType";
-	public static final String DATA_JK = "data";
-	public static final String IMMUTABLE_JK = "immutable";
-
-	/**
+	 * <p>
 	 * Content type and version of key release policy. Default value: application/json; charset=utf-8
+	 * </p>
 	 */
-	@JsonProperty(CONTENT_TYPE_JK)
+	@JsonProperty("contentType")
 	private String contentType;
 
 	/**
+	 * <p>
 	 * Blob encoding the policy rules under which the key can be released. Blob must be base64 URL
 	 * encoded.
+	 * </p>
 	 */
-	@JsonProperty(DATA_JK)
+	@JsonProperty("data")
 	private String data;
 
 	/**
+	 * <p>
 	 * Defines the mutability state of the policy. Once marked immutable, this flag cannot be reset and
 	 * the policy cannot be changed under any circumstances.
+	 * </p>
 	 */
-	@JsonProperty(IMMUTABLE_JK)
+	@JsonProperty("immutable")
 	private Boolean immutable;
+
+	/**
+	 * <p>
+	 * Default constructor.
+	 * </p>
+	 */
+	public KeyReleasePolicy() {
+		// Default constructor.
+	}
 }
