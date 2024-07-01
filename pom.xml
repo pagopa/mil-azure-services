@@ -53,6 +53,8 @@
 		<sonar.coverage.jacoco.xmlReportPaths>target/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 		<!-- Other properties -->
 		<skipITs>true</skipITs>
+		<repository.name>mil-azure-services</repository.name>
+		<repository.owner>pagopa</repository.owner>
 	</properties>
 
 	<dependencyManagement>
@@ -240,6 +242,9 @@
 				<version>0.12</version>
 				<configuration>
 					<message>Creating site for ${project.version}</message>
+					<repositoryName>${repository.name}</repositoryName>
+					<repositoryOwner>${repository.owner}</repositoryOwner>
+					<server>github</server>
 				</configuration>
 				<executions>
 					<execution>
@@ -300,7 +305,7 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/pagopa/mil-azure-services</url>
+			<url>https://maven.pkg.github.com/${repository.owner}/${repository.name}</url>
 		</repository>
 	</distributionManagement>
 
