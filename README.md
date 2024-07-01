@@ -13,3 +13,4 @@ Library which provides a set of clients and utilities based on Azure REST APIs o
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=pagopa_mil-azure-services&metric=bugs)](https://sonarcloud.io/summary/new_code?id=pagopa_mil-azure-services)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=pagopa_mil-azure-services&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=pagopa_mil-azure-services)
 
+[GitHub Pages](https://pagopa.github.io/mil-azure-services/)
