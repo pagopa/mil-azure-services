@@ -15,6 +15,7 @@ import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Context;
 import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
+import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.DeletedKeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyItem;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyListResult;
@@ -230,4 +231,22 @@ public class AzureKeyVaultKeysExtReactiveService {
 				}
 			});
 	}
+	
+	/**
+	 * <p>
+	 * Deletes all expired keys which match searching criteria.
+	 * </p>
+	 * 
+	 * @param domain Represents who uses the key.
+	 * @return {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.DeletedKeyBundle
+	 *         DeletedKeyBundle}
+	 */
+	public Multi<DeletedKeyBundle> deleteExpiredKeys(String domain) {
+		return getKeys() // Multi<KeyItem>
+			.filter(keyItem -> KeyUtils.doesDomainMatch(keyItem, domain))
+			.filter(KeyUtils::isExpired)
+			.map(KeyUtils::getKeyName) // Multi<String> keyName
+			.onItem().transformToMultiAndConcatenate(keyName -> keysService.deleteKey(keyName).toMulti()); // Multi<DeletedKeyBundle>
+	}
+
 }

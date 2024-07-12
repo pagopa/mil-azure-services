@@ -21,7 +21,7 @@ import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyItem;
 
 /**
- * These added tests are needed to reach expected coverage!
+ * Additional tests.
  * 
  * @author Antonio Tarricone
  */

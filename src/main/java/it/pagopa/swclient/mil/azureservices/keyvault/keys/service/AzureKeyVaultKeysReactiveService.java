@@ -15,6 +15,7 @@ import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Uni;
 import it.pagopa.swclient.mil.azureservices.identity.bean.Scope;
 import it.pagopa.swclient.mil.azureservices.identity.service.AzureIdentityReactiveService;
+import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.DeletedKeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyCreateParameters;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyListResult;
@@ -323,5 +324,19 @@ public class AzureKeyVaultKeysReactiveService {
 	 */
 	public Uni<KeyOperationResult> decrypt(String keyName, String keyVersion, KeyOperationParameters keyOperationParameters) {
 		return keysClient.decrypt(accessTokenValue, keyName, keyVersion, keyOperationParameters);
+	}
+
+	/**
+	 * <p>
+	 * Deletes a key of any type from storage in Azure Key Vault.
+	 * </p>
+	 * 
+	 * @param keyName The name of the key to delete.
+	 * @return {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.DeletedKeyBundle
+	 *         DeletedKeyBundle}
+	 */
+	public Uni<DeletedKeyBundle> deleteKey(String keyName) {
+		Log.tracef("Delete key %s", keyName);
+		return keysClient.deleteKey(accessTokenValue, keyName);
 	}
 }
