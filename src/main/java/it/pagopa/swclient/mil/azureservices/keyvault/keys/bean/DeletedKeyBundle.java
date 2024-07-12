@@ -5,8 +5,6 @@
  */
 package it.pagopa.swclient.mil.azureservices.keyvault.keys.bean;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -34,48 +32,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @ToString
 @JsonInclude(value = Include.NON_NULL)
-public class DeletedKeyBundle {
-	/**
-	 * <p>
-	 * The key management attributes.
-	 * </p>
-	 */
-	@JsonProperty("attributes")
-	private KeyAttributes attributes;
-
-	/**
-	 * <p>
-	 * The Json web key.
-	 * </p>
-	 */
-	@JsonProperty("key")
-	private JsonWebKey key;
-
-	/**
-	 * <p>
-	 * True if the key's lifetime is managed by key vault. If this is a key backing a certificate, then
-	 * managed will be true.
-	 * </p>
-	 */
-	@JsonProperty("managed")
-	private Boolean managed;
-
-	/**
-	 * <p>
-	 * The policy rules under which the key can be exported.
-	 * </p>
-	 */
-	@JsonProperty("release_policy")
-	private KeyReleasePolicy releasePolicy;
-
-	/**
-	 * <p>
-	 * Application specific metadata in the form of key-value pairs.
-	 * </p>
-	 */
-	@JsonProperty("tags")
-	private Map<String, String> tags;
-
+public class DeletedKeyBundle extends KeyBundle {
 	/**
 	 * <p>
 	 * The time when the key was deleted, in UTC.
@@ -106,6 +63,6 @@ public class DeletedKeyBundle {
 	 * </p>
 	 */
 	public DeletedKeyBundle() {
-		// Default constructor.
+		super();
 	}
 }
