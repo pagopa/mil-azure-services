@@ -25,6 +25,7 @@ import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken;
 import it.pagopa.swclient.mil.azureservices.identity.bean.Scope;
 import it.pagopa.swclient.mil.azureservices.identity.service.AzureIdentityReactiveService;
+import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.DeletedKeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.DeletionRecoveryLevel;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKey;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyCurveName;
@@ -589,5 +590,45 @@ class AzureKeyVaultKeysReactiveServiceTest {
 			.withSubscriber(UniAssertSubscriber.create())
 			.awaitItem()
 			.assertItem(keyOperationResult);
+	}
+	
+	/**
+	 * 
+	 */
+	@Test
+	void given_keyName_when_deleteKeyInvoked_then_getDeletedKeyBundle() {
+		/*
+		 * Setup.
+		 */
+		KeyAttributes keyAttributes = new KeyAttributes()
+			.setCreated(now.getEpochSecond())
+			.setEnabled(Boolean.TRUE)
+			.setExp(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
+			.setExportable(Boolean.FALSE)
+			.setNbf(now.getEpochSecond())
+			.setRecoverableDays(90)
+			.setRecoveryLevel(DeletionRecoveryLevel.RECOVERABLE_PURGEABLE)
+			.setUpdated(now.getEpochSecond());
+		JsonWebKey jsonWebKey = new JsonWebKey()
+			.setE(BigInteger.ONE.toByteArray())
+			.setN(BigInteger.TEN.toByteArray())
+			.setKeyOps(List.of(JsonWebKeyOperation.SIGN, JsonWebKeyOperation.VERIFY))
+			.setKid("key_id")
+			.setKty(JsonWebKeyType.RSA);
+		DeletedKeyBundle keyBundle = new DeletedKeyBundle()
+			.setAttributes(keyAttributes)
+			.setKey(jsonWebKey)
+			.setManaged(Boolean.TRUE);
+		when(keysClient.deleteKey("access_token_string", "key_name"))
+			.thenReturn(Uni.createFrom().item(keyBundle));
+
+		/*
+		 * Test.
+		 */
+		keysService.deleteKey("key_name")
+			.subscribe()
+			.withSubscriber(UniAssertSubscriber.create())
+			.awaitItem()
+			.assertItem(keyBundle);
 	}
 }

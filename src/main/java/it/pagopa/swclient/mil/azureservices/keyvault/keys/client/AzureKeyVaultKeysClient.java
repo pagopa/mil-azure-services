@@ -10,6 +10,7 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import io.quarkus.rest.client.reactive.ClientQueryParam;
 import io.quarkus.rest.client.reactive.NotBody;
+import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.DeletedKeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyCreateParameters;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyListResult;
@@ -307,4 +308,27 @@ public interface AzureKeyVaultKeysClient {
 		@PathParam("keyName") String keyName,
 		@PathParam("keyVersion") String keyVersion,
 		KeyOperationParameters keyOperationParameters);
+
+	/**
+	 * <p>
+	 * Deletes a key of any type from storage in Azure Key Vault.
+	 * </p>
+	 * 
+	 * @see <a href=
+	 *      "https://learn.microsoft.com/en-us/rest/api/keyvault/keys/delete-key/delete-key?view=rest-keyvault-keys-7.4&tabs=HTTP">Microsoft
+	 *      Azure Documentation</a>
+	 * 
+	 * @param accessToken The value of access token got by Microsoft Entra ID.
+	 * @param keyName     The name of the key to delete.
+	 * @return {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.DeletedKeyBundle
+	 *         DeletedKeyBundle}
+	 */
+	@Path("/keys/{keyName}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@ClientHeaderParam(name = "Authorization", value = "Bearer {accessToken}")
+	@ClientQueryParam(name = "api-version", value = "${azure-key-vault-keys.api-version}")
+	DeletedKeyBundle deleteKey(
+		@NotBody String accessToken,
+		@PathParam("keyName") String keyName);
 }

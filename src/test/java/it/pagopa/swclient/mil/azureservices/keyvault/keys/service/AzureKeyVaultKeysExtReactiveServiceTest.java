@@ -7,6 +7,8 @@ package it.pagopa.swclient.mil.azureservices.keyvault.keys.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.Instant;
@@ -26,6 +28,7 @@ import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
+import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.DeletedKeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKey;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyOperation;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType;
@@ -663,5 +666,133 @@ class AzureKeyVaultKeysExtReactiveServiceTest {
 			.subscribe()
 			.withSubscriber(UniAssertSubscriber.create())
 			.assertFailed();
+	}
+
+	/**
+	 * 
+	 */
+	@Test
+	void given_setOfKeys_when_deleteExpiredKeysInvoked_then_getRelevantKeys() {
+		/*
+		 * Setup
+		 */
+		Instant now = Instant.now();
+
+		/*
+		 * Attributes
+		 */
+		KeyAttributes attr_ok_1 = new KeyAttributes()
+			.setCreated(now.minus(5, ChronoUnit.MINUTES).getEpochSecond())
+			.setEnabled(true)
+			.setExp(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
+			.setNbf(now.minus(3, ChronoUnit.MINUTES).getEpochSecond());
+
+		KeyAttributes attr_ok_2 = new KeyAttributes()
+			.setCreated(now.minus(5, ChronoUnit.MINUTES).getEpochSecond())
+			.setEnabled(true)
+			.setExp(now.plus(10, ChronoUnit.MINUTES).getEpochSecond())
+			.setNbf(now.minus(3, ChronoUnit.MINUTES).getEpochSecond());
+
+		KeyAttributes attr_exp_1 = new KeyAttributes()
+			.setCreated(now.minus(5, ChronoUnit.MINUTES).getEpochSecond())
+			.setEnabled(true)
+			.setExp(now.minus(1, ChronoUnit.MINUTES).getEpochSecond())
+			.setNbf(now.minus(3, ChronoUnit.MINUTES).getEpochSecond());
+
+		KeyAttributes attr_exp_2 = new KeyAttributes()
+			.setCreated(now.minus(5, ChronoUnit.MINUTES).getEpochSecond())
+			.setEnabled(true)
+			.setExp(now.minus(2, ChronoUnit.MINUTES).getEpochSecond())
+			.setNbf(now.minus(3, ChronoUnit.MINUTES).getEpochSecond());
+
+		KeyAttributes attr_wo_exp = new KeyAttributes()
+			.setCreated(now.minus(5, ChronoUnit.MINUTES).getEpochSecond())
+			.setEnabled(true)
+			.setExp(null)
+			.setNbf(now.minus(3, ChronoUnit.MINUTES).getEpochSecond());
+
+		/*
+		 * Items
+		 */
+		KeyItem item_ok_1 = new KeyItem()
+			.setAttributes(attr_ok_1)
+			.setKid("https://myvault.vault.azure.net/keys/ok_1")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
+
+		KeyItem item_ok_2 = new KeyItem()
+			.setAttributes(attr_ok_2)
+			.setKid("https://myvault.vault.azure.net/keys/ok_2")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
+
+		KeyItem item_exp_1 = new KeyItem()
+			.setAttributes(attr_exp_1)
+			.setKid("https://myvault.vault.azure.net/keys/exp_1")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
+
+		KeyItem item_exp_2 = new KeyItem()
+			.setAttributes(attr_exp_2)
+			.setKid("https://myvault.vault.azure.net/keys/exp_2")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
+
+		KeyItem item_wo_exp = new KeyItem()
+			.setAttributes(attr_wo_exp)
+			.setKid("https://myvault.vault.azure.net/keys/wo_exp")
+			.setTags(Map.of(KeyUtils.DOMAIN_KEY, "my_domain"));
+
+		KeyListResult keyList = new KeyListResult()
+			.setValue(List.of(
+				item_ok_1,
+				item_ok_2,
+				item_exp_1,
+				item_exp_2,
+				item_wo_exp));
+
+		when(keysService.getKeys())
+			.thenReturn(Uni.createFrom().item(keyList));
+
+		/*
+		 * Bundles
+		 */
+		DeletedKeyBundle bundle_exp_1 = new DeletedKeyBundle()
+			.setAttributes(attr_exp_1)
+			.setKey(new JsonWebKey()
+				.setD(new byte[0])
+				.setE(new byte[0])
+				.setKeyOps(List.of(JsonWebKeyOperation.SIGN, JsonWebKeyOperation.VERIFY))
+				.setKty(JsonWebKeyType.RSA)
+				.setN(new byte[0])
+				.setKid("https://myvault.vault.azure.net/keys/exp_1"));
+
+		DeletedKeyBundle bundle_exp_2 = new DeletedKeyBundle()
+			.setAttributes(attr_exp_2)
+			.setKey(new JsonWebKey()
+				.setD(new byte[0])
+				.setE(new byte[0])
+				.setKeyOps(List.of(JsonWebKeyOperation.SIGN, JsonWebKeyOperation.VERIFY))
+				.setKty(JsonWebKeyType.RSA)
+				.setN(new byte[0])
+				.setKid("https://myvault.vault.azure.net/keys/exp_2"));
+
+		when(keysService.deleteKey("exp_1"))
+			.thenReturn(Uni.createFrom().item(bundle_exp_1));
+
+		when(keysService.deleteKey("exp_2"))
+			.thenReturn(Uni.createFrom().item(bundle_exp_2));
+
+		/*
+		 * Test
+		 */
+		Iterable<DeletedKeyBundle> actualBundles = extService.deleteExpiredKeys("my_domain")
+			.subscribe()
+			.asIterable();
+
+		assertThat(actualBundles)
+			.containsExactlyInAnyOrder(
+				bundle_exp_1,
+				bundle_exp_2);
+		
+		verify(keysService, never()).deleteKey("ok_1");
+		verify(keysService, never()).deleteKey("ok_2");
+		verify(keysService, never()).deleteKey("wo_exp");
 	}
 }

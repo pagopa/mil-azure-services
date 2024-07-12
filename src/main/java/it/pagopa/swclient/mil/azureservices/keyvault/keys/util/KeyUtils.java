@@ -248,4 +248,26 @@ public class KeyUtils {
 		}
 		return queryParameters;
 	}
+
+	/**
+	 * <p>
+	 * Verifies if a key is expired.
+	 * </p>
+	 * 
+	 * @param keyItem {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyItem KeyItem}
+	 * @return {@code true} if the key is expired, otherwise {@code false}.
+	 */
+	public static boolean isExpired(KeyItem keyItem) {
+		String kid = keyItem.getKid();
+		KeyAttributes keyAttributes = keyItem.getAttributes();
+
+		long now = Instant.now().getEpochSecond();
+		Long exp = keyAttributes.getExp();
+		if (exp != null && exp < now) {
+			Log.debugf("Key is expired: kid = %s, exp = %d, now = %d", kid, exp, now);
+			return true;
+		}
+		Log.tracef("Key isn't expired or hasn't an expiration: kid = %s, exp = %d, now = %d", kid, exp, now);
+		return false;
+	}
 }
