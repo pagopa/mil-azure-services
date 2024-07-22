@@ -31,19 +31,20 @@
 		<!-- Quarkus version -->
 		<quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
 		<quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
-		<quarkus.platform.version>3.11.0</quarkus.platform.version>
+		<quarkus.platform.version>3.12.3</quarkus.platform.version>
 		<!-- Plugins version -->
-		<compiler-plugin.version>3.12.1</compiler-plugin.version>
-		<surefire-plugin.version>3.2.5</surefire-plugin.version>
+		<compiler-plugin.version>3.13.0</compiler-plugin.version>
+		<surefire-plugin.version>3.3.1</surefire-plugin.version>
 		<depcheck-plugin.version>1.2.1</depcheck-plugin.version>
-		<jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
-		<sonar-plugin.version>3.11.0.3922</sonar-plugin.version>
+		<jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
+		<sonar-plugin.version>4.0.0.4121</sonar-plugin.version>
 		<maven-site-plugin.version>3.12.1</maven-site-plugin.version>
 		<maven-project-info-reports-plugin.version>3.5.0</maven-project-info-reports-plugin.version>
 		<maven-javadoc-plugin.version>3.7.0</maven-javadoc-plugin.version>
+		<github-site-maven-plugin.version>0.12</github-site-maven-plugin.version>
 		<!-- Dependencies version -->
-		<lombok.version>1.18.32</lombok.version>
-		<assertj-core.version>3.25.3</assertj-core.version>
+		<lombok.version>1.18.34</lombok.version>
+		<assertj-core.version>3.26.3</assertj-core.version>
 		<!-- Sonar configuration -->
 		<sonar.host.url>https://sonarcloud.io:443/</sonar.host.url>
 		<sonar.organization>pagopa</sonar.organization>
@@ -239,7 +240,7 @@
 			<plugin>
 				<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>
-				<version>0.12</version>
+				<version>${github-site-maven-plugin.version}</version>
 				<configuration>
 					<message>Creating site for ${project.version}</message>
 					<repositoryName>${repository.name}</repositoryName>
@@ -293,7 +294,8 @@
 		<repository>
 			<id>github</id>
 			<name>GitHub Packages</name>
-			<url>https://maven.pkg.github.com/${repository.owner}/${repository.name}</url>
+			<url>
+				https://maven.pkg.github.com/${repository.owner}/${repository.name}</url>
 		</repository>
 	</distributionManagement>
 
