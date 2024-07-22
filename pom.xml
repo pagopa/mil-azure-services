@@ -7,15 +7,26 @@
 	<artifactId>azure-services</artifactId>
 	<version>5.2.0</version>
 
+	<name>mil-azure-services</name>
 	<description>Library which provides a set of clients and utilities based on
 		Azure REST APIs of some services used by other microservices which make
 		up the Multi-channel Integration Layer.</description>
-
+	<url>https://pagopa.github.io/mil-azure-services/</url>
+	<organization>
+		<name>PagoPA S.p.A.</name>
+		<url>https://www.pagopa.it</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>Mozilla Public License 2.0</name>
+		</license>
+	</licenses>
 	<developers>
 		<developer>
 			<name>Antonio Tarricone</name>
 			<email>Antonio Tarricone@pagopa.it</email>
 			<organization>PagoPA S.p.A.</organization>
+			<organizationUrl>https://www.pagopa.it</organizationUrl>
 		</developer>
 	</developers>
 
