@@ -1,18 +1,18 @@
 {
   "dependencies": [
     {
-      "id": "io.quarkus:quarkus-arc:jar:3.11.0",
+      "id": "io.quarkus:quarkus-arc:jar:3.12.3",
       "artifactId": "quarkus-arc",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "NuBigNg1dzAxcLiJXIXpqzXRJQKFmHJauCqY9pZb70g="
+      "version": "3.12.3",
+      "sha256": "hsqq0EJTLRx7hBQkhsDMZoPOVQe83KparD2fvLNsgFE="
     },
     {
-      "id": "io.quarkus.arc:arc:jar:3.11.0",
+      "id": "io.quarkus.arc:arc:jar:3.12.3",
       "artifactId": "arc",
       "groupId": "io.quarkus.arc",
-      "version": "3.11.0",
-      "sha256": "fEOJnIE9vsXXi161RsTUEH6LXEdtJN7-gFPt7JokC5s="
+      "version": "3.12.3",
+      "sha256": "dWc0teUhyaIdP9V1IA-dHeagKXVW3u-2vn-nrel1o1A="
     },
     {
       "id": "jakarta.enterprise:jakarta.enterprise.cdi-api:jar:4.1.0",
@@ -78,18 +78,18 @@
       "sha256": "HGWPUQfjqKK6YSYMoluF9HsMMj_RTwslqNfr4FGeAXo="
     },
     {
-      "id": "org.jboss.logging:jboss-logging:jar:3.5.3.Final",
+      "id": "org.jboss.logging:jboss-logging:jar:3.6.0.Final",
       "artifactId": "jboss-logging",
       "groupId": "org.jboss.logging",
-      "version": "3.5.3.Final",
-      "sha256": "exGUYN4XQZWspBLf7VLKC77w7OJsLXQwG2Fyz630_1k="
+      "version": "3.6.0.Final",
+      "sha256": "kkUppnmtdqRmURXEfwU-R8b9Jy9ZpjK6cNtIHJJe96I="
     },
     {
-      "id": "io.quarkus:quarkus-core:jar:3.11.0",
+      "id": "io.quarkus:quarkus-core:jar:3.12.3",
       "artifactId": "quarkus-core",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "22QnRPXfYLed6IE-EqeiWe8CmxtXdJsFGzZwDW2YUfg="
+      "version": "3.12.3",
+      "sha256": "5myWOqGhpGqN2qUdZD8hjZLhjr0ox614_UbypbZaNYU="
     },
     {
       "id": "jakarta.inject:jakarta.inject-api:jar:2.0.1",
@@ -106,32 +106,32 @@
       "sha256": "EOmk69cFQWhg9WuAmR3PhYdlPnK5MwQC7R1fgD5_9F0="
     },
     {
-      "id": "io.quarkus:quarkus-ide-launcher:jar:3.11.0",
+      "id": "io.quarkus:quarkus-ide-launcher:jar:3.12.3",
       "artifactId": "quarkus-ide-launcher",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "jvxxWtW4VjRq-S_cEF6mA9HPl_1g-VLw4ya11QxAh2A="
+      "version": "3.12.3",
+      "sha256": "q0fb5O6-Mx3yaXxTyYyeNu8ivSPeLs2JDiPj_cz9wm0="
     },
     {
-      "id": "io.quarkus:quarkus-development-mode-spi:jar:3.11.0",
+      "id": "io.quarkus:quarkus-development-mode-spi:jar:3.12.3",
       "artifactId": "quarkus-development-mode-spi",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "_17tHwV0iYcE2hMeGbcop2TuLrF0Lao6tl3r-O5QMc4="
+      "version": "3.12.3",
+      "sha256": "vZ10guRpsnpNZ95T_u1YYYt6hbvCVDsiTUFRejioLfY="
     },
     {
-      "id": "io.smallrye.config:smallrye-config:jar:3.8.1",
+      "id": "io.smallrye.config:smallrye-config:jar:3.8.3",
       "artifactId": "smallrye-config",
       "groupId": "io.smallrye.config",
-      "version": "3.8.1",
-      "sha256": "OB-StejAc39491WyLHeQ1dYHaiV7ZPu4PsUwKIGkHCk="
+      "version": "3.8.3",
+      "sha256": "EPkF77DGLerr9zKFmelZNrFiEu6Wf7pWkcyb7XBqjZU="
     },
     {
-      "id": "io.smallrye.config:smallrye-config-core:jar:3.8.1",
+      "id": "io.smallrye.config:smallrye-config-core:jar:3.8.3",
       "artifactId": "smallrye-config-core",
       "groupId": "io.smallrye.config",
-      "version": "3.8.1",
-      "sha256": "SD_epXm5u45BVXB5Td_Hb-gY7MjbH4-GbInu79iGQVA="
+      "version": "3.8.3",
+      "sha256": "Cd-zVdhzZfHg4QEdikea-_1Lz48tJXs512RO03Y5xWw="
     },
     {
       "id": "org.eclipse.microprofile.config:microprofile-config-api:jar:3.1",
@@ -148,11 +148,11 @@
       "sha256": "btST8ATY8R5JRQI3nvi3EHVD55ndHaMCt0olhK6VDdk="
     },
     {
-      "id": "io.smallrye.config:smallrye-config-common:jar:3.8.1",
+      "id": "io.smallrye.config:smallrye-config-common:jar:3.8.3",
       "artifactId": "smallrye-config-common",
       "groupId": "io.smallrye.config",
-      "version": "3.8.1",
-      "sha256": "wnctHa1W-htagG5OJiqv7R155cHoO8-bj9maD2boEFs="
+      "version": "3.8.3",
+      "sha256": "SuJ_l8REE9mYOj2eSqsUQjSnzOckFGHptP9GuCZu9V4="
     },
     {
       "id": "org.jboss.logmanager:jboss-logmanager:jar:3.0.6.Final",
@@ -253,11 +253,11 @@
       "sha256": "ArqtQoxKD8L1A3ldCGRHUqFXMftRw9oa3RCNXmrF0oM="
     },
     {
-      "id": "io.quarkus:quarkus-bootstrap-runner:jar:3.11.0",
+      "id": "io.quarkus:quarkus-bootstrap-runner:jar:3.12.3",
       "artifactId": "quarkus-bootstrap-runner",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "bJC27z1WPjI-QN8K8Q6iehxErpoD5JRPFIaQi60ZJRY="
+      "version": "3.12.3",
+      "sha256": "pnNBIyAAEYfXdyU6w5w41mKTX0N432kqXq6f69SwTbw="
     },
     {
       "id": "io.github.crac:org-crac:jar:0.1.3",
@@ -281,39 +281,39 @@
       "sha256": "aczARIfod3nUlwqlDGc8w0qd8IDBwOjY6rLotG-CXPQ="
     },
     {
-      "id": "io.quarkus:quarkus-rest-client-jackson:jar:3.11.0",
+      "id": "io.quarkus:quarkus-rest-client-jackson:jar:3.12.3",
       "artifactId": "quarkus-rest-client-jackson",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "VfJDPfxpjKMoxu2KNhMAAshV-EtEozNHu_3WOX12Yd8="
+      "version": "3.12.3",
+      "sha256": "Ha-56CV2AmO51urVnbGPfQJQfdyvFcorXLirq0WBqNY="
     },
     {
-      "id": "io.quarkus.resteasy.reactive:resteasy-reactive-jackson:jar:3.11.0",
+      "id": "io.quarkus.resteasy.reactive:resteasy-reactive-jackson:jar:3.12.3",
       "artifactId": "resteasy-reactive-jackson",
       "groupId": "io.quarkus.resteasy.reactive",
-      "version": "3.11.0",
-      "sha256": "WOEitl2fvOv-e_bb10Z1G41WCzL9s4dvMtNh_sMcKrI="
+      "version": "3.12.3",
+      "sha256": "r4cbQRd3oxDPChqkc4w-uFxfPU_58pXS9OENKwoHodU="
     },
     {
-      "id": "io.quarkus.resteasy.reactive:resteasy-reactive:jar:3.11.0",
+      "id": "io.quarkus.resteasy.reactive:resteasy-reactive:jar:3.12.3",
       "artifactId": "resteasy-reactive",
       "groupId": "io.quarkus.resteasy.reactive",
-      "version": "3.11.0",
-      "sha256": "V0gth1gtrx8eH3I9rlIFga8OjXiK3kNpQEjhI5Fbh1k="
+      "version": "3.12.3",
+      "sha256": "MP8rQ5PiEMZAS323KLaTmOU8Q6K-nU6sxrz663w6uO8="
     },
     {
-      "id": "io.quarkus.resteasy.reactive:resteasy-reactive-common:jar:3.11.0",
+      "id": "io.quarkus.resteasy.reactive:resteasy-reactive-common:jar:3.12.3",
       "artifactId": "resteasy-reactive-common",
       "groupId": "io.quarkus.resteasy.reactive",
-      "version": "3.11.0",
-      "sha256": "LmNA_gDJ7WFE_OMdIQPmnmlRBFcfs0Kdp6HhleiSLCE="
+      "version": "3.12.3",
+      "sha256": "Jz8WnXhimqMMnmuMFahlZd63fe_MtSBegBb5gaC9K9w="
     },
     {
-      "id": "io.quarkus.resteasy.reactive:resteasy-reactive-common-types:jar:3.11.0",
+      "id": "io.quarkus.resteasy.reactive:resteasy-reactive-common-types:jar:3.12.3",
       "artifactId": "resteasy-reactive-common-types",
       "groupId": "io.quarkus.resteasy.reactive",
-      "version": "3.11.0",
-      "sha256": "QGpBC1VBvzQn9Gli4SXQFWOlBp7-povROJ5p0hi67UU="
+      "version": "3.12.3",
+      "sha256": "zErMXt2kXHZp43BY26DlDosrZczm76lfUMAGUV1xER8="
     },
     {
       "id": "org.reactivestreams:reactive-streams:jar:1.0.4",
@@ -337,25 +337,25 @@
       "sha256": "azs2KLi0rt2g0kwzVDNemFSX2O88UQuPMCjpINW4Zj0="
     },
     {
-      "id": "com.fasterxml.jackson.core:jackson-databind:jar:2.17.1",
+      "id": "com.fasterxml.jackson.core:jackson-databind:jar:2.17.2",
       "artifactId": "jackson-databind",
       "groupId": "com.fasterxml.jackson.core",
-      "version": "2.17.1",
-      "sha256": "tsovfVsaskXOxUlewzl3PS2QVUxIWSWQZz-xj0QAqUg="
+      "version": "2.17.2",
+      "sha256": "wEmT8zwPhFNCZTeE8U84Nz0AUoDmNZ21-AhwHPrnPAw="
     },
     {
-      "id": "com.fasterxml.jackson.core:jackson-annotations:jar:2.17.1",
+      "id": "com.fasterxml.jackson.core:jackson-annotations:jar:2.17.2",
       "artifactId": "jackson-annotations",
       "groupId": "com.fasterxml.jackson.core",
-      "version": "2.17.1",
-      "sha256": "_MrYLhMXLA5DhNtxV3IZybhjHAgg9LGNqqVwFvtmHHY="
+      "version": "2.17.2",
+      "sha256": "hzpgbiNQeWn5u76pOdXhknSoh3XqWhabp-LXlapRVuE="
     },
     {
-      "id": "com.fasterxml.jackson.core:jackson-core:jar:2.17.1",
+      "id": "com.fasterxml.jackson.core:jackson-core:jar:2.17.2",
       "artifactId": "jackson-core",
       "groupId": "com.fasterxml.jackson.core",
-      "version": "2.17.1",
-      "sha256": "3bJsih8ahFNeghPEizWyUzcENOMoezzxV3eFb8TljOY="
+      "version": "2.17.2",
+      "sha256": "choYkkHasFJdnoWOXLYE0-zA7eCB4t531vNPpXeaW0Y="
     },
     {
       "id": "org.jboss.logging:commons-logging-jboss-logging:jar:1.0.0.Final",
@@ -379,32 +379,32 @@
       "sha256": "AbF21xihaSY-eCkGkfxHmXcYa8xrMzSHMlCE1lhvRic="
     },
     {
-      "id": "io.quarkus:quarkus-rest-jackson-common:jar:3.11.0",
+      "id": "io.quarkus:quarkus-rest-jackson-common:jar:3.12.3",
       "artifactId": "quarkus-rest-jackson-common",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "kMt9PShdXlAMJUg067h4i6bv36khsQCWZkCWH1x_QAQ="
+      "version": "3.12.3",
+      "sha256": "pEVkLth8-wP40rTMfWqiscZ9J93oPEZcVamGf_szu4w="
     },
     {
-      "id": "io.quarkus:quarkus-rest-common:jar:3.11.0",
+      "id": "io.quarkus:quarkus-rest-common:jar:3.12.3",
       "artifactId": "quarkus-rest-common",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "AmyGj_BgzyrAZ6xGci2joacsvRIplCykwf55gvWoQWE="
+      "version": "3.12.3",
+      "sha256": "-k_wD5rP1cKZk9tKZtHhZ8-B8Q0efoGpp71vHKeaqhk="
     },
     {
-      "id": "io.quarkus:quarkus-vertx:jar:3.11.0",
+      "id": "io.quarkus:quarkus-vertx:jar:3.12.3",
       "artifactId": "quarkus-vertx",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "hC0kNXULDAkuHrfe1r2TndRhdWDS6HcC-hHIvJDrunc="
+      "version": "3.12.3",
+      "sha256": "QiyZKVY5wxUK2hnWI0XWQXKPPTpKZV-1knRnMCPd04k="
     },
     {
-      "id": "io.quarkus:quarkus-netty:jar:3.11.0",
+      "id": "io.quarkus:quarkus-netty:jar:3.12.3",
       "artifactId": "quarkus-netty",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "pyLvGWGedk_WYwat3aXTJRZcJXema0iW2Z9YPpw2KxE="
+      "version": "3.12.3",
+      "sha256": "zqjR9lat0fJAvMY409FYs0pTDXOPQj083S47susTJpo="
     },
     {
       "id": "io.netty:netty-codec:jar:4.1.108.Final",
@@ -491,18 +491,18 @@
       "sha256": "NzbEJixXxMRFlPYPNqM80CRcHuv6LF30gfaInaDRDhk="
     },
     {
-      "id": "io.quarkus:quarkus-virtual-threads:jar:3.11.0",
+      "id": "io.quarkus:quarkus-virtual-threads:jar:3.12.3",
       "artifactId": "quarkus-virtual-threads",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "qVu2PRQmGWRAVZPZRSFB_zX7C5u30cDqb7UKZoR6xRc="
+      "version": "3.12.3",
+      "sha256": "e5QTs797tgqdIh02osuUUYGmCYuFKiUKCyBHUAjyWH0="
     },
     {
-      "id": "io.quarkus:quarkus-vertx-latebound-mdc-provider:jar:3.11.0",
+      "id": "io.quarkus:quarkus-vertx-latebound-mdc-provider:jar:3.12.3",
       "artifactId": "quarkus-vertx-latebound-mdc-provider",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "9sdbNeUaaH4ta0nPkP93XXoZkgFFB9SfA9Wcnv92U1w="
+      "version": "3.12.3",
+      "sha256": "0bfiWZzljjLXIAj0mr4CwHLG0ex58D9RF3lA_iEdT24="
     },
     {
       "id": "io.smallrye.reactive:smallrye-mutiny-vertx-core:jar:3.12.0",
@@ -540,60 +540,60 @@
       "sha256": "lpHULcnS0Q93_vv5tRuSHCCbkcY4a1xYGZI4uVPsXpE="
     },
     {
-      "id": "io.quarkus:quarkus-jackson:jar:3.11.0",
+      "id": "io.quarkus:quarkus-jackson:jar:3.12.3",
       "artifactId": "quarkus-jackson",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "R_r_u_gAtyinYHPWX-Myil1zttO_ywn1AaHmHC2QCr8="
+      "version": "3.12.3",
+      "sha256": "SUpUvOQCxILnCAVg6XgkfcazUeeDovC7oBNiPn1kzek="
     },
     {
-      "id": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.17.1",
+      "id": "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.17.2",
       "artifactId": "jackson-datatype-jsr310",
       "groupId": "com.fasterxml.jackson.datatype",
-      "version": "2.17.1",
-      "sha256": "VnZdVayM_911fBpTTsll5wsBF29k39fnCw2zTYuryfo="
+      "version": "2.17.2",
+      "sha256": "m4ACSpgi5wsH9rsTgkx2wTfBBkobXrUYN0qxQYcP28w="
     },
     {
-      "id": "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.17.1",
+      "id": "com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.17.2",
       "artifactId": "jackson-datatype-jdk8",
       "groupId": "com.fasterxml.jackson.datatype",
-      "version": "2.17.1",
-      "sha256": "BoF7eF4z0iR3R6Ygglp1admIzyrtoq4h6z6t3-yzSw4="
+      "version": "2.17.2",
+      "sha256": "qqmNPtq_UEJr2CL60UQvva2m5HCWkybLyrXCeY8XONk="
     },
     {
-      "id": "com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.17.1",
+      "id": "com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.17.2",
       "artifactId": "jackson-module-parameter-names",
       "groupId": "com.fasterxml.jackson.module",
-      "version": "2.17.1",
-      "sha256": "VaDFSoLDBSSYEzXHg14ybKCfSJzw9dXio0tcTGzBoKU="
+      "version": "2.17.2",
+      "sha256": "HuXi81k9RHJrkAhoxvZNGlBjalaD1tQEJ_WYSmHeU8A="
     },
     {
-      "id": "io.quarkus:quarkus-jsonp:jar:3.11.0",
+      "id": "io.quarkus:quarkus-jsonp:jar:3.12.3",
       "artifactId": "quarkus-jsonp",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "qTEt6pqlZizS854vb429ZZcgNkbeoFmcXP71LNVamx4="
+      "version": "3.12.3",
+      "sha256": "wguxhGOjKEovGTHorQ0RtmzDCKnZTmyno5nJmx00D9E="
     },
     {
-      "id": "io.quarkus:quarkus-rest-client:jar:3.11.0",
+      "id": "io.quarkus:quarkus-rest-client:jar:3.12.3",
       "artifactId": "quarkus-rest-client",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "-2ZkJf6KpMVwPPPwpdhhNp7DIdk849ADkvr9U8Xrldo="
+      "version": "3.12.3",
+      "sha256": "c0qkVq-Q904lE7xVFuTK_8scqjnREDBXCeo0y0JYP0U="
     },
     {
-      "id": "io.quarkus:quarkus-rest-client-jaxrs:jar:3.11.0",
+      "id": "io.quarkus:quarkus-rest-client-jaxrs:jar:3.12.3",
       "artifactId": "quarkus-rest-client-jaxrs",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "UXFpfYgmsaCD-_dR1OSLc9tRWxJL-cmCeMpmEDOtb9A="
+      "version": "3.12.3",
+      "sha256": "HyGZYiyYSajA-hiGtpMA6e01mlqa1S80uxsP9x6tHis="
     },
     {
-      "id": "io.quarkus.resteasy.reactive:resteasy-reactive-client:jar:3.11.0",
+      "id": "io.quarkus.resteasy.reactive:resteasy-reactive-client:jar:3.12.3",
       "artifactId": "resteasy-reactive-client",
       "groupId": "io.quarkus.resteasy.reactive",
-      "version": "3.11.0",
-      "sha256": "l4Akv6lTnzh6mKqcJZoxqT3MU5w4jZZvCwzHR8RVkg0="
+      "version": "3.12.3",
+      "sha256": "oLjdsyg4wd7xtLnliR5MYKYVrZ_wxsfK187-yejDgDs="
     },
     {
       "id": "io.vertx:vertx-core:jar:4.5.7",
@@ -673,18 +673,32 @@
       "sha256": "NQ2u50xaIsPSwjQfCVQYzqkAA2A9Zo0tSwZv7Cpjx0Q="
     },
     {
-      "id": "io.quarkus:quarkus-smallrye-stork:jar:3.11.0",
+      "id": "io.quarkus:quarkus-smallrye-stork:jar:3.12.3",
       "artifactId": "quarkus-smallrye-stork",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "4vNdyBWuIwpiic7tTt69EYiKMWujduXTFU1fEAcidYc="
+      "version": "3.12.3",
+      "sha256": "4C-BQnIXYQqTttqKNxN-VHghFN5U1O-04OPZnUjdhuc="
     },
     {
-      "id": "io.quarkus:quarkus-rest-client-config:jar:3.11.0",
+      "id": "io.quarkus:quarkus-rest-client-config:jar:3.12.3",
       "artifactId": "quarkus-rest-client-config",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "lfVYPxsNEa8EL_B_bLxAQPzm-F-ohie7MjbHTQatVzg="
+      "version": "3.12.3",
+      "sha256": "05Q2NS3UAgJ3MUgfidut2rfipV7z36rXRgsT6TmTQZQ="
+    },
+    {
+      "id": "io.quarkus:quarkus-tls-registry:jar:3.12.3",
+      "artifactId": "quarkus-tls-registry",
+      "groupId": "io.quarkus",
+      "version": "3.12.3",
+      "sha256": "dz0zuw6UnAiyBIb_220J3semdyESivlk0fWQ4rlwU-Y="
+    },
+    {
+      "id": "io.quarkus:quarkus-credentials:jar:3.12.3",
+      "artifactId": "quarkus-credentials",
+      "groupId": "io.quarkus",
+      "version": "3.12.3",
+      "sha256": "6jqakL1B_-nYZhKrM9QMJ_oZwoqVkbWiB6UC6-Jljpg="
     },
     {
       "id": "io.smallrye.stork:stork-api:jar:2.6.0",
@@ -708,39 +722,39 @@
       "sha256": "K3Fpi5XIksxlkjX0_-ZjteLxFRzrTncmiyP_KwxjIcs="
     },
     {
-      "id": "org.projectlombok:lombok:jar:1.18.32",
+      "id": "org.projectlombok:lombok:jar:1.18.34",
       "artifactId": "lombok",
       "groupId": "org.projectlombok",
-      "version": "1.18.32",
-      "sha256": "l1dGdOKiX1Z6MTc2rOAN-Hh9RD3jFkB9V_yHfZ8Zpl0="
+      "version": "1.18.34",
+      "sha256": "wn1rKv9WJB0bB_y8xrGDcJ5rQyyA9zdO6x2CPobUuBo="
     },
     {
-      "id": "io.quarkus:quarkus-junit5:jar:3.11.0",
+      "id": "io.quarkus:quarkus-junit5:jar:3.12.3",
       "artifactId": "quarkus-junit5",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "7wn9Lu7OB09FL6SrE4RhkpCuPmhlIDnWM-Hvdm8zM4w="
+      "version": "3.12.3",
+      "sha256": "GysRd5ESaxW15uccpLyAEBfzrDItIgVTtgvw2m2ppsc="
     },
     {
-      "id": "io.quarkus:quarkus-bootstrap-core:jar:3.11.0",
+      "id": "io.quarkus:quarkus-bootstrap-core:jar:3.12.3",
       "artifactId": "quarkus-bootstrap-core",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "R0q_51PqyH1YUCyTpEtDC1IFwkCa3lVJyxdBZOEQAAs="
+      "version": "3.12.3",
+      "sha256": "hxxvs80QbFdufWOvqAiHzCZGBEdB4bdSXUFdjcqyYQ8="
     },
     {
-      "id": "io.quarkus:quarkus-classloader-commons:jar:3.11.0",
+      "id": "io.quarkus:quarkus-classloader-commons:jar:3.12.3",
       "artifactId": "quarkus-classloader-commons",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "CmaGDfKpK6KUV3XoKaUDOPn813w1KoJx6QkqgRGTZrA="
+      "version": "3.12.3",
+      "sha256": "27N39TdWYUFUFhJTaYRx3WibH5xxq1R_MkanVYHLl9Q="
     },
     {
-      "id": "io.quarkus:quarkus-bootstrap-app-model:jar:3.11.0",
+      "id": "io.quarkus:quarkus-bootstrap-app-model:jar:3.12.3",
       "artifactId": "quarkus-bootstrap-app-model",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "54roWZ2nOEca6HVW1FlR-wYxZN-ZwCSHvob6IY7ja20="
+      "version": "3.12.3",
+      "sha256": "euC3FRZd7X67vwDr9mNiDXaC73xjlE8Kjrmv1F981c4="
     },
     {
       "id": "io.smallrye.common:smallrye-common-io:jar:2.3.0",
@@ -750,32 +764,32 @@
       "sha256": "2erPube3ZaeVvpi49fjWfehRG-9h3cIOt1JC7DkqRB0="
     },
     {
-      "id": "org.eclipse.sisu:org.eclipse.sisu.inject:jar:0.9.0.M2",
+      "id": "org.eclipse.sisu:org.eclipse.sisu.inject:jar:0.9.0.M3",
       "artifactId": "org.eclipse.sisu.inject",
       "groupId": "org.eclipse.sisu",
-      "version": "0.9.0.M2",
-      "sha256": "m2K8_DUqLsh9qLAeN8lSpU01i7sa8_ISZIrq_nqy27U="
+      "version": "0.9.0.M3",
+      "sha256": "FTNcTc8IL1mfuO3c-1jWp-mpyX3iiDwlcImkebmyRSI="
     },
     {
-      "id": "io.quarkus:quarkus-test-common:jar:3.11.0",
+      "id": "io.quarkus:quarkus-test-common:jar:3.12.3",
       "artifactId": "quarkus-test-common",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "mkIBL0vE64qDgPsGx0aTxAk4n6J3zmLXzjslFTME-D4="
+      "version": "3.12.3",
+      "sha256": "SumanyAIM_ExViGJ8LPfi1LeDxOejp7ghRRt0M2zqS8="
     },
     {
-      "id": "io.quarkus:quarkus-core-deployment:jar:3.11.0",
+      "id": "io.quarkus:quarkus-core-deployment:jar:3.12.3",
       "artifactId": "quarkus-core-deployment",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "S3yIxYR8NDZiF_42CWNk82GIePaotHKoP6RPyK5jLI8="
+      "version": "3.12.3",
+      "sha256": "7_YJUbRUJouw6_NbHSvaxPYIgdfj6KVonRqtcWGlRRY="
     },
     {
-      "id": "org.aesh:readline:jar:2.4",
+      "id": "org.aesh:readline:jar:2.6",
       "artifactId": "readline",
       "groupId": "org.aesh",
-      "version": "2.4",
-      "sha256": "pilUF2mhVkkwUfLsWV8TQjmE1KBfg8hJ3FoDmgB-d3s="
+      "version": "2.6",
+      "sha256": "YB62y8d6iwe4AUuonPP73aIPzblkk-V0ZtN1P6JqzN4="
     },
     {
       "id": "org.fusesource.jansi:jansi:jar:2.4.0",
@@ -785,11 +799,11 @@
       "sha256": "bNkZkTI917L7KMqT16wSr1qGovUyeeKzWCezAxP9C58="
     },
     {
-      "id": "org.aesh:aesh:jar:2.7",
+      "id": "org.aesh:aesh:jar:2.8.2",
       "artifactId": "aesh",
       "groupId": "org.aesh",
-      "version": "2.7",
-      "sha256": "NNtAwroutEG4Y09fOscw_1fYJWyVATbzGV8Mx6XGIeM="
+      "version": "2.8.2",
+      "sha256": "jB4X_Rq506c2ve5_vWSeF099wmwc7qxunqWWqdY_z_0="
     },
     {
       "id": "org.apache.commons:commons-lang3:jar:3.14.0",
@@ -820,32 +834,32 @@
       "sha256": "e8a8vCE3mUigyMRn-w-GQgbluBj2vAtUaHL1yflBVW8="
     },
     {
-      "id": "io.quarkus:quarkus-hibernate-validator-spi:jar:3.11.0",
+      "id": "io.quarkus:quarkus-hibernate-validator-spi:jar:3.12.3",
       "artifactId": "quarkus-hibernate-validator-spi",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "E86g65GKDXNT6FiazDNPnwUB9uFpndENWr5d_BAmpmM="
+      "version": "3.12.3",
+      "sha256": "jj4i90ZxPQT4lwGKsWjYPpWcqnxzQjoXZ_h-3yZ81Xw="
     },
     {
-      "id": "io.quarkus:quarkus-class-change-agent:jar:3.11.0",
+      "id": "io.quarkus:quarkus-class-change-agent:jar:3.12.3",
       "artifactId": "quarkus-class-change-agent",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "RuTz4AvDJ0qlSE8TZ6_nLq2kplY2hga0pf5mxLGRbDg="
+      "version": "3.12.3",
+      "sha256": "W3kH7mfyR5pP-OZq0zYdFejglYAIiqlHNk1VnZjkVqc="
     },
     {
-      "id": "io.quarkus:quarkus-devtools-utilities:jar:3.11.0",
+      "id": "io.quarkus:quarkus-devtools-utilities:jar:3.12.3",
       "artifactId": "quarkus-devtools-utilities",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "8wcVUpmcbTtpfIGa80BNiebVligMzI-3NVDufEW19Gc="
+      "version": "3.12.3",
+      "sha256": "Pmv2VkQQRL8Ycia7TUsqhx76Ah2yAvcuv38CXikXPC8="
     },
     {
-      "id": "io.quarkus:quarkus-builder:jar:3.11.0",
+      "id": "io.quarkus:quarkus-builder:jar:3.12.3",
       "artifactId": "quarkus-builder",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "aEiOAD7oYRrDYStuZio0tEJH8Xm7b5f1_-qaiRIN2I0="
+      "version": "3.12.3",
+      "sha256": "OAZgzOMQIRJoAah2SRRYMszP5ElW4vxSD5Y4V1mPI5Q="
     },
     {
       "id": "org.graalvm.sdk:nativeimage:jar:23.1.2",
@@ -869,32 +883,32 @@
       "sha256": "rtT0L7kK2ps0fCMfE2VvwJEhuiDattxkamvZ1Nox5Ko="
     },
     {
-      "id": "io.quarkus:quarkus-bootstrap-maven-resolver:jar:3.11.0",
+      "id": "io.quarkus:quarkus-bootstrap-maven-resolver:jar:3.12.3",
       "artifactId": "quarkus-bootstrap-maven-resolver",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "9N_BFBVuK9dzfhBszhJ0ogF5vLsaiOzGS27KQT4jAWg="
+      "version": "3.12.3",
+      "sha256": "fLWSMgr8_CCSYcTP78ED-uspiz5ueP925a4UwTrTsb4="
     },
     {
-      "id": "io.smallrye.beanbag:smallrye-beanbag-maven:jar:1.4.1",
+      "id": "io.smallrye.beanbag:smallrye-beanbag-maven:jar:1.5.2",
       "artifactId": "smallrye-beanbag-maven",
       "groupId": "io.smallrye.beanbag",
-      "version": "1.4.1",
-      "sha256": "G6qao60IcQbRzd4AlutX5V4l_vDudNHf_JGf0udM_Xc="
+      "version": "1.5.2",
+      "sha256": "fycYMNc0BnnL2LBcTpWgjozvbaGsPXY0u5wJbiYtAdc="
     },
     {
-      "id": "io.smallrye.beanbag:smallrye-beanbag-sisu:jar:1.4.1",
+      "id": "io.smallrye.beanbag:smallrye-beanbag-sisu:jar:1.5.2",
       "artifactId": "smallrye-beanbag-sisu",
       "groupId": "io.smallrye.beanbag",
-      "version": "1.4.1",
-      "sha256": "lcmQDAlzAzSsKko6u4kE3jpAsk-r07opKXrNVwN6Mso="
+      "version": "1.5.2",
+      "sha256": "ubMqIyVpd5E9rfocvAkO9tXgQvK7V9ShJx4o3q5CgAE="
     },
     {
-      "id": "io.smallrye.beanbag:smallrye-beanbag:jar:1.4.1",
+      "id": "io.smallrye.beanbag:smallrye-beanbag:jar:1.5.2",
       "artifactId": "smallrye-beanbag",
       "groupId": "io.smallrye.beanbag",
-      "version": "1.4.1",
-      "sha256": "nxYl8xB-fywCWrclaFJjzg1C_Qb5YYdAZxtSE7CQVkw="
+      "version": "1.5.2",
+      "sha256": "gDy435zYY6JrQ8NMuK_vho5WFRCt9cM4ZNi6MweqkcI="
     },
     {
       "id": "commons-codec:commons-codec:jar:1.17.0",
@@ -925,88 +939,88 @@
       "sha256": "bJs90UKgncRo4jrTmq1vdaDyuFElEERp8CblKkdORk8="
     },
     {
-      "id": "org.apache.maven:maven-artifact:jar:3.9.6",
+      "id": "org.apache.maven:maven-artifact:jar:3.9.8",
       "artifactId": "maven-artifact",
       "groupId": "org.apache.maven",
-      "version": "3.9.6",
-      "sha256": "rXoPtAj45HWFzMDQAR4LUB2Tv8mIjTabvUoEPRlHUHM="
+      "version": "3.9.8",
+      "sha256": "Xi882gBBgvyBXUi3C8DRRMsSgjCoQdxxE1fVfHbJWXI="
     },
     {
-      "id": "org.apache.maven:maven-builder-support:jar:3.9.6",
+      "id": "org.apache.maven:maven-builder-support:jar:3.9.8",
       "artifactId": "maven-builder-support",
       "groupId": "org.apache.maven",
-      "version": "3.9.6",
-      "sha256": "4fTSeERZzoo0udrhgpoZmbVp5IPiHun6pzaGkecpKW4="
+      "version": "3.9.8",
+      "sha256": "cBA83YSgOaYg-zf_tvjGifSQr1xdxfEcvBWtxRWmLnQ="
     },
     {
-      "id": "org.apache.maven:maven-model:jar:3.9.6",
+      "id": "org.apache.maven:maven-model:jar:3.9.8",
       "artifactId": "maven-model",
       "groupId": "org.apache.maven",
-      "version": "3.9.6",
-      "sha256": "T48H_ba4cB-omiOi7fgwgI_WWJLZDM5AwObffI8vy2I="
+      "version": "3.9.8",
+      "sha256": "m0vkbFXwcgFiZkYV1P6EaPmYZml6SE4WUqGRiWVss30="
     },
     {
-      "id": "org.apache.maven:maven-model-builder:jar:3.9.6",
+      "id": "org.apache.maven:maven-model-builder:jar:3.9.8",
       "artifactId": "maven-model-builder",
       "groupId": "org.apache.maven",
-      "version": "3.9.6",
-      "sha256": "X5ba-8QR7ksehCY2jQ0x0Fq1pNrOaYCBQxQqABdZhyE="
+      "version": "3.9.8",
+      "sha256": "3hZvbAbCF9kzPeVp92Ye8R1RIvdKeBA-1d1I6KO9OCA="
     },
     {
-      "id": "org.apache.maven:maven-repository-metadata:jar:3.9.6",
+      "id": "org.apache.maven:maven-repository-metadata:jar:3.9.8",
       "artifactId": "maven-repository-metadata",
       "groupId": "org.apache.maven",
-      "version": "3.9.6",
-      "sha256": "4EemeyBMQ0mUJT4qtb3_X-jLetqTFqw-dUw5-QDqhHs="
+      "version": "3.9.8",
+      "sha256": "Hz8ppr2KNckqbjy7WZK-dIY4aP2WLpBFfDPSivJUcvI="
     },
     {
-      "id": "org.apache.maven:maven-settings:jar:3.9.6",
+      "id": "org.apache.maven:maven-settings:jar:3.9.8",
       "artifactId": "maven-settings",
       "groupId": "org.apache.maven",
-      "version": "3.9.6",
-      "sha256": "DSAP07NU1lPSoCzbpqObbcJ0SoU5_zbqQj_mLKxzZ5k="
+      "version": "3.9.8",
+      "sha256": "QIcWBhQkCwTLt-HTr0buJzYunQ1S4YNW3YusfBgyiOw="
     },
     {
-      "id": "org.apache.maven.resolver:maven-resolver-api:jar:1.9.18",
+      "id": "org.apache.maven.resolver:maven-resolver-api:jar:1.9.20",
       "artifactId": "maven-resolver-api",
       "groupId": "org.apache.maven.resolver",
-      "version": "1.9.18",
-      "sha256": "6_ueHf7qPCAXkFGEWB4AeHS06qydKL__z-UTPXCsYzk="
+      "version": "1.9.20",
+      "sha256": "3uku2hzSk6-7uw7j11L4wTXhk-IjIXLgNqPyPjjIwl0="
     },
     {
-      "id": "org.apache.maven.resolver:maven-resolver-impl:jar:1.9.18",
+      "id": "org.apache.maven.resolver:maven-resolver-impl:jar:1.9.20",
       "artifactId": "maven-resolver-impl",
       "groupId": "org.apache.maven.resolver",
-      "version": "1.9.18",
-      "sha256": "a7nJDQBwmABHSchn2i6vV4X8ETmQdxh0nBCXvbKSm_g="
+      "version": "1.9.20",
+      "sha256": "VWcjUfp4wQBBiJRO-HTCG5JMMrEzOoNOvr9lw8SZc5s="
     },
     {
-      "id": "org.apache.maven.resolver:maven-resolver-named-locks:jar:1.9.18",
+      "id": "org.apache.maven.resolver:maven-resolver-named-locks:jar:1.9.20",
       "artifactId": "maven-resolver-named-locks",
       "groupId": "org.apache.maven.resolver",
-      "version": "1.9.18",
-      "sha256": "CY3nu8Wwsmw-_3SsMP-6ZoD9q5v0rrq5XD9eL-nq7qg="
+      "version": "1.9.20",
+      "sha256": "bQcl7fxhhVW7cFCYZTByh7gIIEOKMn93jb6Nb44mQX0="
     },
     {
-      "id": "org.apache.maven.resolver:maven-resolver-spi:jar:1.9.18",
+      "id": "org.apache.maven.resolver:maven-resolver-spi:jar:1.9.20",
       "artifactId": "maven-resolver-spi",
       "groupId": "org.apache.maven.resolver",
-      "version": "1.9.18",
-      "sha256": "02T86aF7DgsHPCbvqSr5WynADEKUPc7UoRaKeSP9P-E="
+      "version": "1.9.20",
+      "sha256": "BMPEFFQpjf9PQq0radWxjnTDyaMptPUB1xfhV9VuvRE="
     },
     {
-      "id": "org.apache.maven.resolver:maven-resolver-util:jar:1.9.18",
+      "id": "org.apache.maven.resolver:maven-resolver-util:jar:1.9.20",
       "artifactId": "maven-resolver-util",
       "groupId": "org.apache.maven.resolver",
-      "version": "1.9.18",
-      "sha256": "LrDqZnvEiThEeCMd2nUWQH1LWyKhOAdyKYcd6TYqeuI="
+      "version": "1.9.20",
+      "sha256": "uGmspsII0rH8kuhG4cE2EqXtL9o77Zp8GuL_XxT4z0g="
     },
     {
-      "id": "org.apache.maven.resolver:maven-resolver-transport-http:jar:1.9.18",
+      "id": "org.apache.maven.resolver:maven-resolver-transport-http:jar:1.9.20",
       "artifactId": "maven-resolver-transport-http",
       "groupId": "org.apache.maven.resolver",
-      "version": "1.9.18",
-      "sha256": "H6Aictp6YEcY8i4ryXdfFDUEh1SP_DCi_6rhwtHRpYo="
+      "version": "1.9.20",
+      "sha256": "i98UJAKHLqmUYBEMUmIJxBDRi2nFtclHTlOcEdFMs3I="
     },
     {
       "id": "org.apache.maven.wagon:wagon-provider-api:jar:3.5.3",
@@ -1037,11 +1051,11 @@
       "sha256": "huAlXUyHnGG0gz7X8TEk6LtnnfR967EnMm59t91JoHs="
     },
     {
-      "id": "org.codehaus.plexus:plexus-xml:jar:4.0.0",
+      "id": "org.codehaus.plexus:plexus-xml:jar:4.0.1",
       "artifactId": "plexus-xml",
       "groupId": "org.codehaus.plexus",
-      "version": "4.0.0",
-      "sha256": "OEPevd7tK_f5Jk-MidAXvEkw6EMqouZl_eWUmAXgUcc="
+      "version": "4.0.1",
+      "sha256": "pbE9Go77jpJA2aMren2oe13_9WPnc39wBdM0r4YfH2I="
     },
     {
       "id": "org.apache.maven:maven-xml-impl:jar:4.0.0-alpha-5",
@@ -1079,18 +1093,18 @@
       "sha256": "hzE5lgxMeAF23aWAsAOixL-CGIvc5buZI04iTves_Os="
     },
     {
-      "id": "org.apache.maven:maven-embedder:jar:3.9.6",
+      "id": "org.apache.maven:maven-embedder:jar:3.9.8",
       "artifactId": "maven-embedder",
       "groupId": "org.apache.maven",
-      "version": "3.9.6",
-      "sha256": "5tV5Jgjs8xSF-5dbyxY40MuAl33u0QaLc1sLXrc5o8c="
+      "version": "3.9.8",
+      "sha256": "jfaYRUDZh4qlFGBFGBXmrBrRfXk-gk3UFeLsxv526mo="
     },
     {
-      "id": "org.apache.maven:maven-core:jar:3.9.6",
+      "id": "org.apache.maven:maven-core:jar:3.9.8",
       "artifactId": "maven-core",
       "groupId": "org.apache.maven",
-      "version": "3.9.6",
-      "sha256": "wTJ1kDmHWdoZGNvzVuttY_j85xkqgFyzyOM2-7EVXcA="
+      "version": "3.9.8",
+      "sha256": "E22VraEgmPSCImOL_baKzg4bUY1nbNQ4RdMesK7TdzY="
     },
     {
       "id": "org.codehaus.plexus:plexus-component-annotations:jar:2.1.0",
@@ -1100,18 +1114,18 @@
       "sha256": "veNhfOm1vPlYQSYEYIAEOvaks7rqQKOxU_Aue7wyrKw="
     },
     {
-      "id": "org.apache.maven:maven-plugin-api:jar:3.9.6",
+      "id": "org.apache.maven:maven-plugin-api:jar:3.9.8",
       "artifactId": "maven-plugin-api",
       "groupId": "org.apache.maven",
-      "version": "3.9.6",
-      "sha256": "P9Zk9-URRjVhvDQ4IjR2GLjKCVLbhdp4WAkWbwp2JBE="
+      "version": "3.9.8",
+      "sha256": "7A1Bs8beiZsgJSM3P9-FcdNU8JBSwXv0IwuqHKHNeTY="
     },
     {
-      "id": "org.apache.maven.shared:maven-shared-utils:jar:3.3.4",
+      "id": "org.apache.maven.shared:maven-shared-utils:jar:3.4.2",
       "artifactId": "maven-shared-utils",
       "groupId": "org.apache.maven.shared",
-      "version": "3.3.4",
-      "sha256": "eSXZxaDiBA0kuPrj9hLrOZy__lg4szujaHd9x73fbdo="
+      "version": "3.4.2",
+      "sha256": "thM1fhutTfwd6tgBaRyUYPlYX-fGtGa8JRhiEtfRhIc="
     },
     {
       "id": "com.google.inject:guice:jar:5.1.0",
@@ -1128,11 +1142,11 @@
       "sha256": "Ct3sZw_tzT8RPFyAkdeDKA0j9146y4QbYanNsHk3agg="
     },
     {
-      "id": "com.google.guava:guava:jar:33.2.0-jre",
+      "id": "com.google.guava:guava:jar:33.2.1-jre",
       "artifactId": "guava",
       "groupId": "com.google.guava",
-      "version": "33.2.0-jre",
-      "sha256": "mfSR6GJizjjROzWB1A93rNtGlqlQVEfDFUR0wxkpCN0="
+      "version": "33.2.1-jre",
+      "sha256": "RSstl4e302b6jPXtmhxAQEVC0F7_p6WY2gO7u7dtnzE="
     },
     {
       "id": "com.google.guava:failureaccess:jar:1.0.1",
@@ -1156,46 +1170,46 @@
       "sha256": "Uvd8XsSfeHycQX6-1dbv2ZIvRKIC8hc3bk-UwNdPNUk="
     },
     {
-      "id": "commons-cli:commons-cli:jar:1.5.0",
+      "id": "commons-cli:commons-cli:jar:1.8.0",
       "artifactId": "commons-cli",
       "groupId": "commons-cli",
-      "version": "1.5.0",
-      "sha256": "vIuwH8D60lA4VwbiD5J93P9hc_Yzmzh9yHkjd1JWesY="
+      "version": "1.8.0",
+      "sha256": "-UyYu8-hwdrGlW1sP0lOxAJlxnv1Td78ld9P_dc65tU="
     },
     {
-      "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:jar:0.9.0.M2",
+      "id": "org.eclipse.sisu:org.eclipse.sisu.plexus:jar:0.9.0.M3",
       "artifactId": "org.eclipse.sisu.plexus",
       "groupId": "org.eclipse.sisu",
-      "version": "0.9.0.M2",
-      "sha256": "lQDTA85GfibRKd2oVZw_OpEnfUGrSdLEtKV3lTamL8E="
+      "version": "0.9.0.M3",
+      "sha256": "yZZ003c-JhVIhWYXEfC21jqlAI9cyZInojZ1bUrZ3l4="
     },
     {
-      "id": "org.apache.maven:maven-settings-builder:jar:3.9.6",
+      "id": "org.apache.maven:maven-settings-builder:jar:3.9.8",
       "artifactId": "maven-settings-builder",
       "groupId": "org.apache.maven",
-      "version": "3.9.6",
-      "sha256": "6XzCReTvgzxYn84LWopNd-Og4B5hnFe1NCxeFtN6eR0="
+      "version": "3.9.8",
+      "sha256": "RkcaqY8n21yKkLODKU2Kw7Upt8MK_ivwKsmWzCwXXJk="
     },
     {
-      "id": "org.apache.maven:maven-resolver-provider:jar:3.9.6",
+      "id": "org.apache.maven:maven-resolver-provider:jar:3.9.8",
       "artifactId": "maven-resolver-provider",
       "groupId": "org.apache.maven",
-      "version": "3.9.6",
-      "sha256": "c7ALJEt7nihWVKRedliSv102nad9QrW0tUKRIu0ZijM="
+      "version": "3.9.8",
+      "sha256": "IPPIMULonLQKevUP8i3zgmjNDOj6_cpCREUyB7jDl1A="
     },
     {
-      "id": "org.apache.maven.resolver:maven-resolver-connector-basic:jar:1.9.18",
+      "id": "org.apache.maven.resolver:maven-resolver-connector-basic:jar:1.9.20",
       "artifactId": "maven-resolver-connector-basic",
       "groupId": "org.apache.maven.resolver",
-      "version": "1.9.18",
-      "sha256": "-I2X0PGFcaZ15ztF1qk4SwAyLJ-uUUrWdh1ltymk6Co="
+      "version": "1.9.20",
+      "sha256": "_DDT3B2OGrREbT2JeQfci7KbTnMKqSfDrDBilCi7OoE="
     },
     {
-      "id": "org.apache.maven.resolver:maven-resolver-transport-wagon:jar:1.9.18",
+      "id": "org.apache.maven.resolver:maven-resolver-transport-wagon:jar:1.9.20",
       "artifactId": "maven-resolver-transport-wagon",
       "groupId": "org.apache.maven.resolver",
-      "version": "1.9.18",
-      "sha256": "WkrrJOIAuAe4wAcEoWRFE-8QO523oYBVW5cav4ApCnM="
+      "version": "1.9.20",
+      "sha256": "VVknrNQzLjxSFFENY9NBFiG3xjDu8WEueM9hkkuxKwc="
     },
     {
       "id": "org.apache.maven.wagon:wagon-http:jar:3.5.3",
@@ -1212,18 +1226,18 @@
       "sha256": "r8khb6l7eNrSJ7So1NZ7mJe_ETpX-AWY1imThBET4QM="
     },
     {
-      "id": "io.quarkus:quarkus-bootstrap-gradle-resolver:jar:3.11.0",
+      "id": "io.quarkus:quarkus-bootstrap-gradle-resolver:jar:3.12.3",
       "artifactId": "quarkus-bootstrap-gradle-resolver",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "nRIBhrqyDbohkBTX6ZLH7oUU0CDrrShNi69WiLAQVMg="
+      "version": "3.12.3",
+      "sha256": "UtwV82nTJ-BATNJ3HRAgFoKf-K1j5mbSUK7RG3eLt-8="
     },
     {
-      "id": "io.smallrye:jandex:jar:3.1.8",
+      "id": "io.smallrye:jandex:jar:3.2.0",
       "artifactId": "jandex",
       "groupId": "io.smallrye",
-      "version": "3.1.8",
-      "sha256": "tNU74eCHmEEWTmQTS0-OQfrJDpmVFgtDe3Ne2qB74A8="
+      "version": "3.2.0",
+      "sha256": "baPpzo0MCkM_PnzmEKPGasywDHH-5nqg_z5ahBOVrBU="
     },
     {
       "id": "commons-io:commons-io:jar:2.16.1",
@@ -1233,11 +1247,11 @@
       "sha256": "9B97qs1xaJZEes6XWGIfYsHGsKkdiazuSI2ib8R3yE8="
     },
     {
-      "id": "io.quarkus:quarkus-junit5-properties:jar:3.11.0",
+      "id": "io.quarkus:quarkus-junit5-properties:jar:3.12.3",
       "artifactId": "quarkus-junit5-properties",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "roZ_0Wd0QRh_n6L43T1gW6OCmgBH459dtYG_ijiz8hI="
+      "version": "3.12.3",
+      "sha256": "6rOVDZC_NE6Afz3LVd6NlBnnl8f8MBV8JEGIc3kdX0Q="
     },
     {
       "id": "org.junit.jupiter:junit-jupiter:jar:5.10.2",
@@ -1317,32 +1331,32 @@
       "sha256": "NOCO5iEWBxy7acDtcNFaelsgjWJ5jFnyEgu4kpMky2M="
     },
     {
-      "id": "io.quarkus:quarkus-junit5-mockito:jar:3.11.0",
+      "id": "io.quarkus:quarkus-junit5-mockito:jar:3.12.3",
       "artifactId": "quarkus-junit5-mockito",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "J5MbDDsFIDt9oEQNJ_pi9vHDHci1m_hV6jGHYgTAUTA="
+      "version": "3.12.3",
+      "sha256": "LyZzQRhBtNQgP1a_llZVYFUr1MKKOY6cUEOeFHR9Gpo="
     },
     {
-      "id": "org.mockito:mockito-junit-jupiter:jar:5.11.0",
+      "id": "org.mockito:mockito-junit-jupiter:jar:5.12.0",
       "artifactId": "mockito-junit-jupiter",
       "groupId": "org.mockito",
-      "version": "5.11.0",
-      "sha256": "ow6k_gSE5U9kzcFSaabG_xvYm8JqDUHkwny5HLeNxUg="
+      "version": "5.12.0",
+      "sha256": "JmO0fls2vr7zoaIWENxM6lBPASRUXUX6XzMyg3lx1m0="
     },
     {
-      "id": "org.mockito:mockito-core:jar:5.11.0",
+      "id": "org.mockito:mockito-core:jar:5.12.0",
       "artifactId": "mockito-core",
       "groupId": "org.mockito",
-      "version": "5.11.0",
-      "sha256": "8HbJax9JuNm8QuRrCWmq9WhMQMi1tnnUAOXYgAc6DgA="
+      "version": "5.12.0",
+      "sha256": "Si6ykjcFDadJ6QpG-Ui85-JuwitnHkH1mxrG9LZAgik="
     },
     {
-      "id": "net.bytebuddy:byte-buddy-agent:jar:1.14.12",
+      "id": "net.bytebuddy:byte-buddy-agent:jar:1.14.15",
       "artifactId": "byte-buddy-agent",
       "groupId": "net.bytebuddy",
-      "version": "1.14.12",
-      "sha256": "KzCakwAJLgtpb3xHH9UdmWkAHfeEyKufB5l0N9dXrW0="
+      "version": "1.14.15",
+      "sha256": "PvbscXWAE2EXAGfMaQKWn5ZtN8cr-TU9nNKCJjsYQGQ="
     },
     {
       "id": "org.objenesis:objenesis:jar:3.3",
@@ -1352,88 +1366,88 @@
       "sha256": "At_QsEOaVZHjW3CO0vVHTrCUj1Or90Y36Vm45O9pv-s="
     },
     {
-      "id": "io.quarkus:quarkus-junit5-mockito-config:jar:3.11.0",
+      "id": "io.quarkus:quarkus-junit5-mockito-config:jar:3.12.3",
       "artifactId": "quarkus-junit5-mockito-config",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "lHmhBriZFdDrannqtkMocgdl-EqJoR59EMCQlxXb2nc="
+      "version": "3.12.3",
+      "sha256": "-ZhDuE-QoOJRgB00oHVjWTzJCIae1BR4PbxzHXFTvMw="
     },
     {
-      "id": "io.quarkus:quarkus-arc-deployment:jar:3.11.0",
+      "id": "io.quarkus:quarkus-arc-deployment:jar:3.12.3",
       "artifactId": "quarkus-arc-deployment",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "0kL96Eb8gNerXv7oo6T2bf0lHmAIcpkVuhsHrSp-e8E="
+      "version": "3.12.3",
+      "sha256": "cTwUdERrgg30y1aDPr45XYqKrTu_2MR58MiC7wJbHA4="
     },
     {
-      "id": "io.quarkus:quarkus-smallrye-context-propagation-spi:jar:3.11.0",
+      "id": "io.quarkus:quarkus-smallrye-context-propagation-spi:jar:3.12.3",
       "artifactId": "quarkus-smallrye-context-propagation-spi",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "xVVL1fMhHEf6qSNUZrAz501kNwM_NRqYEdTGhrAJMjs="
+      "version": "3.12.3",
+      "sha256": "1riJXxapAI1GE--x2Flo6rrkeN5cVAv3cegw6vpyY-I="
     },
     {
-      "id": "io.quarkus:quarkus-vertx-http-dev-ui-spi:jar:3.11.0",
+      "id": "io.quarkus:quarkus-vertx-http-dev-ui-spi:jar:3.12.3",
       "artifactId": "quarkus-vertx-http-dev-ui-spi",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "sUpZ2zRvCgW-cnX13T9r5Xu5b2as3q88-Nc2zm3xT8o="
+      "version": "3.12.3",
+      "sha256": "FtlNgpcjqflhDqtOkHdVb7oK-EYwbzXPeJCpIyBWkFM="
     },
     {
-      "id": "io.quarkus.arc:arc-processor:jar:3.11.0",
+      "id": "io.quarkus.arc:arc-processor:jar:3.12.3",
       "artifactId": "arc-processor",
       "groupId": "io.quarkus.arc",
-      "version": "3.11.0",
-      "sha256": "WnTWJzSA6JRx9zZAdWhnJ4EFZL3adsm0MojOKFMLmaI="
+      "version": "3.12.3",
+      "sha256": "SKpZ1YxSH02zB_GPW4PmJmAJ7fTKzrfWZPATJ1DtQEk="
     },
     {
-      "id": "io.quarkus:quarkus-arc-test-supplement:jar:3.11.0",
+      "id": "io.quarkus:quarkus-arc-test-supplement:jar:3.12.3",
       "artifactId": "quarkus-arc-test-supplement",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "FsO0vUrJ-bATn2-TtGWO37doQAbbZfAR_RjcXHFm8T0="
+      "version": "3.12.3",
+      "sha256": "wBO8-zmFJ8ACEMnCEN-159H0hvFRX1blIZc5BIS0sCM="
     },
     {
-      "id": "org.mockito:mockito-subclass:jar:5.11.0",
+      "id": "org.mockito:mockito-subclass:jar:5.12.0",
       "artifactId": "mockito-subclass",
       "groupId": "org.mockito",
-      "version": "5.11.0",
+      "version": "5.12.0",
       "sha256": "YeZRFr9heM06XxzswNc9aDlefBddB6f5R4ZQ9Vs2-x0="
     },
     {
-      "id": "io.quarkus:quarkus-mutiny:jar:3.11.0",
+      "id": "io.quarkus:quarkus-mutiny:jar:3.12.3",
       "artifactId": "quarkus-mutiny",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "8vSIi_QG4s6OotLxCoDQy5K_mgQ___4s1gr0QmzjioY="
+      "version": "3.12.3",
+      "sha256": "h1WmlJkLvS6zAAmAzZjsiTUZoAKkQx42GRQ2PKM3D58="
     },
     {
-      "id": "io.quarkus:quarkus-smallrye-context-propagation:jar:3.11.0",
+      "id": "io.quarkus:quarkus-smallrye-context-propagation:jar:3.12.3",
       "artifactId": "quarkus-smallrye-context-propagation",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "0UH_RBNfa53gO_sCdbo4wgnzy8LW_QrJwjVOZddMra8="
+      "version": "3.12.3",
+      "sha256": "NFzBFVXLfG6ZZG8bMleYGOs36Dx08IEQ9C_SykYbUyQ="
     },
     {
-      "id": "io.smallrye:smallrye-context-propagation:jar:2.1.0",
+      "id": "io.smallrye:smallrye-context-propagation:jar:2.1.2",
       "artifactId": "smallrye-context-propagation",
       "groupId": "io.smallrye",
-      "version": "2.1.0",
-      "sha256": "mudqxaICUFD5ng1BwVv6eVfYqERYqtM7eaNwrQYnHBo="
+      "version": "2.1.2",
+      "sha256": "GZNc9ZXQaD322WMiyjta3QWWtTQCZp_oK5JOADM5GVc="
     },
     {
-      "id": "io.smallrye:smallrye-context-propagation-api:jar:2.1.0",
+      "id": "io.smallrye:smallrye-context-propagation-api:jar:2.1.2",
       "artifactId": "smallrye-context-propagation-api",
       "groupId": "io.smallrye",
-      "version": "2.1.0",
-      "sha256": "F2_yFsVyPQ-aGNswPfrtzzuYi077Cn4OVu2Ld1YfLIk="
+      "version": "2.1.2",
+      "sha256": "b0ZKAuRN-lCoD14EN47kasEeIETSESG9LnRkcYzHYnQ="
     },
     {
-      "id": "io.smallrye:smallrye-context-propagation-storage:jar:2.1.0",
+      "id": "io.smallrye:smallrye-context-propagation-storage:jar:2.1.2",
       "artifactId": "smallrye-context-propagation-storage",
       "groupId": "io.smallrye",
-      "version": "2.1.0",
-      "sha256": "BaFJvAxKV73abzKF5Flz1kxg86MCYdYD0a8hLy_Gd1s="
+      "version": "2.1.2",
+      "sha256": "u6JNS8AP22vv7hcohSPFMVMDrVDHLC9_E0DIoKQ0-f0="
     },
     {
       "id": "io.smallrye.reactive:mutiny-smallrye-context-propagation:jar:2.6.0",
@@ -1443,11 +1457,11 @@
       "sha256": "P3cpjBF_rZPwh-QLo30x0DlYfWRFrYUVXc8iZY2aYWM="
     },
     {
-      "id": "org.assertj:assertj-core:jar:3.25.3",
+      "id": "org.assertj:assertj-core:jar:3.26.3",
       "artifactId": "assertj-core",
       "groupId": "org.assertj",
-      "version": "3.25.3",
-      "sha256": "f73_oZltQ8wI4lduAQCLB-V7utK0dBqmw6tzzoUREw4="
+      "version": "3.26.3",
+      "sha256": "TC-GQY_0fua2f7xq2xlOgCGbeTKBs72ih5nUQlvJoL0="
     },
     {
       "id": "net.bytebuddy:byte-buddy:jar:1.14.15",
@@ -1457,11 +1471,11 @@
       "sha256": "dHLjlhmSwSqf1PbWfCHeQoCr4Y8pJwTdSdczgon4rPU="
     },
     {
-      "id": "io.quarkus:quarkus-jacoco:jar:3.11.0",
+      "id": "io.quarkus:quarkus-jacoco:jar:3.12.3",
       "artifactId": "quarkus-jacoco",
       "groupId": "io.quarkus",
-      "version": "3.11.0",
-      "sha256": "sUQFIfkWgsysLOSccejaJMT6ECwA5v_mmt4jEARZpow="
+      "version": "3.12.3",
+      "sha256": "-kIJUpcWKWb5KhGwHiE-t-2T2q3YsaX5MTVEIVX4BUE="
     },
     {
       "id": "org.jacoco:org.jacoco.core:jar:0.8.12",
