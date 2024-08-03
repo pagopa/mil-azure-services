@@ -63,6 +63,12 @@ public class AzureIdentityReactiveService {
 	 * Constructor.
 	 * </p>
 	 * 
+	 * @param identityEndpoint   End point to get access token by means of system managed identity
+	 * @param identityHeader     Value to use to set x-identity-header
+	 * @param authorityHost      End point to get access token by means of workload identity
+	 * @param tenantId           Tenant ID
+	 * @param clientId           Client ID
+	 * @param federatedTokenFile Token file with client assertion
 	 */
 	@Inject
 	AzureIdentityReactiveService(
