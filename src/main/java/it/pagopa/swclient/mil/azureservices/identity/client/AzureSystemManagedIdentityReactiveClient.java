@@ -5,8 +5,15 @@
  */
 package it.pagopa.swclient.mil.azureservices.identity.client;
 
+import org.eclipse.microprofile.rest.client.annotation.ClientHeaderParam;
+
+import io.quarkus.rest.client.reactive.ClientQueryParam;
 import io.smallrye.mutiny.Uni;
 import it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
 
 /**
  * <p>
@@ -15,7 +22,7 @@ import it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken;
  * 
  * @author Antonio Tarricone
  */
-public interface AzureIdentityReactiveClient {
+public interface AzureSystemManagedIdentityReactiveClient extends AzureIdentityReactiveClient {
 	/**
 	 * <p>
 	 * Retrieves an access token for an Azure resource.
@@ -24,5 +31,9 @@ public interface AzureIdentityReactiveClient {
 	 * @param scope {@link it.pagopa.swclient.mil.azureservices.identity.bean.Scope Scope}
 	 * @return {@link it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken AccessToken}
 	 */
-	Uni<AccessToken> getAccessToken(String scope);
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@ClientQueryParam(name = "api-version", value = "2019-08-01")
+	@ClientHeaderParam(name = "x-identity-header", value = "${IDENTITY_HEADER}")
+	Uni<AccessToken> getAccessToken(@QueryParam("resource") String scope);
 }
