@@ -231,7 +231,7 @@ public class AzureKeyVaultKeysExtReactiveService {
 				}
 			});
 	}
-	
+
 	/**
 	 * <p>
 	 * Deletes all expired keys which match searching criteria.

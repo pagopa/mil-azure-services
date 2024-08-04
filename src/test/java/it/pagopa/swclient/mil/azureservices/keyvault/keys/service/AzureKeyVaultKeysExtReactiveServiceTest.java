@@ -790,7 +790,7 @@ class AzureKeyVaultKeysExtReactiveServiceTest {
 			.containsExactlyInAnyOrder(
 				bundle_exp_1,
 				bundle_exp_2);
-		
+
 		verify(keysService, never()).deleteKey("ok_1");
 		verify(keysService, never()).deleteKey("ok_2");
 		verify(keysService, never()).deleteKey("wo_exp");

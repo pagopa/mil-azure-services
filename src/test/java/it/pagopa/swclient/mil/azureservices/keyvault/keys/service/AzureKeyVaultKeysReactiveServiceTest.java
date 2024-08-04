@@ -591,7 +591,7 @@ class AzureKeyVaultKeysReactiveServiceTest {
 			.awaitItem()
 			.assertItem(keyOperationResult);
 	}
-	
+
 	/**
 	 * 
 	 */
