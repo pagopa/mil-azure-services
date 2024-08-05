@@ -16,6 +16,7 @@ import io.quarkus.logging.Log;
 import io.quarkus.rest.client.reactive.ClientFormParam;
 import io.smallrye.mutiny.Uni;
 import it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken;
+import jakarta.enterprise.inject.spi.DeploymentException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.POST;
@@ -60,10 +61,6 @@ public interface AzureWorkloadIdentityReactiveClient extends AzureIdentityReacti
 	 * @return Value to use to set header.
 	 */
 	default String getClientAssertion(String headerName) {
-		if (!headerName.equals("client_assertion")) {
-			throw new IllegalArgumentException("Header name must be client_assertion");
-		}
-
 		try {
 			return new String(
 				Files.readAllBytes(
@@ -75,7 +72,7 @@ public interface AzureWorkloadIdentityReactiveClient extends AzureIdentityReacti
 				StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			Log.errorf(e, "Error reading Azure federated token file");
-			throw new RuntimeException("Error reading Azure federated token file", e); // NOSONAR
+			throw new DeploymentException("Error reading Azure federated token file", e);
 		}
 	}
 }
