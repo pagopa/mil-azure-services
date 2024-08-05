@@ -60,11 +60,9 @@ class AzureWorkloadIdentityReactiveClientTest {
 	/**
 	 * Test method for
 	 * {@link it.pagopa.swclient.mil.azureservices.identity.client.AzureWorkloadIdentityReactiveClient#getClientAssertion(java.lang.String)}.
-	 * 
-	 * @throws IOException
 	 */
 	@Test
-	void given_ioExceptionReadingTokenFile_when_invokeGetClientAssertion_then_throwException() throws IOException {
+	void given_ioExceptionReadingTokenFile_when_invokeGetClientAssertion_then_throwException() {
 		try (MockedStatic<Files> files = mockStatic(Files.class)) {
 
 			files.when(() -> Files.readAllBytes(Paths.get(
