@@ -18,14 +18,14 @@ public class Scope {
 	 * Scope to get an access token to access to Key Vault APIs.
 	 * </p>
 	 */
-	public static final String VAULT = "https://vault.azure.net";
+	public static final String VAULT = "https://vault.azure.net/.default";
 
 	/**
 	 * <p>
 	 * Scope to get an access token to access to Storage Account APIs.
 	 * </p>
 	 */
-	public static final String STORAGE = "https://storage.azure.com";
+	public static final String STORAGE = "https://storage.azure.com/.default";
 
 	/**
 	 * <p>

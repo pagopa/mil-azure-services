@@ -5,6 +5,8 @@
  */
 package it.pagopa.swclient.mil.azureservices.identity.service;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -12,15 +14,11 @@ import static org.mockito.Mockito.when;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
-import org.mockito.Mockito;
 
-import io.quarkus.test.InjectMock;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.mockito.InjectSpy;
 import io.smallrye.mutiny.Uni;
 import io.smallrye.mutiny.helpers.test.UniAssertSubscriber;
 import it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken;
@@ -33,19 +31,6 @@ import it.pagopa.swclient.mil.azureservices.identity.client.AzureIdentityReactiv
  */
 @QuarkusTest
 class AzureIdentityReactiveServiceTest {
-	/*
-	 * 
-	 */
-	@InjectSpy
-	AzureIdentityReactiveService identityService;
-
-	/*
-	 * 
-	 */
-	@InjectMock
-	@RestClient
-	AzureIdentityReactiveClient identityClient;
-
 	/**
 	 * 
 	 * @param testInfo
@@ -56,8 +41,6 @@ class AzureIdentityReactiveServiceTest {
 		System.out.println(frame);
 		System.out.printf("* %s: START *%n", testInfo.getDisplayName());
 		System.out.println(frame);
-		Mockito.reset(identityClient);
-		identityService.clearAccessTokenCache();
 	}
 
 	/**
@@ -73,12 +56,16 @@ class AzureIdentityReactiveServiceTest {
 		AccessToken accessToken = new AccessToken()
 			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
 			.setValue("access_token_string");
+
+		AzureIdentityReactiveClient identityClient = mock(AzureIdentityReactiveClient.class);
 		when(identityClient.getAccessToken(Scope.VAULT))
 			.thenReturn(Uni.createFrom().item(accessToken));
 
 		/*
 		 * Test
 		 */
+		AzureIdentityReactiveService identityService = spy(new AzureIdentityReactiveService(identityClient));
+
 		identityService.getAccessToken(Scope.VAULT)
 			.subscribe()
 			.withSubscriber(UniAssertSubscriber.create())
@@ -101,12 +88,16 @@ class AzureIdentityReactiveServiceTest {
 		AccessToken accessToken = new AccessToken()
 			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
 			.setValue("access_token_string");
+
+		AzureIdentityReactiveClient identityClient = mock(AzureIdentityReactiveClient.class);
 		when(identityClient.getAccessToken(Scope.VAULT))
 			.thenReturn(Uni.createFrom().item(accessToken));
 
 		/*
 		 * Test
 		 */
+		AzureIdentityReactiveService identityService = spy(new AzureIdentityReactiveService(identityClient));
+
 		identityService.getAccessToken(Scope.VAULT)
 			.subscribe()
 			.withSubscriber(UniAssertSubscriber.create())
@@ -139,6 +130,9 @@ class AzureIdentityReactiveServiceTest {
 		AccessToken accessToken = new AccessToken()
 			.setExpiresOn(now.plus(5, ChronoUnit.MINUTES).getEpochSecond())
 			.setValue("access_token_string");
+
+		AzureIdentityReactiveClient identityClient = mock(AzureIdentityReactiveClient.class);
+
 		when(identityClient.getAccessToken(Scope.VAULT))
 			.thenReturn(
 				Uni.createFrom().item(expAccessToken),
@@ -147,6 +141,8 @@ class AzureIdentityReactiveServiceTest {
 		/*
 		 * Test
 		 */
+		AzureIdentityReactiveService identityService = spy(new AzureIdentityReactiveService(identityClient));
+
 		identityService.getAccessToken(Scope.VAULT)
 			.subscribe()
 			.withSubscriber(UniAssertSubscriber.create())

@@ -9,13 +9,12 @@ import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.microprofile.rest.client.inject.RestClient;
-
 import io.quarkus.logging.Log;
 import io.smallrye.mutiny.Uni;
 import it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken;
 import it.pagopa.swclient.mil.azureservices.identity.client.AzureIdentityReactiveClient;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 /**
  * <p>
@@ -32,7 +31,6 @@ public class AzureIdentityReactiveService {
 	 * Reactive rest client to retrieve an access token from Microsoft Entra ID.
 	 * </p>
 	 */
-	@RestClient
 	AzureIdentityReactiveClient identityClient;
 
 	/**
@@ -45,11 +43,23 @@ public class AzureIdentityReactiveService {
 
 	/**
 	 * <p>
-	 * Default constructor.
+	 * Constructor.
 	 * </p>
+	 * 
+	 * @param identityClient {@link it.pagopa.swclient.mil.azureservices.identity.client.AzureIdentityReactiveClient
+	 *                       AzureIdentityReactiveClient}.
 	 */
-	AzureIdentityReactiveService() {
+	@Inject
+	AzureIdentityReactiveService(AzureIdentityReactiveClient identityClient) {
+		/*
+		 * Initialize access token cache.
+		 */
 		cache = new HashMap<>();
+
+		/*
+		 * Initialize of the REST client.
+		 */
+		this.identityClient = identityClient;
 	}
 
 	/**

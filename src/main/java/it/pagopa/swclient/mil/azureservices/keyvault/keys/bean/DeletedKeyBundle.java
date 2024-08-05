@@ -42,7 +42,7 @@ public class DeletedKeyBundle {
 	 */
 	@JsonProperty("attributes")
 	private KeyAttributes delAttributes;
-	
+
 	/**
 	 * <p>
 	 * The time when the key was deleted, in UTC.
@@ -67,7 +67,7 @@ public class DeletedKeyBundle {
 	 */
 	@JsonProperty("managed")
 	private Boolean delManaged;
-	
+
 	/**
 	 * <p>
 	 * The url of the recovery object, used to identify and recover the deleted key.
@@ -83,7 +83,7 @@ public class DeletedKeyBundle {
 	 */
 	@JsonProperty("release_policy")
 	private KeyReleasePolicy delReleasePolicy;
-	
+
 	/**
 	 * <p>
 	 * The time when the key is scheduled to be purged, in UTC.
