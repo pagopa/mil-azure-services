@@ -63,6 +63,9 @@
 		<sonar.qualitygate.wait>true</sonar.qualitygate.wait>
 		<sonar.qualitygate.timeout>300</sonar.qualitygate.timeout>
 		<sonar.coverage.jacoco.xmlReportPaths>target/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+		<sonar.issue.ignore.multicriteria>e1</sonar.issue.ignore.multicriteria>
+        <sonar.issue.ignore.multicriteria.e1.ruleKey>java:S116</sonar.issue.ignore.multicriteria.e1.ruleKey>
+        <sonar.issue.ignore.multicriteria.e1.resourceKey>src/test/java/**/*.java</sonar.issue.ignore.multicriteria.e1.resourceKey>
 		<!-- Other properties -->
 		<skipITs>true</skipITs>
 		<repository.name>mil-azure-services</repository.name>
