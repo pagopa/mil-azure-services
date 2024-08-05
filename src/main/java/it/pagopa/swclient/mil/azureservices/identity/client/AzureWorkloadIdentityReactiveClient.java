@@ -40,8 +40,6 @@ public interface AzureWorkloadIdentityReactiveClient extends AzureIdentityReacti
 	 * 
 	 * @param scope {@link it.pagopa.swclient.mil.azureservices.identity.bean.Scope Scope}
 	 * @return {@link it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken AccessToken}
-	 * @param scope
-	 * @return
 	 */
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
