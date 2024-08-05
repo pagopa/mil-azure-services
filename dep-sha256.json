@@ -1394,13 +1394,6 @@
       "sha256": "2Pth6f1Jd24GQ0lbYOtwGkfqlQccQTQ7nljblmvql1M="
     },
     {
-      "id": "org.mockito:mockito-subclass:jar:5.12.0",
-      "artifactId": "mockito-subclass",
-      "groupId": "org.mockito",
-      "version": "5.12.0",
-      "sha256": "YeZRFr9heM06XxzswNc9aDlefBddB6f5R4ZQ9Vs2-x0="
-    },
-    {
       "id": "io.quarkus:quarkus-mutiny:jar:3.13.0",
       "artifactId": "quarkus-mutiny",
       "groupId": "io.quarkus",
