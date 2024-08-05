@@ -5,7 +5,8 @@
  */
 package it.pagopa.swclient.mil.azureservices.identity.client;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
 
@@ -47,10 +48,10 @@ class AzureIdentityReactiveClientFactoryTest {
 			Optional.empty(),
 			Optional.empty(),
 			Optional.empty());
-		
+
 		assertTrue(factory.get() instanceof AzureSystemManagedIdentityReactiveClient);
 	}
-	
+
 	/**
 	 * Test method for
 	 * {@link it.pagopa.swclient.mil.azureservices.identity.client.AzureIdentityReactiveClientFactory#get()}.
@@ -64,12 +65,12 @@ class AzureIdentityReactiveClientFactoryTest {
 			Optional.empty(),
 			Optional.empty(),
 			Optional.empty());
-		
+
 		assertThrows(
 			DeploymentException.class,
 			() -> factory.get());
 	}
-	
+
 	/**
 	 * Test method for
 	 * {@link it.pagopa.swclient.mil.azureservices.identity.client.AzureIdentityReactiveClientFactory#get()}.
@@ -83,10 +84,10 @@ class AzureIdentityReactiveClientFactoryTest {
 			Optional.of("da795842-fa15-4fd4-b556-f371ac9bafed"),
 			Optional.of("aeeb30a1-2d89-42bd-832c-69dc15a53d36"),
 			Optional.of("/var/run/secrets/azure/tokens/azure-identity-token"));
-		
+
 		assertTrue(factory.get() instanceof AzureWorkloadIdentityReactiveClient);
 	}
-	
+
 	/**
 	 * Test method for
 	 * {@link it.pagopa.swclient.mil.azureservices.identity.client.AzureIdentityReactiveClientFactory#get()}.
@@ -100,12 +101,12 @@ class AzureIdentityReactiveClientFactoryTest {
 			Optional.empty(),
 			Optional.empty(),
 			Optional.empty());
-		
+
 		assertThrows(
 			DeploymentException.class,
 			() -> factory.get());
 	}
-	
+
 	/**
 	 * Test method for
 	 * {@link it.pagopa.swclient.mil.azureservices.identity.client.AzureIdentityReactiveClientFactory#get()}.
@@ -119,7 +120,7 @@ class AzureIdentityReactiveClientFactoryTest {
 			Optional.empty(),
 			Optional.empty(),
 			Optional.empty());
-		
+
 		assertThrows(
 			DeploymentException.class,
 			() -> factory.get());
