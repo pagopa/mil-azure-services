@@ -1,9 +1,9 @@
 /*
- * AzureWorkloadIdentityReactiveClientTest.java
+ * AzureWorkloadIdentityRestClientTest.java
  *
- * 5 ago 2024
+ * 7 ago 2024
  */
-package it.pagopa.swclient.mil.azureservices.identity.client;
+package it.pagopa.swclient.mil.azureservices.identity.client.workload;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,10 +26,10 @@ import jakarta.enterprise.inject.spi.DeploymentException;
 
 /**
  * 
- * @author antonio.tarricone
+ * @author Antonio Tarricone
  */
 @QuarkusTest
-class AzureWorkloadIdentityReactiveClientTest {
+class AzureWorkloadIdentityRestClientTest {
 	/**
 	 * 
 	 * @param testInfo
@@ -43,14 +43,13 @@ class AzureWorkloadIdentityReactiveClientTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link it.pagopa.swclient.mil.azureservices.identity.client.AzureWorkloadIdentityReactiveClient#getClientAssertion(java.lang.String)}.
+	 * 
 	 */
 	@Test
 	void given_tokenFile_when_invokeGetClientAssertion_then_returnFileContent() {
-		AzureWorkloadIdentityReactiveClient client = QuarkusRestClientBuilder.newBuilder()
+		AzureWorkloadIdentityRestClient client = QuarkusRestClientBuilder.newBuilder()
 			.baseUri(URI.create("https://login.microsoftonline.com/da795842-fa15-4fd4-b556-f371ac9bafed"))
-			.build(AzureWorkloadIdentityReactiveClient.class);
+			.build(AzureWorkloadIdentityRestClient.class);
 
 		assertEquals(
 			"This is a test!",
@@ -58,8 +57,7 @@ class AzureWorkloadIdentityReactiveClientTest {
 	}
 
 	/**
-	 * Test method for
-	 * {@link it.pagopa.swclient.mil.azureservices.identity.client.AzureWorkloadIdentityReactiveClient#getClientAssertion(java.lang.String)}.
+	 * 
 	 */
 	@Test
 	void given_ioExceptionReadingTokenFile_when_invokeGetClientAssertion_then_throwException() {
@@ -72,9 +70,9 @@ class AzureWorkloadIdentityReactiveClientTest {
 						String.class))))
 				.thenThrow(IOException.class);
 
-			AzureWorkloadIdentityReactiveClient client = QuarkusRestClientBuilder.newBuilder()
+			AzureWorkloadIdentityRestClient client = QuarkusRestClientBuilder.newBuilder()
 				.baseUri(URI.create("https://login.microsoftonline.com/da795842-fa15-4fd4-b556-f371ac9bafed"))
-				.build(AzureWorkloadIdentityReactiveClient.class);
+				.build(AzureWorkloadIdentityRestClient.class);
 
 			assertThrows(DeploymentException.class,
 				() -> client.getClientAssertion("client_assertion"));

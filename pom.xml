@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.pagopa.swclient.mil</groupId>
 	<artifactId>azure-services</artifactId>
-	<version>5.3.0</version>
+	<version>5.3.0-pluto</version>
 
 	<name>mil-azure-services</name>
 	<description>Library which provides a set of clients and utilities based on
@@ -93,6 +93,10 @@
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-rest-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-rest-client-jackson</artifactId>
 		</dependency>
 		<dependency>
@@ -150,6 +154,7 @@
 							<goal>build</goal>
 							<goal>generate-code</goal>
 							<goal>generate-code-tests</goal>
+							<goal>native-image-agent</goal>
 						</goals>
 					</execution>
 				</executions>
