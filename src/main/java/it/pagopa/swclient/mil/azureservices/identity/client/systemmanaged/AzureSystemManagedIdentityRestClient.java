@@ -1,9 +1,9 @@
 /*
- * AzureIdentityReactiveClient.java
+ * AzureSystemManagedIdentityRestClient.java
  *
  * 17 mag 2024
  */
-package it.pagopa.swclient.mil.azureservices.identity.client;
+package it.pagopa.swclient.mil.azureservices.identity.client.systemmanaged;
 
 import org.eclipse.microprofile.rest.client.annotation.ClientHeaderParam;
 
@@ -17,12 +17,13 @@ import jakarta.ws.rs.core.MediaType;
 
 /**
  * <p>
- * Reactive REST client to get access token from Microsoft Entra ID.
+ * Reactive REST client to get access token from Microsoft Entra ID by means of System Managed
+ * Identity.
  * </p>
  * 
  * @author Antonio Tarricone
  */
-public interface AzureSystemManagedIdentityReactiveClient extends AzureIdentityReactiveClient {
+public interface AzureSystemManagedIdentityRestClient {
 	/**
 	 * <p>
 	 * Retrieves an access token for an Azure resource.

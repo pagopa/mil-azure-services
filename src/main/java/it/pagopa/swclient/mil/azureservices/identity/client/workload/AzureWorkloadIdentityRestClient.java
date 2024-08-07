@@ -1,9 +1,9 @@
 /*
- * AzureWorkloadIdentityReactiveClient.java
+ * AzureWorkloadIdentityRestClient.java
  *
  * 3 ago 2024
  */
-package it.pagopa.swclient.mil.azureservices.identity.client;
+package it.pagopa.swclient.mil.azureservices.identity.client.workload;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -32,7 +32,7 @@ import jakarta.ws.rs.core.MediaType;
  * @author Antonio Tarricone
  */
 @Path("/oauth2/v2.0/token")
-public interface AzureWorkloadIdentityReactiveClient extends AzureIdentityReactiveClient {
+public interface AzureWorkloadIdentityRestClient {
 	/**
 	 * <p>
 	 * Retrieves an access token for an Azure resource.
