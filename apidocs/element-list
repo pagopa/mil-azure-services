@@ -1,5 +1,7 @@
 it.pagopa.swclient.mil.azureservices.identity.bean
 it.pagopa.swclient.mil.azureservices.identity.client
+it.pagopa.swclient.mil.azureservices.identity.client.systemmanaged
+it.pagopa.swclient.mil.azureservices.identity.client.workload
 it.pagopa.swclient.mil.azureservices.identity.service
 it.pagopa.swclient.mil.azureservices.keyvault.keys.bean
 it.pagopa.swclient.mil.azureservices.keyvault.keys.client
