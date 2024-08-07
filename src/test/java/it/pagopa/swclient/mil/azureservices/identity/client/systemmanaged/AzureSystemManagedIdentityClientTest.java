@@ -13,7 +13,6 @@ import static org.mockito.Mockito.when;
 import java.net.URI;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -84,7 +83,7 @@ class AzureSystemManagedIdentityClientTest {
 			/*
 			 * Test.
 			 */
-			AzureSystemManagedIdentityClient client = new AzureSystemManagedIdentityClient(Optional.of("https://login.microsoftonline.com/"));
+			AzureSystemManagedIdentityClient client = new AzureSystemManagedIdentityClient("https://login.microsoftonline.com/");
 			client.getAccessToken(Scope.STORAGE)
 				.subscribe()
 				.withSubscriber(UniAssertSubscriber.create())

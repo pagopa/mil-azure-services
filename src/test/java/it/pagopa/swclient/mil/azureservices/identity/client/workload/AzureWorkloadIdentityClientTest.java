@@ -13,7 +13,6 @@ import static org.mockito.Mockito.when;
 import java.net.URI;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -85,8 +84,8 @@ class AzureWorkloadIdentityClientTest {
 			 * Test.
 			 */
 			AzureWorkloadIdentityClient client = new AzureWorkloadIdentityClient(
-				Optional.of("https://login.microsoftonline.com/"),
-				Optional.of("da795842-fa15-4fd4-b556-f371ac9bafed"));
+				"https://login.microsoftonline.com/",
+				"da795842-fa15-4fd4-b556-f371ac9bafed");
 			client.getAccessToken(Scope.STORAGE)
 				.subscribe()
 				.withSubscriber(UniAssertSubscriber.create())
