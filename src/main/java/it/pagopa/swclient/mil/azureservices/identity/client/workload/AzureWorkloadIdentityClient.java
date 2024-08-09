@@ -6,6 +6,7 @@
 package it.pagopa.swclient.mil.azureservices.identity.client.workload;
 
 import java.net.URI;
+import java.util.Optional;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -45,11 +46,11 @@ public class AzureWorkloadIdentityClient implements AzureIdentityClient {
 	 * @param tenantId      Tenant ID
 	 */
 	AzureWorkloadIdentityClient(
-		@ConfigProperty(name = "AZURE_AUTHORITY_HOST", defaultValue = "") String authorityHost,
-		@ConfigProperty(name = "AZURE_TENANT_ID", defaultValue = "") String tenantId) {
+		@ConfigProperty(name = "AZURE_AUTHORITY_HOST") Optional<String> authorityHost,
+		@ConfigProperty(name = "AZURE_TENANT_ID") Optional<String> tenantId) {
 		Log.trace("Azure Workload Identity client initialization");
 		restClient = QuarkusRestClientBuilder.newBuilder()
-			.baseUri(URI.create(authorityHost + tenantId))
+			.baseUri(URI.create(authorityHost.orElseThrow() + tenantId.orElseThrow()))
 			.build(AzureWorkloadIdentityRestClient.class);
 	}
 
