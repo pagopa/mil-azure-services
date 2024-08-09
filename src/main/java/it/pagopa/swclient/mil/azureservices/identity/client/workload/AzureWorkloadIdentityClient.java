@@ -14,6 +14,7 @@ import io.quarkus.logging.Log;
 import io.quarkus.rest.client.reactive.QuarkusRestClientBuilder;
 import io.smallrye.mutiny.Uni;
 import it.pagopa.swclient.mil.azureservices.identity.bean.AccessToken;
+import it.pagopa.swclient.mil.azureservices.identity.bean.Scope;
 import it.pagopa.swclient.mil.azureservices.identity.client.AzureIdentityClient;
 import jakarta.enterprise.context.ApplicationScoped;
 
@@ -60,6 +61,6 @@ public class AzureWorkloadIdentityClient implements AzureIdentityClient {
 	@Override
 	public Uni<AccessToken> getAccessToken(String scope) {
 		Log.tracef("Get access token with Workload Identity for %s", scope);
-		return restClient.getAccessToken(scope);
+		return restClient.getAccessToken(Scope.getForWorkloadIdentity(scope));
 	}
 }
