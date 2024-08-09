@@ -6,6 +6,7 @@
 package it.pagopa.swclient.mil.azureservices.identity.client.systemmanaged;
 
 import java.net.URI;
+import java.util.Optional;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -44,10 +45,10 @@ public class AzureSystemManagedIdentityClient implements AzureIdentityClient {
 	 * 
 	 * @param identityEndpoint Endpoint to get access token by means of system managed identity
 	 */
-	AzureSystemManagedIdentityClient(@ConfigProperty(name = "IDENTITY_ENDPOINT", defaultValue = "") String identityEndpoint) {
+	AzureSystemManagedIdentityClient(@ConfigProperty(name = "IDENTITY_ENDPOINT") Optional<String> identityEndpoint) {
 		Log.trace("Azure System Managed Identity client initialization");
 		restClient = QuarkusRestClientBuilder.newBuilder()
-			.baseUri(URI.create(identityEndpoint))
+			.baseUri(URI.create(identityEndpoint.orElseThrow()))
 			.build(AzureSystemManagedIdentityRestClient.class);
 	}
 
