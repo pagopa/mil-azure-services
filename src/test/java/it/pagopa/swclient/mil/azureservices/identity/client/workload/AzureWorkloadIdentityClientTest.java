@@ -59,7 +59,7 @@ class AzureWorkloadIdentityClientTest {
 			.setValue("access_token_string");
 
 		AzureWorkloadIdentityRestClient restClient = mock(AzureWorkloadIdentityRestClient.class);
-		when(restClient.getAccessToken(Scope.STORAGE))
+		when(restClient.getAccessToken(Scope.getForWorkloadIdentity(Scope.STORAGE)))
 			.thenReturn(Uni.createFrom()
 				.item(accessToken));
 
