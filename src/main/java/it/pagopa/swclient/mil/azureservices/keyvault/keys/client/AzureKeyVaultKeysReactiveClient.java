@@ -21,6 +21,7 @@ import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeySignParameters
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyVerifyParameters;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyVerifyResult;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -325,7 +326,7 @@ public interface AzureKeyVaultKeysReactiveClient {
 	 *         DeletedKeyBundle}
 	 */
 	@Path("/keys/{keyName}")
-	@GET
+	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	@ClientHeaderParam(name = "Authorization", value = "Bearer {accessToken}")
 	@ClientQueryParam(name = "api-version", value = "${azure-key-vault-keys.api-version}")
