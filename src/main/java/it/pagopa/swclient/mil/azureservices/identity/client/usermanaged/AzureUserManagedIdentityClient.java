@@ -48,7 +48,7 @@ public class AzureUserManagedIdentityClient implements AzureIdentityClient {
 	 * 
 	 * @param identityEndpoint Endpoint to get access token by means of user managed identity
 	 */
-	AzureUserManagedIdentityClient(@ConfigProperty(name = "IDENTITY_ENDPOINT") Optional<String> identityEndpoint) {
+	AzureUserManagedIdentityClient(@ConfigProperty(name = "USER_MANAGED_IDENTITY_ENDPOINT") Optional<String> identityEndpoint) {
 		Log.trace("Azure User Managed Identity client initialization");
 		restClient = QuarkusRestClientBuilder.newBuilder()
 			.baseUri(URI.create(identityEndpoint.orElseThrow()))
