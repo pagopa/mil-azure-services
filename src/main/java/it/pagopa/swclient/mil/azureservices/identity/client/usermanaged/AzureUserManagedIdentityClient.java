@@ -56,7 +56,7 @@ public class AzureUserManagedIdentityClient implements AzureIdentityClient {
 	}
 
 	/**
-	 * @see it.pagopa.swclient.mil.azureservices.identity.client.systemmanaged.AzureUserManagedIdentityRestClient#getAccessToken(String)
+	 * @see it.pagopa.swclient.mil.azureservices.identity.client.usermanaged.AzureUserManagedIdentityRestClient#getAccessToken(String)
 	 */
 	@Override
 	public Uni<AccessToken> getAccessToken(String scope) {
