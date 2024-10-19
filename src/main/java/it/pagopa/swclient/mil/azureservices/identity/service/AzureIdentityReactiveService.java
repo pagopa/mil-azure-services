@@ -55,22 +55,18 @@ public class AzureIdentityReactiveService {
 	 * Constructor.
 	 * </p>
 	 * 
-	 * @param userManagedIdentityClientId Client ID to get access token by means of user managed
-	 *                                    identity
-	 * @param userManagedIdentityEndpoint Endpoint to get access token by means of user managed identity
-	 * @param identityEndpoint            Endpoint to get access token by means of system managed
-	 *                                    identity
-	 * @param identityHeader              Value to use to set x-identity-header
-	 * @param authorityHost               Endpoint to get access token by means of workload identity
-	 * @param tenantId                    Tenant ID
-	 * @param clientId                    Client ID
-	 * @param federatedTokenFile          Token file with client assertion
-	 * @param anyIdentityClient           Any identity client
+	 * @param identityClientId   Client ID to get access token by means of user managed identity
+	 * @param identityEndpoint   Endpoint to get access token by means of system(user managed identity
+	 * @param identityHeader     Value to use to set x-identity-header
+	 * @param authorityHost      Endpoint to get access token by means of workload identity
+	 * @param tenantId           Tenant ID
+	 * @param clientId           Client ID
+	 * @param federatedTokenFile Token file with client assertion
+	 * @param anyIdentityClient  Any identity client
 	 */
 	@Inject
 	AzureIdentityReactiveService(
-		@ConfigProperty(name = "USER_MANAGED_IDENTITY_CLIENT_ID") Optional<String> userManagedIdentityClientId,
-		@ConfigProperty(name = "USER_MANAGED_IDENTITY_ENDPOINT") Optional<String> userManagedIdentityEndpoint,
+		@ConfigProperty(name = "IDENTITY_CLIENT_ID") Optional<String> identityClientId,
 		@ConfigProperty(name = "IDENTITY_ENDPOINT") Optional<String> identityEndpoint,
 		@ConfigProperty(name = "IDENTITY_HEADER") Optional<String> identityHeader,
 		@ConfigProperty(name = "AZURE_AUTHORITY_HOST") Optional<String> authorityHost,
@@ -81,7 +77,7 @@ public class AzureIdentityReactiveService {
 		/*
 		 * Initialize identity client.
 		 */
-		if (userManagedIdentityClientId.isPresent() && userManagedIdentityEndpoint.isPresent()) {
+		if (identityClientId.isPresent() && identityEndpoint.isPresent() && identityHeader.isPresent()) {
 			Log.debug("Azure User Managed Identity will be use");
 			identityClient = anyIdentityClient.select(AzureUserManagedIdentityClient.class).get();
 		} else if (identityEndpoint.isPresent() && identityHeader.isPresent()) {
@@ -91,8 +87,8 @@ public class AzureIdentityReactiveService {
 			Log.debug("Azure Workload Identity will be use");
 			identityClient = anyIdentityClient.select(AzureWorkloadIdentityClient.class).get();
 		} else {
-			Log.fatal("USER_MANAGED_IDENTITY_CLIENT_ID and USER_MANAGED_IDENTITY_ENDPOINT must not be null or IDENTITY_ENDPOINT and IDENTITY_HEADER must not be null or AZURE_AUTHORITY_HOST and AZURE_TENANT_ID and AZURE_CLIENT_ID and AZURE_FEDERATED_TOKEN_FILE must not be null");
-			throw new DeploymentException("USER_MANAGED_IDENTITY_CLIENT_ID and USER_MANAGED_IDENTITY_ENDPOINT must not be null or IDENTITY_ENDPOINT and IDENTITY_HEADER must not be null or AZURE_AUTHORITY_HOST and AZURE_TENANT_ID and AZURE_CLIENT_ID and AZURE_FEDERATED_TOKEN_FILE must not be null");
+			Log.fatal("IDENTITY_CLIENT_ID, IDENTITY_ENDPOINT IDENTITY_HEADER must not be null or IDENTITY_ENDPOINT and IDENTITY_HEADER must not be null or AZURE_AUTHORITY_HOST, AZURE_TENANT_ID, AZURE_CLIENT_ID and AZURE_FEDERATED_TOKEN_FILE must not be null");
+			throw new DeploymentException("IDENTITY_CLIENT_ID, IDENTITY_ENDPOINT IDENTITY_HEADER must not be null or IDENTITY_ENDPOINT and IDENTITY_HEADER must not be null or AZURE_AUTHORITY_HOST, AZURE_TENANT_ID, AZURE_CLIENT_ID and AZURE_FEDERATED_TOKEN_FILE must not be null");
 		}
 
 		/*

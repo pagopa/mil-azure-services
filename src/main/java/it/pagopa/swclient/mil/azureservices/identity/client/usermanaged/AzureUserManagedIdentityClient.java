@@ -1,7 +1,7 @@
 /*
- * AzureSystemManagedIdentityClient.java
+ * AzureUserManagedIdentityClient.java
  *
- * 7 ago 2024
+ * 19 ott 2024
  */
 package it.pagopa.swclient.mil.azureservices.identity.client.usermanaged;
 
@@ -37,7 +37,7 @@ public class AzureUserManagedIdentityClient implements AzureIdentityClient {
 	 * </p>
 	 * 
 	 * @see it.pagopa.swclient.mil.azureservices.identity.client.usermanaged.AzureUserManagedIdentityRestClient
-	 *      AzureSystemManagedIdentityRestClient
+	 *      AzureUserManagedIdentityRestClient
 	 */
 	private AzureUserManagedIdentityRestClient restClient;
 
@@ -48,7 +48,7 @@ public class AzureUserManagedIdentityClient implements AzureIdentityClient {
 	 * 
 	 * @param identityEndpoint Endpoint to get access token by means of user managed identity
 	 */
-	AzureUserManagedIdentityClient(@ConfigProperty(name = "USER_MANAGED_IDENTITY_ENDPOINT") Optional<String> identityEndpoint) {
+	AzureUserManagedIdentityClient(@ConfigProperty(name = "IDENTITY_ENDPOINT") Optional<String> identityEndpoint) {
 		Log.trace("Azure User Managed Identity client initialization");
 		restClient = QuarkusRestClientBuilder.newBuilder()
 			.baseUri(URI.create(identityEndpoint.orElseThrow()))
@@ -56,11 +56,11 @@ public class AzureUserManagedIdentityClient implements AzureIdentityClient {
 	}
 
 	/**
-	 * @see it.pagopa.swclient.mil.azureservices.identity.client.systemmanaged.AzureSystemManagedIdentityRestClient#getAccessToken(String)
+	 * @see it.pagopa.swclient.mil.azureservices.identity.client.systemmanaged.AzureUserManagedIdentityRestClient#getAccessToken(String)
 	 */
 	@Override
 	public Uni<AccessToken> getAccessToken(String scope) {
-		Log.tracef("Get access token with System Managed Identity for %s", scope);
+		Log.tracef("Get access token with User Managed Identity for %s", scope);
 		return restClient.getAccessToken(scope);
 	}
 }
