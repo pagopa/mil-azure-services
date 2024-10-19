@@ -84,7 +84,6 @@ class AzureIdentityReactiveServiceTest {
 			Optional.empty(),
 			Optional.empty(),
 			Optional.empty(),
-			Optional.empty(),
 			Optional.of("https://login.microsoftonline.com/"),
 			Optional.of("da795842-fa15-4fd4-b556-f371ac9bafed"),
 			Optional.of("aeeb30a1-2d89-42bd-832c-69dc15a53d36"),
@@ -129,7 +128,6 @@ class AzureIdentityReactiveServiceTest {
 		 * Test
 		 */
 		AzureIdentityReactiveService identityService = spy(new AzureIdentityReactiveService(
-			Optional.empty(),
 			Optional.empty(),
 			Optional.of("https://login.microsoftonline.com/"),
 			Optional.of("45ed57a0-ec26-41c9-8333-29daf37697d3"),
@@ -191,7 +189,6 @@ class AzureIdentityReactiveServiceTest {
 			Optional.empty(),
 			Optional.empty(),
 			Optional.empty(),
-			Optional.empty(),
 			Optional.of("https://login.microsoftonline.com/"),
 			Optional.of("da795842-fa15-4fd4-b556-f371ac9bafed"),
 			Optional.of("aeeb30a1-2d89-42bd-832c-69dc15a53d36"),
@@ -230,7 +227,6 @@ class AzureIdentityReactiveServiceTest {
 
 		AzureIdentityReactiveService service = new AzureIdentityReactiveService(
 			Optional.empty(),
-			Optional.empty(),
 			Optional.of("https://login.microsoftonline.com/"),
 			Optional.of("45ed57a0-ec26-41c9-8333-29daf37697d3"),
 			Optional.empty(),
@@ -251,7 +247,6 @@ class AzureIdentityReactiveServiceTest {
 			DeploymentException.class,
 			() -> new AzureIdentityReactiveService(
 				Optional.empty(),
-				Optional.empty(),
 				Optional.of("https://login.microsoftonline.com/"),
 				Optional.empty(),
 				Optional.empty(),
@@ -260,7 +255,7 @@ class AzureIdentityReactiveServiceTest {
 				Optional.empty(),
 				null));
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -279,8 +274,7 @@ class AzureIdentityReactiveServiceTest {
 		AzureIdentityReactiveService service = new AzureIdentityReactiveService(
 			Optional.of("67a40498-91c1-4e4c-9c43-8aeb09c0de5e"),
 			Optional.of("https://login.microsoftonline.com/"),
-			Optional.empty(),
-			Optional.empty(),
+			Optional.of("45ed57a0-ec26-41c9-8333-29daf37697d3"),
 			Optional.empty(),
 			Optional.empty(),
 			Optional.empty(),
@@ -300,7 +294,6 @@ class AzureIdentityReactiveServiceTest {
 			() -> new AzureIdentityReactiveService(
 				Optional.empty(),
 				Optional.of("https://login.microsoftonline.com/"),
-				Optional.empty(),
 				Optional.empty(),
 				Optional.empty(),
 				Optional.empty(),
@@ -328,7 +321,6 @@ class AzureIdentityReactiveServiceTest {
 			Optional.empty(),
 			Optional.empty(),
 			Optional.empty(),
-			Optional.empty(),
 			Optional.of("https://login.microsoftonline.com/"),
 			Optional.of("da795842-fa15-4fd4-b556-f371ac9bafed"),
 			Optional.of("aeeb30a1-2d89-42bd-832c-69dc15a53d36"),
@@ -349,7 +341,6 @@ class AzureIdentityReactiveServiceTest {
 				Optional.empty(),
 				Optional.empty(),
 				Optional.empty(),
-				Optional.empty(),
 				Optional.of("https://login.microsoftonline.com/"),
 				Optional.empty(),
 				Optional.empty(),
@@ -365,7 +356,6 @@ class AzureIdentityReactiveServiceTest {
 		assertThrows( // NOSONAR
 			DeploymentException.class,
 			() -> new AzureIdentityReactiveService(
-				Optional.empty(),
 				Optional.empty(),
 				Optional.empty(),
 				Optional.empty(),
