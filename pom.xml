@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>it.pagopa.swclient.mil</groupId>
 	<artifactId>azure-services</artifactId>
-	<version>5.7.0</version>
+	<version>5.8.0</version>
 
 	<name>mil-azure-services</name>
 	<description>Library which provides a set of clients and utilities based on
