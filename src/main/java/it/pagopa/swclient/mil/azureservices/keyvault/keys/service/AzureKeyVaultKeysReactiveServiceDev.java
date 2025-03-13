@@ -42,6 +42,7 @@ import io.smallrye.mutiny.Uni;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.DeletedKeyBundle;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKey;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyEncryptionAlgorithm;
+import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyOperation;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeySignatureAlgorithm;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.JsonWebKeyType;
 import it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeyBundle;
@@ -266,24 +267,30 @@ public class AzureKeyVaultKeysReactiveServiceDev implements AzureKeyVaultKeysRea
 			return getKey(keyName, keyVersion)
 				.map(KeyBundle::getKey)
 				.map(key -> {
-					try {
-						KeyFactory factory = KeyFactory.getInstance("RSA");
-						PrivateKey privateKey = factory.generatePrivate(
-							new RSAPrivateKeySpec(
-								new BigInteger(1, key.getN()),
-								new BigInteger(1, key.getD())));
+					if (key.getKeyOps().contains(JsonWebKeyOperation.SIGN)) {
+						try {
+							KeyFactory factory = KeyFactory.getInstance("RSA");
+							PrivateKey privateKey = factory.generatePrivate(
+								new RSAPrivateKeySpec(
+									new BigInteger(1, key.getN()),
+									new BigInteger(1, key.getD())));
 
-						Signature signer = Signature.getInstance("SHA256withRSA");
-						signer.initSign(privateKey);
-						signer.update(keySignParameters.getValue());
-						byte[] signature = signer.sign();
+							Signature signer = Signature.getInstance("SHA256withRSA");
+							signer.initSign(privateKey);
+							signer.update(keySignParameters.getValue());
+							byte[] signature = signer.sign();
 
-						return new KeyOperationResult()
-							.setKid(key.getKid())
-							.setValue(signature);
-					} catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException | SignatureException e) {
-						Log.errorf(e, "Signing error");
-						throw new RuntimeException(e); // NOSONAR
+							return new KeyOperationResult()
+								.setKid(key.getKid())
+								.setValue(signature);
+						} catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException | SignatureException e) {
+							Log.errorf(e, "Signing error");
+							throw new RuntimeException(e); // NOSONAR
+						}
+					} else {
+						final String message = "Operation not supported by the key";
+						Log.error(message);
+						throw new RuntimeException(message); // NOSONAR
 					}
 				});
 		} else {
@@ -303,22 +310,30 @@ public class AzureKeyVaultKeysReactiveServiceDev implements AzureKeyVaultKeysRea
 			return getKey(keyName, keyVersion)
 				.map(KeyBundle::getKey)
 				.map(key -> {
-					try {
-						KeyFactory factory = KeyFactory.getInstance("RSA");
-						PublicKey publicKey = factory.generatePublic(
-							new RSAPublicKeySpec(
-								new BigInteger(1, key.getN()),
-								new BigInteger(1, key.getE())));
+					if (key.getKeyOps().contains(JsonWebKeyOperation.VERIFY)) {
+						try {
+							KeyFactory factory = KeyFactory.getInstance("RSA");
+							PublicKey publicKey = factory.generatePublic(
+								new RSAPublicKeySpec(
+									new BigInteger(1, key.getN()),
+									new BigInteger(1, key.getE())));
 
-						Signature verifier = Signature.getInstance("SHA256withRSA");
-						verifier.initVerify(publicKey);
-						verifier.update(keyVerifyParameters.getDigest());
-						boolean isVerificationOk = verifier.verify(keyVerifyParameters.getValue());
+							Signature verifier = Signature.getInstance("SHA256withRSA");
+							verifier.initVerify(publicKey);
+							verifier.update(keyVerifyParameters.getDigest());
+							boolean isVerificationOk = verifier.verify(keyVerifyParameters.getValue());
 
-						return new KeyVerifyResult().setValue(isVerificationOk);
-					} catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException | SignatureException e) {
-						Log.errorf(e, "Verifing error");
-						throw new RuntimeException(e); // NOSONAR
+							return new KeyVerifyResult().setValue(isVerificationOk);
+						} catch (SignatureException e) {
+							return new KeyVerifyResult().setValue(false);
+						} catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException e) {
+							Log.errorf(e, "Verifing error");
+							throw new RuntimeException(e); // NOSONAR
+						}
+					} else {
+						final String message = "Operation not supported by the key";
+						Log.error(message);
+						throw new RuntimeException(message); // NOSONAR
 					}
 				});
 		} else {
@@ -338,28 +353,34 @@ public class AzureKeyVaultKeysReactiveServiceDev implements AzureKeyVaultKeysRea
 			return getKey(keyName, keyVersion)
 				.map(KeyBundle::getKey)
 				.map(key -> {
-					try {
-						KeyFactory factory = KeyFactory.getInstance("RSA");
-						PublicKey publicKey = factory.generatePublic(
-							new RSAPublicKeySpec(
-								new BigInteger(1, key.getN()),
-								new BigInteger(1, key.getE())));
+					if (key.getKeyOps().contains(JsonWebKeyOperation.ENCRYPT)) {
+						try {
+							KeyFactory factory = KeyFactory.getInstance("RSA");
+							PublicKey publicKey = factory.generatePublic(
+								new RSAPublicKeySpec(
+									new BigInteger(1, key.getN()),
+									new BigInteger(1, key.getE())));
 
-						Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
-						OAEPParameterSpec param = new OAEPParameterSpec(
-							"SHA-256",
-							"MGF1",
-							MGF1ParameterSpec.SHA256,
-							PSource.PSpecified.DEFAULT);
-						cipher.init(Cipher.ENCRYPT_MODE, publicKey, param);
-						byte[] encrypted = cipher.doFinal(keyOperationParameters.getValue());
+							Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
+							OAEPParameterSpec param = new OAEPParameterSpec(
+								"SHA-256",
+								"MGF1",
+								MGF1ParameterSpec.SHA256,
+								PSource.PSpecified.DEFAULT);
+							cipher.init(Cipher.ENCRYPT_MODE, publicKey, param);
+							byte[] encrypted = cipher.doFinal(keyOperationParameters.getValue());
 
-						return new KeyOperationResult()
-							.setKid(key.getKid())
-							.setValue(encrypted);
-					} catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException e) {
-						Log.errorf(e, "Encrypting error");
-						throw new RuntimeException(e); // NOSONAR
+							return new KeyOperationResult()
+								.setKid(key.getKid())
+								.setValue(encrypted);
+						} catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException e) {
+							Log.errorf(e, "Encrypting error");
+							throw new RuntimeException(e); // NOSONAR
+						}
+					} else {
+						final String message = "Operation not supported by the key";
+						Log.error(message);
+						throw new RuntimeException(message); // NOSONAR
 					}
 				});
 		} else {
@@ -379,28 +400,34 @@ public class AzureKeyVaultKeysReactiveServiceDev implements AzureKeyVaultKeysRea
 			return getKey(keyName, keyVersion)
 				.map(KeyBundle::getKey)
 				.map(key -> {
-					try {
-						KeyFactory factory = KeyFactory.getInstance("RSA");
-						PrivateKey privateKey = factory.generatePrivate(
-							new RSAPrivateKeySpec(
-								new BigInteger(1, key.getN()),
-								new BigInteger(1, key.getD())));
+					if (key.getKeyOps().contains(JsonWebKeyOperation.DECRYPT)) {
+						try {
+							KeyFactory factory = KeyFactory.getInstance("RSA");
+							PrivateKey privateKey = factory.generatePrivate(
+								new RSAPrivateKeySpec(
+									new BigInteger(1, key.getN()),
+									new BigInteger(1, key.getD())));
 
-						Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
-						OAEPParameterSpec param = new OAEPParameterSpec(
-							"SHA-256",
-							"MGF1",
-							MGF1ParameterSpec.SHA256,
-							PSource.PSpecified.DEFAULT);
-						cipher.init(Cipher.DECRYPT_MODE, privateKey, param);
-						byte[] decrypted = cipher.doFinal(keyOperationParameters.getValue());
+							Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
+							OAEPParameterSpec param = new OAEPParameterSpec(
+								"SHA-256",
+								"MGF1",
+								MGF1ParameterSpec.SHA256,
+								PSource.PSpecified.DEFAULT);
+							cipher.init(Cipher.DECRYPT_MODE, privateKey, param);
+							byte[] decrypted = cipher.doFinal(keyOperationParameters.getValue());
 
-						return new KeyOperationResult()
-							.setKid(key.getKid())
-							.setValue(decrypted);
-					} catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException e) {
-						Log.errorf(e, "Decrypting error");
-						throw new RuntimeException(e); // NOSONAR
+							return new KeyOperationResult()
+								.setKid(key.getKid())
+								.setValue(decrypted);
+						} catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException e) {
+							Log.errorf(e, "Decrypting error");
+							throw new RuntimeException(e); // NOSONAR
+						}
+					} else {
+						final String message = "Operation not supported by the key";
+						Log.error(message);
+						throw new RuntimeException(message); // NOSONAR
 					}
 				});
 		} else {
@@ -416,7 +443,7 @@ public class AzureKeyVaultKeysReactiveServiceDev implements AzureKeyVaultKeysRea
 	@Override
 	public Uni<DeletedKeyBundle> deleteKey(String keyName) {
 		synchronized (keyVault) {
-			LinkedHashMap<String, KeyBundle> keyVersions = keyVault.get(keyName);
+			LinkedHashMap<String, KeyBundle> keyVersions = keyVault.remove(keyName);
 			if (keyVersions != null) {
 				KeyBundle keyBundle = keyVersions.lastEntry().getValue();
 				return Uni.createFrom().item(new DeletedKeyBundle()
@@ -431,5 +458,15 @@ public class AzureKeyVaultKeysReactiveServiceDev implements AzureKeyVaultKeysRea
 				return Uni.createFrom().failure(new NotFoundException(message));
 			}
 		}
+	}
+
+	/**
+	 * <p>
+	 * Clear all keys.
+	 * </p>
+	 */
+	void reset() {
+		if (keyVault != null)
+			keyVault.clear();
 	}
 }
