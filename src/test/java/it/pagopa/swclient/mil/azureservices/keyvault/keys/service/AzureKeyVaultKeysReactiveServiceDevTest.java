@@ -888,14 +888,9 @@ class AzureKeyVaultKeysReactiveServiceDevTest {
 	/**
 	 * Test method for
 	 * {@link it.pagopa.swclient.mil.azureservices.keyvault.keys.service.AzureKeyVaultKeysReactiveServiceDev#sign(java.lang.String, java.lang.String, it.pagopa.swclient.mil.azureservices.keyvault.keys.bean.KeySignParameters)}.
-	 * 
-	 * @throws NoSuchAlgorithmException
-	 * @throws InvalidKeySpecException
-	 * @throws InvalidKeyException
-	 * @throws SignatureException
 	 */
 	@Test
-	void given_signParams_when_notSuitableKeyIsUsed_then_getFailure() throws NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
+	void given_signParams_when_notSuitableKeyIsUsed_then_getFailure() {
 		KeyData keyData = createKey(List.of(JsonWebKeyOperation.ENCRYPT, JsonWebKeyOperation.DECRYPT));
 
 		/*
