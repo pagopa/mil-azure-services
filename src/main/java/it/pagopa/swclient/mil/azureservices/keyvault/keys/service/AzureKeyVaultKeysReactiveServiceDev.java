@@ -91,6 +91,16 @@ public class AzureKeyVaultKeysReactiveServiceDev implements AzureKeyVaultKeysRea
 	 * 
 	 */
 	private static final List<String> SUPPORTED_ENC_ALGS = List.of(JsonWebKeyEncryptionAlgorithm.RSAOAEP256);
+	
+	/*
+	 * 
+	 */
+	private static final String UNSUPPORTED_OP_BY_THE_KEY = "Operation not supported by the key";
+	
+	/*
+	 * 
+	 */
+	private static final String UNSUPPORTED_BY_DEV_IMPL = "DEV implementation doesn't support %s";
 
 	/**
 	 * <p>
@@ -163,7 +173,7 @@ public class AzureKeyVaultKeysReactiveServiceDev implements AzureKeyVaultKeysRea
 				return Uni.createFrom().failure(e);
 			}
 		} else {
-			final String message = "DEV implementation doesn't support %s".formatted(keyCreateParameters.getKty());
+			final String message = UNSUPPORTED_BY_DEV_IMPL.formatted(keyCreateParameters.getKty());
 			Log.error(message);
 			return Uni.createFrom().failure(new UnsupportedOperationException(message));
 		}
@@ -288,13 +298,13 @@ public class AzureKeyVaultKeysReactiveServiceDev implements AzureKeyVaultKeysRea
 							throw new RuntimeException(e); // NOSONAR
 						}
 					} else {
-						final String message = "Operation not supported by the key";
+						final String message = UNSUPPORTED_OP_BY_THE_KEY;
 						Log.error(message);
 						throw new RuntimeException(message); // NOSONAR
 					}
 				});
 		} else {
-			final String message = "DEV implementation doesn't support %s".formatted(keySignParameters.getAlg());
+			final String message = UNSUPPORTED_BY_DEV_IMPL.formatted(keySignParameters.getAlg());
 			Log.error(message);
 			return Uni.createFrom().failure(new UnsupportedOperationException(message));
 		}
@@ -331,13 +341,13 @@ public class AzureKeyVaultKeysReactiveServiceDev implements AzureKeyVaultKeysRea
 							throw new RuntimeException(e); // NOSONAR
 						}
 					} else {
-						final String message = "Operation not supported by the key";
+						final String message = UNSUPPORTED_OP_BY_THE_KEY;
 						Log.error(message);
 						throw new RuntimeException(message); // NOSONAR
 					}
 				});
 		} else {
-			final String message = "DEV implementation doesn't support %s".formatted(keyVerifyParameters.getAlg());
+			final String message = UNSUPPORTED_BY_DEV_IMPL.formatted(keyVerifyParameters.getAlg());
 			Log.error(message);
 			return Uni.createFrom().failure(new UnsupportedOperationException(message));
 		}
@@ -378,13 +388,13 @@ public class AzureKeyVaultKeysReactiveServiceDev implements AzureKeyVaultKeysRea
 							throw new RuntimeException(e); // NOSONAR
 						}
 					} else {
-						final String message = "Operation not supported by the key";
+						final String message = UNSUPPORTED_OP_BY_THE_KEY;
 						Log.error(message);
 						throw new RuntimeException(message); // NOSONAR
 					}
 				});
 		} else {
-			final String message = "DEV implementation doesn't support %s".formatted(keyOperationParameters.getAlg());
+			final String message = UNSUPPORTED_BY_DEV_IMPL.formatted(keyOperationParameters.getAlg());
 			Log.error(message);
 			return Uni.createFrom().failure(new UnsupportedOperationException(message));
 		}
@@ -425,13 +435,13 @@ public class AzureKeyVaultKeysReactiveServiceDev implements AzureKeyVaultKeysRea
 							throw new RuntimeException(e); // NOSONAR
 						}
 					} else {
-						final String message = "Operation not supported by the key";
+						final String message = UNSUPPORTED_OP_BY_THE_KEY;
 						Log.error(message);
 						throw new RuntimeException(message); // NOSONAR
 					}
 				});
 		} else {
-			final String message = "DEV implementation doesn't support %s".formatted(keyOperationParameters.getAlg());
+			final String message = UNSUPPORTED_BY_DEV_IMPL.formatted(keyOperationParameters.getAlg());
 			Log.error(message);
 			return Uni.createFrom().failure(new UnsupportedOperationException(message));
 		}
