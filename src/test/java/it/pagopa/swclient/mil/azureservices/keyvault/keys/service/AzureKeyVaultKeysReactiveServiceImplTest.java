@@ -1,5 +1,5 @@
 /*
- * AzureKeyVaultKeysReactiveServiceTest.java
+ * AzureKeyVaultKeysReactiveServiceImplTest.java
  *
  * 19 mag 2024
  */
@@ -53,7 +53,7 @@ import jakarta.ws.rs.WebApplicationException;
  * @author Antonio Tarricone
  */
 @QuarkusTest
-class AzureKeyVaultKeysReactiveServiceTest {
+class AzureKeyVaultKeysReactiveServiceImplTest {
 	/*
 	 * 
 	 */
@@ -71,7 +71,7 @@ class AzureKeyVaultKeysReactiveServiceTest {
 	 * 
 	 */
 	@Inject
-	AzureKeyVaultKeysReactiveService keysService;
+	AzureKeyVaultKeysReactiveServiceImpl keysService;
 
 	/*
 	 * 

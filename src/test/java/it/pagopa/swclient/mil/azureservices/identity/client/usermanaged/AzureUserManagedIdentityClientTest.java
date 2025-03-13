@@ -78,7 +78,7 @@ class AzureUserManagedIdentityClientTest {
 		 * Mocking of QuarkusRestClientBuilder factory.
 		 */
 		try (MockedStatic<QuarkusRestClientBuilder> restClientBuilderFactory = mockStatic(QuarkusRestClientBuilder.class)) {
-			restClientBuilderFactory.when(() -> QuarkusRestClientBuilder.newBuilder())
+			restClientBuilderFactory.when(QuarkusRestClientBuilder::newBuilder)
 				.thenReturn(clientBuilder);
 
 			/*
