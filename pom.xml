@@ -55,7 +55,7 @@
 		<github-site-maven-plugin.version>0.12</github-site-maven-plugin.version>
 		<!-- Dependencies version -->
 		<lombok.version>1.18.36</lombok.version>
-		<assertj-core.version>3.27.2</assertj-core.version>
+		<assertj-core.version>3.27.7</assertj-core.version>
 		<!-- Sonar configuration -->
 		<sonar.host.url>https://sonarcloud.io:443/</sonar.host.url>
 		<sonar.organization>pagopa</sonar.organization>
